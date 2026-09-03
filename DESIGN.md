@@ -182,6 +182,31 @@ drawn with pseudo-elements inside the larger hit area.
 The next slide's image is preloaded on each transition so the swap does not
 flash.
 
+### Trust icons
+
+The four trust icons animate when they scroll into view, staggered 130ms
+apart so the row reads left to right, and replay on hover for pointer
+devices. Each has a motion that means something rather than a generic
+wobble: the card's stripe wipes across and the chip blinks, the van drives
+in from the left with speed lines sweeping past, the headset's band draws
+before the earcups pop and the mic boom swings down, the parcel drops with a
+squash and its tape seals.
+
+They were previously **hover-only, which meant they never played on a
+phone** — the thing that prompted this. Scroll-triggered is the fix; hover is
+now the bonus rather than the mechanism.
+
+Two of the icons were also redrawn because they did not read at all: "UK
+stock & support" was an arc over a vertical line, which looked like an
+umbrella, and the dispatch icon was a peaked box that read as a house with a
+crack in it.
+
+Implementation notes: every stroke carries `pathLength="1"` so the draw-on
+effects can use a `stroke-dasharray` of 1 regardless of the real path
+length, and `transform-box: fill-box` makes transform-origin behave on SVG
+children. The replay is a JS class toggle rather than pure CSS, because a
+CSS animation does not restart on an element whose classes have not changed.
+
 The hero also runs a **vapour animation** — five blurred radial blobs on
 staggered 7-second rises behind the product. It is the only continuously
 running animation on the page, and it is switched off entirely under reduced

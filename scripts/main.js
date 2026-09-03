@@ -161,6 +161,43 @@ function initHero() {
   });
 }
 
+/* --- Trust icon animations -----------------------------------------------
+   Play when the icon scrolls into view, replay on hover. The class is removed
+   on animationend so hovering can retrigger it — a CSS-only replay is
+   unreliable because the animation never restarts on an unchanged element.
+   ------------------------------------------------------------------------ */
+function initTrustIcons() {
+  const items = $$('.trust__item');
+  if (!items.length) return;
+
+  const play = el => {
+    if (reduced()) { el.classList.add('has-played'); return; }
+    el.classList.remove('is-playing');
+    void el.offsetWidth;                       // force a reflow so it restarts
+    el.classList.add('is-playing', 'has-played');
+  };
+
+  items.forEach(el => {
+    el.addEventListener('animationend', e => {
+      if (e.target === el.querySelector('.trust__ring')) el.classList.remove('is-playing');
+    });
+    el.addEventListener('pointerenter', () => play(el));
+  });
+
+  if (reduced()) { items.forEach(el => el.classList.add('has-played')); return; }
+
+  // stagger on first scroll-in so the row reads left to right
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const n = items.indexOf(e.target);
+      setTimeout(() => play(e.target), n * 130);
+      obs.unobserve(e.target);
+    });
+  }, { threshold: .55 });
+  items.forEach(el => io.observe(el));
+}
+
 /* --- Sticky header shadow ------------------------------------------------- */
 function initHeader() {
   const h = $('#header');
@@ -453,6 +490,7 @@ initReviews();
 initNews();
 initHero();
 initHeader();
+initTrustIcons();
 initOverlays();
 initSearch();
 initSignup();
