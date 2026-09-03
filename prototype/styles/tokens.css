@@ -7,30 +7,50 @@
 
 :root {
   /* --- Colour ----------------------------------------------------------
-     Each colour has exactly ONE job. The live site has four accents with no
-     rules; that is what makes it read as unsystematic. Discipline:
-       fill   -> liquid level indicators ONLY
-       signal -> price, saving, urgency ONLY
-       amber  -> loyalty and rewards ONLY
+     Aquavape is a colour-blocked brand: flat saturated bands, one per
+     section, navy anchoring the top and bottom. The palette below is taken
+     from the live site. The system is not "fewer colours" — it is a RULE
+     about how the colours are used:
+
+       1. Every section is ONE flat band colour. Never a gradient.
+       2. Bands alternate saturated / neutral so the page has rhythm.
+       3. --fill (teal) is reserved for liquid levels and nothing else.
+       4. --deal (green) is reserved for multibuy flags and nothing else.
+       5. --red is reserved for clearance and price drops.
      -------------------------------------------------------------------- */
-  --ink:         #040E27;  /* brand navy, carried over unchanged */
+
+  /* Anchors */
+  --ink:         #040E27;
   --ink-deep:    #01060F;
   --ink-raised:  #0A1733;
-  --ink-line:    #16224A;
+  --ink-line:    #1B2A54;
 
-  --wash:        #EEF1F6;  /* cool paper, pulled toward the navy's hue */
-  --wash-deep:   #DDE3EE;
+  /* Band colours */
+  --pink:        #E88CBA;
+  --pink-deep:   #D3679E;
+  --yellow:      #F9C22E;
+  --red:         #C81E17;
+  --mint:        #A6E4C2;
+  --peach:       #F9CBA3;
+  --blush:       #F8B3B8;
+  --lilac:       #D8C6F0;
+  --sky:         #8FD3F4;
+
+  /* Neutrals */
   --paper:       #FFFFFF;
+  --wash:        #F2F2F2;
+  --wash-deep:   #E2E2E2;
 
-  --fill:        #38E0D0;  /* liquid level. Nothing else. */
-  --fill-dim:    #1B8F87;
-  --signal:      #FA5B61;  /* price / saving / urgency. Nothing else. */
-  --amber:       #FDCB2F;  /* loyalty. Nothing else. */
+  /* Reserved-use accents */
+  --fill:        #2BC9BC;  /* liquid level ONLY */
+  --fill-deep:   #12897F;
+  --deal:        #5F7C2C;  /* multibuy flag ONLY */
+  --signal:      #C81E17;  /* clearance / price drop ONLY */
 
-  --on-ink:      #FFFFFF;
-  --on-ink-mute: #8E9AB8;
-  --on-wash:     #040E27;
-  --on-wash-mute:#5A6580;
+  /* Band contract — every band sets these three, nothing reads raw colour */
+  --band-bg:   var(--paper);
+  --band-fg:   var(--ink);
+  --band-mute: #5A6580;
 
   /* --- Type ------------------------------------------------------------
      Archivo is variable on both weight and width. The expanded widths do
