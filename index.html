@@ -51,6 +51,26 @@
   </div>
 </div>
 
+<!-- Vapour displacement filters. Blurred CSS circles, however irregular the
+     border-radius, always average back into a circle — the only way to get a
+     ragged, wispy silhouette in the browser is to push the edges around with
+     fractal noise. Three seeds so neighbouring lobes are not identical.
+     The noise is static; only transform and opacity animate. -->
+<svg class="u-visually-hidden" aria-hidden="true" focusable="false"><defs>
+  <filter id="vap1" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.016 0.024" numOctaves="3" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="58" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="vap2" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.021 0.017" numOctaves="3" seed="17" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="66" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="vap3" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.013 0.019" numOctaves="3" seed="41" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="52" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</defs></svg>
+
 <p class="promobar">20% off your first order — <a href="#signup">sign up now</a></p>
 
 <header class="header" id="header">
@@ -73,6 +93,13 @@
       <a href="shop.html?sort=price-asc" data-hot>Vape deals</a>
     </nav>
     <div class="header__actions">
+      <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+          <path class="burger__top" d="M3 6h18"/>
+          <path class="burger__mid" d="M3 12h18"/>
+          <path class="burger__bot" d="M3 18h18"/>
+        </svg>
+      </button>
       <button class="icon-btn" id="searchOpen" aria-label="Search products">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       </button>
@@ -136,13 +163,14 @@
         </div>
       </div>
 
-      <div class="heroshot" data-load style="--load-delay:200ms">
+      <div class="heroshot" id="heroShot" data-load data-puff="false" style="--load-delay:200ms">
         <div class="vapour" aria-hidden="true">
-          <span style="--d:0s;   --dx:-26px"></span>
-          <span style="--d:1.4s; --dx:18px"></span>
-          <span style="--d:2.8s; --dx:-8px"></span>
-          <span style="--d:4.2s; --dx:34px"></span>
-          <span style="--d:5.6s; --dx:-38px"></span>
+          <span style="--d:0s;   --dx:-58px; --dy:-196px; --w:92px;  --ox:-4px; --r:56% 44% 62% 38% / 42% 58% 42% 58%; --f:url(#vap1)"></span>
+          <span style="--d:.12s; --dx:26px;  --dy:-232px; --w:118px; --ox:6px;  --r:46% 54% 40% 60% / 58% 44% 56% 42%; --f:url(#vap2)"></span>
+          <span style="--d:.26s; --dx:-30px; --dy:-168px; --w:80px;  --ox:9px;  --r:60% 40% 52% 48% / 48% 62% 38% 52%; --f:url(#vap3)"></span>
+          <span style="--d:.4s;  --dx:64px;  --dy:-208px; --w:104px; --ox:-8px; --r:42% 58% 46% 54% / 54% 40% 60% 46%; --f:url(#vap1)"></span>
+          <span style="--d:.55s; --dx:-14px; --dy:-250px; --w:126px; --ox:2px;  --r:52% 48% 58% 42% / 44% 56% 44% 56%; --f:url(#vap2)"></span>
+          <span style="--d:.7s;  --dx:44px;  --dy:-150px; --w:74px;  --ox:-11px;--r:48% 52% 44% 56% / 60% 46% 54% 40%; --f:url(#vap3)"></span>
         </div>
         <img class="heroshot__img" id="hImg" src="assets/products/dojo.webp"
              alt="DoJo Blast 30K Pro Kit" width="420" height="420" fetchpriority="high">
@@ -453,6 +481,11 @@
      email capture is this shop's main acquisition lever — but as a tab that
      scrolls to the signup, not an interstitial that blocks the page. -->
 <a class="cta-tab" href="#signup" id="ctaTab">Get 20% off</a>
+
+<!-- Category navigation for every width below 1000px, where .header__nav is
+     hidden. Contents are rendered by scripts/nav.js so the two pages cannot
+     drift apart. -->
+<nav class="menu" id="menu" aria-label="Categories" aria-hidden="true" data-open="false"></nav>
 <div class="scrim" id="scrim"></div>
 
 <aside class="drawer" id="cart" aria-label="Basket" aria-hidden="true">

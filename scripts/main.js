@@ -1,6 +1,7 @@
 import { PRODUCTS, CLEARANCE, STRENGTHS, POSTS, REVIEWS,
          BRANDS, STATS, HERO_SLIDES, HERO_INTERVAL } from './data.js';
 import { cart, renderCartDrawer } from './cart.js';
+import { initNav } from './nav.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -79,6 +80,16 @@ function initHero() {
     cta.firstChild.nodeValue = s.cta + ' ';
     $('#hImg').src = s.img;
     $('#hImg').alt = s.alt;
+
+    /* Only device slides puff, and each puffs from its own mouthpiece. Two of
+       the five slides are bottles and one is a tin of pouches whose lede says
+       "No vapour, no smoke" — vapour there would contradict the copy. */
+    const shot = $('#heroShot');
+    shot.dataset.puff = s.puff ? 'true' : 'false';
+    if (s.puff) {
+      shot.style.setProperty('--px', s.puff.x);
+      shot.style.setProperty('--py', s.puff.y);
+    }
     $('#hSpecA').textContent = s.specA;
     $('#hSpecB').textContent = s.specB;
     $('#heroGauge').style.setProperty('--level', String(s.level));
@@ -437,6 +448,7 @@ initHero();
 initHeader();
 initTrustIcons();
 initOverlays();
+initNav();
 initSearch();
 initSignup();
 renderCart();

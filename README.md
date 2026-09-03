@@ -23,6 +23,7 @@ scripts/
   main.js             homepage behaviour
   shop.js             catalogue: filtering, sorting, URL state, rendering
   cart.js             shared basket — state and drawer, used by both pages
+  nav.js              mobile category menu, shared by both pages
 data/catalogue.json   the real catalogue: 1,993 products, 86 brands (86 KB gzipped)
 
 assets/fonts/       self-hosted Archivo, Instrument Sans, JetBrains Mono

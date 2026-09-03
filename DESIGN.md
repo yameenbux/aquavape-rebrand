@@ -327,6 +327,40 @@ clears AA, the same rule the homepage wall uses.
 still there on the homepage and vice versa. Two renderers would only ever be
 two chances to drift.
 
+## The puff
+
+The hero had "vapour" already: five blurred white circles rising continuously
+from the middle of the image. It was steam off a coffee cup. Three things make
+it read as a vape instead, and they are all structural rather than cosmetic:
+
+**It is episodic.** A burst of six lobes inside 0.7s, then roughly four
+seconds of nothing, on a 6.6s cycle. Continuous vapour is a chimney; a person
+takes a draw and stops. A glow at the mouthpiece brightens as each draw is
+released.
+
+**It comes from the mouthpiece.** `--px`/`--py` are set per hero slide from
+the actual product photo — 33%/3% for the DoJo, whose device sits left of its
+spare pod, 50%/4% for the OXVA. The layer is sized to the image box rather
+than to `.heroshot`, so a percentage origin lands where the mouthpiece is.
+
+**Only devices puff.** Two of the five hero slides are bottles and one is a
+tin of nicotine pouches whose own lede reads *"No vapour, no smoke, nothing to
+charge"*. Animating vapour off those would contradict the page.
+
+The silhouette needed a different technique. Blurred CSS circles will not do
+it: however irregular you make the `border-radius`, several soft-edged shapes
+emitted from one point average back into a circle, and the first three
+attempts all produced a glowing orb rather than a cloud. The fix is an SVG
+`feTurbulence` + `feDisplacementMap` filter that pushes the edges around with
+fractal noise — three seeds so neighbouring lobes are not identical. The noise
+is static and only `transform` and `opacity` animate, which keeps it on the
+compositor: **56fps at 6× CPU throttle on a phone viewport**. Under
+`prefers-reduced-motion` it is `display: none` with zero running animations.
+
+On a stacked mobile hero the product sits tight to the top of the band, so a
+full-height plume was sliced off by the band edge and read as a bug. The shot
+drops to make headroom and the rise is shortened to match.
+
 ## Verified
 
 - No horizontal overflow at 390px
