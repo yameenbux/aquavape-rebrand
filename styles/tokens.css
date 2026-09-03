@@ -94,6 +94,7 @@
   --page-max-width: 1440px;
   --page-x-padding: clamp(1rem, 4vw, 3.25rem);
   --header-height:  64px;
+  --tab-w:          34px;   /* the fixed 20% off tab, kept out of content */
   --rule: 1px solid var(--ink-line);
 
   /* --- Radii -----------------------------------------------------------

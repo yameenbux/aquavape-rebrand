@@ -374,113 +374,116 @@
 }
 .tabs button[aria-selected='true'] { background: var(--ink); color: var(--paper); }
 
-/* --- Product card --------------------------------------------------------
-   Square, like the live theme. The swatch carries a resting tint of the
-   flavour so the grid reads as a palette, and floods on hover — the
-   signature applied at component scale.
+/* --- SIGNATURE: the flavour wall ----------------------------------------
+   998 products across 63 brands, and every one of them is a flavour with a
+   colour. So the grid stops being cards-on-a-background and becomes the
+   colour field itself: full-bleed, 2px gaps, each tile entirely its own
+   flavour with the bottle sitting on it and the type knocked out.
+
+   A wall of sweets, which is what this shop actually is.
+
+   Text colour is not guessed — main.js picks ink or paper per flavour from
+   its luminance, so every tile clears AA. All 24 catalogue colours were
+   checked before this shipped.
    ------------------------------------------------------------------------ */
-.grid-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: var(--space-md); }
+.wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(198px, 1fr));
+  gap: 3px;
+  /* The band shows through the gaps, so the section colour becomes the
+     mortar between the tiles — and an incomplete last row simply reads as
+     the band rather than as a hole. */
+  background: transparent;
+}
+/* Bleeds to the viewport edge, inset on the left by the width of the fixed
+   20% off tab so the first column's type is never underneath it. */
+.wall--bleed {
+  width: calc(100vw - var(--tab-w));
+  margin-left: calc(50% - 50vw + var(--tab-w));
+}
 
-.card {
-  position: relative; display: grid; grid-template-rows: auto 1fr;
-  background: var(--paper); color: var(--ink);
-  border: 2px solid var(--wash-deep); border-radius: var(--radius); overflow: hidden;
-  transition: border-color var(--anim-fast) var(--ease-out),
-              transform var(--anim-time) var(--ease-out-back),
-              box-shadow var(--anim-time) var(--ease-out);
+.tile {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: clamp(300px, 26vw, 360px);
+  padding: var(--space-sm);
+  background: var(--flavour);
+  color: var(--on-flavour);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--anim-time) var(--ease-out-back);
 }
-.card:hover, .card:focus-within { transform: translateY(-6px); border-color: var(--ink); box-shadow: var(--shadow-md); }
+.tile:hover, .tile:focus-within { transform: scale(1.035); z-index: 2; }
 
-.card__swatch {
-  position: relative; aspect-ratio: 1/1; display: grid; place-items: center; overflow: hidden;
-  background: color-mix(in srgb, var(--flavour, var(--fill)) 16%, var(--paper));
-}
-.card__flood {
-  position: absolute; inset: auto 0 0 0; height: 0;
-  background: var(--flavour, var(--fill));
-  transition: height var(--anim-slow) var(--ease-out);
-}
-.card__flood::after { content: ''; position: absolute; inset: 0 0 auto 0; height: 3px;
-  background: color-mix(in srgb, var(--flavour, var(--fill)) 40%, white); }
-.card:hover .card__flood, .card:focus-within .card__flood { height: 100%; }
-/* Real product photography, alpha-trimmed so every shot fills its frame
-   to the same margin. */
-.card__img {
-  position: relative; z-index: 1;
+.tile__img {
+  place-self: center;
   width: 74%; height: auto; aspect-ratio: 1; object-fit: contain;
-  filter: drop-shadow(0 10px 18px rgba(1,6,15,.16));
+  filter: drop-shadow(0 14px 22px rgba(1, 6, 15, .28));
   transition: transform var(--anim-slow) var(--ease-out-back);
 }
-.card:hover .card__img, .card:focus-within .card__img { transform: translateY(-8px) scale(1.06); }
+.tile:hover .tile__img, .tile:focus-within .tile__img { transform: translateY(-8px) scale(1.07); }
 
-/* Multibuy flag — the live site's "4 FOR £10" pennant, kept because it is
-   the actual commercial engine of the category. */
-.flag {
-  position: absolute; top: var(--space-xs); left: 0; z-index: 2;
-  padding: 4px 12px 4px 9px; background: var(--deal); color: var(--paper);
+/* the deal pennant, tilted — the live site's own merchandising device */
+.tile__flag {
+  position: absolute; top: 10px; left: -6px; z-index: 3;
+  padding: 4px 10px;
+  background: var(--ink); color: var(--paper);
   font-family: var(--font-mono); font-size: 10px; font-weight: 700;
   letter-spacing: var(--tracking-wide); text-transform: uppercase;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 7px) 50%, 100% 100%, 0 100%);
+  transform: rotate(-4deg);
+  box-shadow: 0 2px 0 rgba(1, 6, 15, .25);
 }
-.flag--sale { background: var(--red); }
-.flag--new  { background: var(--ink); }
+.tile__flag--sale { background: var(--red); }
+.tile__flag--new  { background: var(--paper); color: var(--ink); }
 
-.card__body { display: flex; flex-direction: column; gap: var(--space-xxs); padding: var(--space-md); }
-.card__brand { font-family: var(--font-mono); font-size: 10px;
-  letter-spacing: var(--tracking-widest); text-transform: uppercase; color: #5A6580; }
-.card__name { font-family: var(--font-body); font-size: var(--text-md); font-weight: 600;
-  text-transform: none; letter-spacing: 0; line-height: 1.3;
-  min-height: 2.6em; }   /* two lines, so stars and gauges align across a row */
-.card__meta { display: flex; gap: 5px; flex-wrap: wrap; margin-top: var(--space-xxs);
-  font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--tracking-wide); color: #5A6580; }
-.card__meta span { padding: 2px 6px; border: 1px solid var(--wash-deep); border-radius: var(--radius); }
-.card__stars { display: flex; gap: 2px; color: var(--ink); margin-top: var(--space-xxs); }
+.tile__foot { display: grid; gap: 2px; }
+.tile__brand {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: var(--tracking-widest); text-transform: uppercase;
+  opacity: .72;
+}
+.tile__name {
+  font-family: var(--font-display); font-stretch: 108%;
+  font-size: var(--text-md); font-weight: 800; line-height: 1.02;
+  text-transform: uppercase; letter-spacing: -.015em;
+  text-wrap: balance;
+}
+.tile__spec {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: var(--tracking-wide); opacity: .72; margin-top: 2px;
+}
+.tile__buy {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: var(--space-xs); margin-top: var(--space-xs);
+}
+.tile__price {
+  font-family: var(--font-display); font-stretch: 112%;
+  font-size: var(--text-lg); font-weight: 800;
+  font-variant-numeric: tabular-nums; line-height: 1;
+}
+.tile__price del { font-size: 11px; font-weight: 400; opacity: .6; margin-right: 5px; }
+.tile__price ins { text-decoration: none; }
+.tile__add {
+  flex: none; display: grid; place-items: center;
+  width: 34px; height: 34px;
+  border: 2px solid currentColor; border-radius: 50%;
+  color: inherit;
+  transition: background var(--anim-fast) var(--ease-out),
+              color var(--anim-fast) var(--ease-out),
+              transform var(--anim-fast) var(--ease-out-back);
+}
+.tile__add:hover, .tile__add:focus-visible {
+  background: currentColor; transform: scale(1.14);
+}
+.tile__add:hover svg, .tile__add:focus-visible svg { color: var(--flavour); }
+.tile__add[data-added='true'] { background: currentColor; }
+.tile__add[data-added='true'] svg { color: var(--flavour); }
 
-.card__stock { display: grid; gap: 4px; margin-top: var(--space-sm); }
-.card__stock .gauge { height: 5px; --gauge-colour: var(--fill-deep); --gauge-track: var(--wash-deep); }
-.card__stock small { font-family: var(--font-mono); font-size: 10px;
-  letter-spacing: var(--tracking-wide); text-transform: uppercase; color: #5A6580; }
-
-.card__foot { display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-xs); margin-top: auto; padding-top: var(--space-sm); }
-.card__price { font-family: var(--font-display); font-size: var(--text-lg);
-  font-weight: 800; font-stretch: 112%; font-variant-numeric: tabular-nums; }
-.card__price del { color: #5A6580; font-size: var(--text-sm); font-weight: 400; margin-right: 6px; }
-.card__price ins { text-decoration: none; color: var(--red); }
-.card__add {
-  display: grid; place-items: center; width: 40px; height: 40px;
-  background: var(--ink); color: var(--paper); border-radius: var(--radius);
-  transition: transform var(--anim-fast) var(--ease-out-back), background var(--anim-fast) var(--ease-out);
+@media (max-width: 560px) {
+  .wall { grid-template-columns: repeat(auto-fill, minmax(46%, 1fr)); }
+  .tile__name { font-size: var(--text-sm); }
 }
-.card__add:hover, .card__add:focus-visible { transform: scale(1.1); background: var(--fill-deep); }
-.card__add[data-added='true'] { background: var(--deal); }
-
-/* --- Category tiles ------------------------------------------------------
-   Colour-blocked, one band colour per category. This is where the palette
-   earns its keep: the grid is the brand's colour range, used as navigation.
-   ------------------------------------------------------------------------ */
-.cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-sm); }
-.cat {
-  position: relative; display: grid; align-content: end; gap: var(--space-xxs);
-  aspect-ratio: 4/5; padding: var(--space-md); border-radius: var(--radius);
-  background: var(--cat, var(--mint)); color: var(--ink); overflow: hidden;
-  transition: transform var(--anim-time) var(--ease-out-back), box-shadow var(--anim-time) var(--ease-out);
-}
-.cat:hover, .cat:focus-visible { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-.cat__img {
-  position: absolute; top: 8%; left: 50%; transform: translateX(-50%);
-  width: 62%; height: auto; aspect-ratio: 1; object-fit: contain;
-  filter: drop-shadow(0 14px 22px rgba(1,6,15,.2));
-  transition: transform var(--anim-slow) var(--ease-out-back);
-}
-.cat:hover .cat__img, .cat:focus-visible .cat__img {
-  transform: translateX(-50%) translateY(-10px) scale(1.05) rotate(-3deg);
-}
-.cat__n { font-family: var(--font-display); font-size: var(--text-lg);
-  font-weight: 800; font-stretch: 112%; text-transform: uppercase; }
-.cat__c { font-family: var(--font-mono); font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wide); text-transform: uppercase; opacity: .7; }
-@media (max-width: 860px) { .cats { grid-template-columns: 1fr 1fr; } }
 
 /* --- Brand logos --------------------------------------------------------
    The real vector marks, as <img> so their internal ids and class names
@@ -557,6 +560,9 @@
 
 /* --- Newsletter (yellow band) --------------------------------------------- */
 .signup { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
+/* The feature scale is tuned for a full-width heading; in a half-width
+   column it stacks to four lines and reads cramped. */
+#signup h2 { font-size: clamp(2.3rem, 5vw, 4.2rem); max-width: 10ch; }
 .signup__form { display: grid; gap: var(--space-sm); }
 .signup__row { display: flex; gap: var(--space-xs); flex-wrap: wrap; }
 .signup input {
@@ -605,8 +611,9 @@
    site keeps it, and a fixed bottom banner ate 68px of a phone screen for
    the same job. */
 @media (max-width: 760px) {
+  :root { --tab-w: 26px; }
   .cta-tab {
-    padding: var(--space-sm) 6px;
+    padding: var(--space-sm) 5px;
     font-size: 10px;
     letter-spacing: 0.14em;
   }

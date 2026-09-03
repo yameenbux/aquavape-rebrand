@@ -25,7 +25,10 @@ h1, h2, h3, h4 {
 }
 /* Hierarchy fixed: live site renders H1 at 25px and H2 at 31px */
 h1 { font-size: var(--text-display); font-weight: 800; }
-h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); font-weight: 800; }
+/* Default section heading is deliberately modest. The scale drama lives in
+   .u-section--feature below — every heading being the same 46px was what made
+   ten different sections read as one repeated slide. */
+h2 { font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 800; font-stretch: 100%; }
 h3 { font-size: var(--text-lg); font-weight: 700; }
 h4 { font-size: var(--text-md); font-weight: 700; }
 
@@ -65,6 +68,34 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .u-section { padding-block: clamp(2.75rem, 6vw, 5.25rem); }
 .u-section--tight { padding-block: clamp(2rem, 4vw, 3.25rem); }
+.u-section--airy  { padding-block: clamp(4.5rem, 11vw, 9rem); }
+
+/* Feature sections carry the weight: the heading goes huge and uses
+   Archivo's width axis, which is the reason this typeface was chosen and
+   the thing the first pass never exploited. */
+.u-section--feature h2 {
+  font-size: clamp(2.9rem, 8.2vw, 7rem);
+  font-stretch: 125%;
+  line-height: .84;
+  letter-spacing: -.035em;
+  max-width: 14ch;
+}
+.u-section--feature .u-section-head { display: block; margin-bottom: var(--space-md); }
+.u-section--feature .u-eyebrow { font-size: 11px; }
+
+/* Controls sit on a hairline under the big heading rather than trying to
+   share its line — at 7rem the heading always wins the space. */
+.u-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-md); flex-wrap: wrap;
+  padding-top: var(--space-sm); margin-bottom: var(--space-lg);
+  border-top: 2px solid color-mix(in srgb, var(--band-fg) 18%, transparent);
+}
+.u-toolbar__count {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide); text-transform: uppercase;
+  color: var(--band-mute);
+}
 
 /* Every real measurement on this site is set in mono — the numbers are
    product information in this category, not decoration. */

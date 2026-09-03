@@ -57,66 +57,61 @@ homepage is currently advertising four products that cannot be bought, and
 
 ## The design direction
 
-**Colour-blocked bands, navy anchoring the ends.** Aquavape is a colourful,
-promotion-led brand — pink hero, yellow newsletter, red clearance, pastel
-category tiles. The redesign keeps that, because a muted version of this
-shop would be designing for a different business.
+### What was wrong with the first version
 
-What changes is that the colour becomes a *system*. Five rules:
+It was a template painted eight colours. The audit made it plain: ten
+sections, every one with 84px padding and a 46px heading and the same
+eyebrow-then-grid recipe. Scrolling it was the same slide over and over with
+the background swapped. Nothing ever broke its box — no overlap, no bleed,
+no scale jump. Every colour band sat between two neutral bands, so the
+palette was *applied* rather than composed. And the one asset the catalogue
+actually owns — flavour — was used as a 16% tint.
 
-1. Every section is **one flat band colour**. Never a gradient.
-2. Bands alternate saturated / neutral so the page has rhythm.
-3. `--fill` (teal) is reserved for liquid levels and nothing else.
-4. `--deal` (green) is reserved for multibuy flags and nothing else.
-5. `--red` is reserved for clearance and price drops.
+Correct, accessible, systematic. Not designed.
 
-Components never read a raw colour. Every band sets `--band-bg`,
-`--band-fg` and `--band-mute`, and components resolve through those — so
-any component works on any band without a variant.
+### The subject, named
 
-| Token | Value | Role |
-|---|---|---|
-| `--ink` | `#040E27` | Brand navy — header, footer, provenance |
-| `--pink` | `#E88CBA` | Hero band |
-| `--yellow` | `#F9C22E` | Newsletter band |
-| `--red` | `#C81E17` | Clearance band, price drops |
-| `--mint` | `#A6E4C2` | Shop-by-strength band |
-| `--peach` / `--lilac` / `--blush` / `--sky` | — | Category tiles, blog cards |
-| `--fill` | `#2BC9BC` | Liquid levels only |
-| `--deal` | `#5F7C2C` | Multibuy flags only |
+Not a pharmacy: a **pick'n'mix counter for adults**. 998 products, 63
+brands, and every one is a flavour with a colour — Blue Raspberry, Rhubarb
+& Custard, Pistachio Gelato, Bubblegum. Shoppers arrive knowing a flavour,
+a strength and a budget. The page's job is to get them to the right bottle
+fast and make the deal feel worth taking now.
 
-### The signature: the fill gauge
+### The signature: the flavour wall
 
-Aquavape sells liquid, by volume and by strength. So every level indicator
-on the site is a vessel filling to a real number:
+The catalogue *is* a colour field, so the product grid stops being
+cards-on-a-background and becomes the field itself. Full-bleed to the
+viewport edge, 3px gaps, and **each tile entirely its own flavour colour**
+with the bottle sitting on it and the type knocked out. A wall of sweets.
 
-- the **hero bottle** fills to its nicotine strength on load
-- **product cards** show stock as a gauge, and flood with the flavour colour on hover
-- the **basket** shows progress to free delivery as a filling meter
-- the **strength selector** encodes mg as gauge height
-- the **batch panel** reports VG/PG composition
+Text colour is derived, not chosen: `onFlavour()` in `main.js` computes each
+flavour's luminance and picks ink or paper. All 24 catalogue colours were
+checked before this shipped, and the rendered tiles were re-measured across
+all three tabs — worst pair 5.2:1, every one clears AA. Guessing this by eye
+across 24 saturated colours is how you ship an unreadable tile.
 
-It is hard-edged and instrument-like — a laboratory gauge, not a lava lamp.
-Each gauge has a 2px meniscus at the surface and nothing else.
+The gaps show the band colour rather than a fixed line colour, so the
+section becomes the mortar between tiles — and an incomplete last row reads
+as the band instead of as a hole.
 
-### Typography
+### Boldness in one place
 
-The live site uses **Nexa** and **Hurme Geometric Sans 1**. Both are
-commercially licensed and are not redistributed here, so the prototype
-substitutes:
+The wall is loud, so everything around it got **quieter**, not louder:
 
-| Role | Prototype | Live site |
-|---|---|---|
-| Display | Archivo (variable width 100–125) | Nexa |
-| Body | Instrument Sans | Nexa |
-| Data / specs | JetBrains Mono | — |
+| | |
+|---|---|
+| Feature sections (wall, clearance, range, signup) | 112px headings, 84–144px padding |
+| Everything else | 32px headings, 52px padding |
 
-Archivo's expanded widths do the work Nexa's wide caps used to do. **Swap
-these back to Nexa when porting**, assuming the licence covers it.
+That alternation — loud, quiet, loud, quiet — is the rhythm that was
+missing. The headings use Archivo's **width axis at 125%**, which is the
+reason that typeface was self-hosted and the thing the first pass never
+exploited.
 
-The mono face is not decoration: every real measurement on this site —
-`10ml`, `20mg`, `50/50`, batch codes, prices — is set in it, because in this
-category the numbers *are* the product information.
+### One accessory removed
+
+The category tiles are gone. Four equal rounded tiles was the most templated
+thing on the page, and the flavour wall browses better than they did.
 
 ## What is carried over from the live site
 

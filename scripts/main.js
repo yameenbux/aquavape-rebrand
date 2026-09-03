@@ -1,10 +1,21 @@
-import { PRODUCTS, CLEARANCE, STRENGTHS, CATEGORIES, POSTS, REVIEWS,
+import { PRODUCTS, CLEARANCE, STRENGTHS, POSTS, REVIEWS,
          BRANDS, STATS, HERO_SLIDES, HERO_INTERVAL, FREE_DELIVERY } from './data.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const money = n => '£' + n.toFixed(2);
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Pick ink or paper for text sitting on a flavour, from its luminance.
+   Guessing this by eye across 24 colours is how you ship an unreadable tile. */
+function onFlavour(hex) {
+  const c = [1, 3, 5].map(i => parseInt(hex.substr(i, 2), 16) / 255)
+    .map(v => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
+  const L = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  const onInk   = (L + 0.05) / (0.0114 + 0.05);   // vs #040E27
+  const onPaper = (1.05) / (L + 0.05);
+  return onInk >= onPaper ? 'var(--ink)' : 'var(--paper)';
+}
 
 const ICONS = {
   star:  '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3l-5-4.9 7-.9z"/></svg>',
@@ -197,35 +208,30 @@ function initReveal() {
 /* --- Cards ---------------------------------------------------------------- */
 function flagClass(flag) {
   if (!flag) return '';
-  if (/save|low stock/i.test(flag)) return ' flag--sale';
-  if (/new/i.test(flag)) return ' flag--new';
+  if (/save|low stock/i.test(flag)) return ' tile__flag--sale';
+  if (/new/i.test(flag)) return ' tile__flag--new';
   return '';
 }
 
 function cardHTML(p) {
-  const price = p.was ? `<del>${money(p.was)}</del><ins>${money(p.price)}</ins>` : money(p.price);
-  const meta = [p.ml ? `${p.ml}ml` : null, `${p.mg}mg`, p.ratio !== '—' ? p.ratio : null]
-    .filter(Boolean).map(m => `<span>${m}</span>`).join('');
+  const price = p.was
+    ? `<del>${money(p.was)}</del><ins>${money(p.price)}</ins>`
+    : money(p.price);
+  const spec = [p.ml ? `${p.ml}ml` : null, p.mg ? `${p.mg}mg` : null,
+                p.ratio !== '—' ? p.ratio : null].filter(Boolean).join(' · ');
   return `
-  <article class="card" style="--flavour:${p.flavour}">
-    <div class="card__swatch">
-      ${p.flag ? `<span class="flag${flagClass(p.flag)}">${p.flag}</span>` : ''}
-      <span class="card__flood"></span>
-      <img class="card__img" src="${p.img}" alt="${p.brand} ${p.name}" loading="lazy" decoding="async" width="420" height="420">
-    </div>
-    <div class="card__body">
-      <span class="card__brand">${p.brand}</span>
-      <h3 class="card__name">${p.name}</h3>
-      <div class="card__meta">${meta}</div>
-      <div class="card__stars">${ICONS.star.repeat(p.stars)}</div>
-      <div class="card__stock">
-        <span class="gauge" style="--level:${p.stock}"><span class="gauge__liquid"></span></span>
-        <small>${p.stock < .3 ? 'Low stock' : 'In stock'}</small>
-      </div>
-      <div class="card__foot">
-        <span class="card__price">${price}</span>
-        <button class="card__add" data-add="${p.id}" aria-label="Add ${p.name} to basket">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+  <article class="tile" style="--flavour:${p.flavour}; --on-flavour:${onFlavour(p.flavour)}">
+    ${p.flag ? `<span class="tile__flag${flagClass(p.flag)}">${p.flag}</span>` : ''}
+    <img class="tile__img" src="${p.img}" alt="${p.brand} ${p.name}"
+         loading="lazy" decoding="async" width="420" height="420">
+    <div class="tile__foot">
+      <span class="tile__brand">${p.brand}</span>
+      <h3 class="tile__name">${p.name}</h3>
+      <span class="tile__spec">${spec}</span>
+      <div class="tile__buy">
+        <span class="tile__price">${price}</span>
+        <button class="tile__add" data-add="${p.id}" aria-label="Add ${p.name} to basket">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         </button>
       </div>
     </div>
@@ -287,15 +293,6 @@ function initStrengths() {
 }
 
 /* --- Static sections ------------------------------------------------------ */
-function initCategories() {
-  $('#catGrid').innerHTML = CATEGORIES.map((c, i) => `
-    <a class="cat" href="#bestsellers" style="--cat:${c.colour}" data-reveal style="--reveal-delay:${i * 70}ms">
-      <img class="cat__img" src="${c.img}" alt="" loading="lazy" decoding="async" width="420" height="420">
-      <span class="cat__n">${c.name}</span>
-      <span class="cat__c">${c.count}</span>
-    </a>`).join('');
-}
-
 function initClearance() {
   const g = $('#clearanceGrid');
   g.innerHTML = CLEARANCE.map(cardHTML).join('');
@@ -468,7 +465,6 @@ initAgeGate();
 initStrengths();
 initTabs();
 renderGrid();
-initCategories();
 initClearance();
 initBrands();
 initReviews();

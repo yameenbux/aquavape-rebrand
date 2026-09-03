@@ -57,14 +57,6 @@ export const STRENGTHS = [
   { mg:20, name:'High',      note:'Nic salt, pod kits',   level:1.0 }
 ];
 
-/* Category tiles use a real product shot per category */
-export const CATEGORIES = [
-  { name:'E-liquid', count:'205 lines',   colour:'#E88CBA', img:P+'ivg.webp'       },
-  { name:'Vape kits',count:'126 kits',    colour:'#F9CBA3', img:P+'oxva.webp'      },
-  { name:'Pods',     count:'184 packs',   colour:'#A6E4C2', img:P+'lost-mary.webp' },
-  { name:'Pouches',  count:'64 flavours', colour:'#D8C6F0', img:P+'pablo.webp'     }
-];
-
 export const POSTS = [
   { t:'How to unlock a Pixl Duo 12',  d:'Trouble unlocking your device? Here are the steps.', colour:'#E88CBA', img:P+'refilla.webp'   },
   { t:'The future of vape packaging', d:'The government plans, and how to have your say.',    colour:'#8FD3F4', img:P+'dojo.webp'      },
@@ -118,7 +110,7 @@ export const HERO_SLIDES = [
   { id:'newin',     band:'peach',  chip:'Just landed', chipKind:'',
     a:'OXVA Nexlim 2',   b:'now in stock',
     lede:'Refillable, adjustable airflow and a proper display. The kit to move to when disposables stop cutting it.',
-    cta:'See the kit',        href:'#cats',
+    cta:'See the kit',        href:'#bestsellers',
     img:P+'oxva.webp',          alt:'OXVA Nexlim 2 vape kit',
     specA:'Refillable',       specB:'£30.99 · vape kit',    level:.7,
     note:'Coils sold separately. Free UK delivery on orders over £10.' },
@@ -126,7 +118,7 @@ export const HERO_SLIDES = [
   { id:'pouches',   band:'lilac',  chip:'Tobacco free', chipKind:'',
     a:'Nicotine pouches',b:'from £3.99',
     lede:'No vapour, no smoke, nothing to charge. Pablo, Killa, Velo and XQS across 64 flavours.',
-    cta:'Browse pouches',     href:'#cats',
+    cta:'Browse pouches',     href:'#bestsellers',
     img:P+'pablo.webp',         alt:'Pablo Bubblegum nicotine pouches',
     specA:'30mg strength',    specB:'64 flavours',          level:1,
     note:'18+ only. Nicotine is an addictive substance.' },
