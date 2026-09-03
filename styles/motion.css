@@ -51,6 +51,13 @@
   .hero { transition: none; }
   .hero__grid.is-entering > * { animation: none; }
 
+  /* trust icons: fully drawn, nothing moving */
+  .ti [pathLength],
+  .trust__item:not(.has-played) .ti [pathLength] { stroke-dasharray: none; stroke-dashoffset: 0; }
+  /* speed lines stay hidden — they only ever meant motion */
+  .ti__speed { opacity: 0; }
+  .is-playing .ti *, .is-playing .trust__ring { animation: none !important; }
+
   [data-reveal] { opacity: 1; transform: none; transition: none; }
   [data-load]   { opacity: 1; transform: none; animation: none; }
 
