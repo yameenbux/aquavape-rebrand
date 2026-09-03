@@ -5,6 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aquavape — vape kits, e-liquid and pods from 63 brands</title>
 <meta name="description" content="E-liquid, vape kits, pods and pouches from 63 brands, held in UK stock. Shop by strength. Free UK delivery over £10, same-day dispatch before 4pm.">
+<link rel="preload" href="assets/fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="canonical" href="https://yameenbux.github.io/aquavape-rebrand/">
+
+<!-- This is a design prototype of a real brand's storefront on a public URL.
+     noindex keeps a mockup of Aquavape out of search results, where it could
+     confuse customers or compete with the live shop. robots.txt disallows too. -->
+<meta name="robots" content="noindex, nofollow">
+
+<meta name="theme-color" content="#040E27">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aquavape">
+<meta property="og:url" content="https://yameenbux.github.io/aquavape-rebrand/">
+<meta property="og:title" content="Aquavape — rebrand prototype">
+<meta property="og:description" content="Design prototype: e-liquid, vape kits, pods and pouches from 63 brands. Shop by strength, free UK delivery over £10.">
+<meta property="og:image" content="https://yameenbux.github.io/aquavape-rebrand/assets/share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Aquavape rebrand homepage: a pink hero with a vape kit and the headline Save up to 60% across 63 brands.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aquavape — rebrand prototype">
+<meta name="twitter:description" content="Design prototype: e-liquid, vape kits, pods and pouches from 63 brands.">
+<meta name="twitter:image" content="https://yameenbux.github.io/aquavape-rebrand/assets/share.png">
+
 <link rel="stylesheet" href="styles/fonts.css">
 <link rel="stylesheet" href="styles/tokens.css">
 <link rel="stylesheet" href="styles/base.css">
@@ -268,6 +294,57 @@
     </div>
   </section>
 
+  <!-- FAQ — the live site runs a loyalty FAQ section; this restores it.
+       Built on native <details>/<summary>: keyboard operable, screen-reader
+       announced, and findable by in-page search with no JS at all. -->
+  <section class="band band--wash u-section" id="faq">
+    <div class="u-wrap">
+      <div class="u-section-head" data-reveal>
+        <div>
+          <p class="u-eyebrow">Before you buy</p>
+          <h2>Common questions</h2>
+        </div>
+      </div>
+      <div class="faq" data-reveal style="--reveal-delay:60ms">
+        <details>
+          <summary>Which nicotine strength should I choose?</summary>
+          <div class="faq__a"><p>If you are coming off disposables, start at 20mg nic salt — that is
+          what most bar-style devices use. If you are refilling a bigger sub-ohm kit, 3mg to 10mg is
+          usual, because those devices deliver far more vapour per puff. Shortfills are 0mg, so you add
+          a nic shot to reach the strength you want.</p></div>
+        </details>
+        <details>
+          <summary>What is the difference between nic salt and freebase?</summary>
+          <div class="faq__a"><p>Nic salt is smoother at high strengths, so it suits 20mg in a small
+          pod kit. Freebase gives a stronger throat hit and is usually sold at lower strengths for
+          larger kits. Both are nicotine — the difference is how harsh it feels, not how strong it is.</p></div>
+        </details>
+        <details>
+          <summary>When will my order arrive?</summary>
+          <div class="faq__a"><p>Order before 4pm on a working day and it is dispatched the same day.
+          Delivery is free on orders over £10.</p></div>
+        </details>
+        <details>
+          <summary>Can I return e-liquid or pods?</summary>
+          <div class="faq__a"><p>Unopened items in their original sealed packaging can be returned.
+          For hygiene and safety reasons, opened e-liquid, pods and pouches cannot be — the same rule
+          every UK vape retailer works to.</p></div>
+        </details>
+        <details>
+          <summary>Do I have to be 18?</summary>
+          <div class="faq__a"><p>Yes. It is illegal to sell nicotine products to anyone under 18 in the
+          UK, and age is verified at checkout. Nicotine is an addictive substance.</p></div>
+        </details>
+        <details>
+          <summary>What does TPD registered mean?</summary>
+          <div class="faq__a"><p>The Tobacco Products Directive sets the UK rules for nicotine
+          e-liquid: a 10ml maximum bottle size, 20mg maximum strength, and notification to the MHRA
+          before sale. Every nicotine line we list is notified.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- NEWSLETTER — yellow band, the standing CTA's destination -->
   <section class="band band--yellow u-section" id="signup">
     <div class="u-wrap signup">
@@ -306,9 +383,14 @@
           E-liquid, pod kits, coils and pouches from 63 brands. Held in UK stock.
         </p>
       </div>
-      <div><h4>Shop</h4><ul><li><a href="#">E-liquid</a></li><li><a href="#">Shortfills</a></li><li><a href="#">Pod kits</a></li><li><a href="#">Coils</a></li><li><a href="#">Pouches</a></li><li><a href="#">Clearance</a></li></ul></div>
-      <div><h4>Help</h4><ul><li><a href="#">Delivery</a></li><li><a href="#">Returns</a></li><li><a href="#">Which strength?</a></li><li><a href="#">Contact</a></li></ul></div>
-      <div><h4>Legal</h4><ul><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li><li><a href="#">TPD compliance</a></li><li><a href="#">Age policy</a></li></ul></div>
+      <div><h3>Shop</h3><ul><li><a href="#bestsellers">E-liquid</a></li><li><a href="#bestsellers">Shortfills</a></li><li><a href="#cats">Pod kits</a></li><li><a href="#cats">Coils</a></li><li><a href="#cats">Pouches</a></li><li><a href="#clearance">Clearance</a></li></ul></div>
+      <div><h3>Help</h3><ul><li><a href="#faq">Delivery</a></li><li><a href="#faq">Returns</a></li><li><a href="#strengths">Which strength?</a></li><li><a href="#faq">Common questions</a></li></ul></div>
+      <div><h3>Legal</h3><ul>
+        <li><a href="https://aquavape.co.uk/policies/terms-of-service" rel="noopener">Terms of service</a></li>
+        <li><a href="https://aquavape.co.uk/policies/privacy-policy" rel="noopener">Privacy policy</a></li>
+        <li><a href="https://aquavape.co.uk/policies/refund-policy" rel="noopener">Refund policy</a></li>
+        <li><a href="#faq">Age policy</a></li>
+      </ul></div>
     </div>
     <div class="footer__legal">
       <span>© 2026 Aquavape Ltd · Registered in England</span>

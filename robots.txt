@@ -1,0 +1,4 @@
+# This is a design prototype of the Aquavape storefront, not the live shop.
+# The live site is https://aquavape.co.uk — that is what should be indexed.
+User-agent: *
+Disallow: /

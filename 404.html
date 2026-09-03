@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — Aquavape</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#040E27">
+<link rel="icon" href="/aquavape-rebrand/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/aquavape-rebrand/styles/fonts.css">
+<link rel="stylesheet" href="/aquavape-rebrand/styles/tokens.css">
+<link rel="stylesheet" href="/aquavape-rebrand/styles/base.css">
+<link rel="stylesheet" href="/aquavape-rebrand/styles/components.css">
+<style>
+  /* A 404 is a dead end, so it should offer the way out rather than apologise. */
+  .nf { min-height: 100vh; display: grid; place-items: center; padding: var(--space-lg); }
+  .nf__panel { max-width: 640px; display: grid; gap: var(--space-md); justify-items: start; }
+  .nf__code { font-family: var(--font-display); font-stretch: 125%; font-weight: 800;
+              font-size: clamp(5rem, 18vw, 11rem); line-height: .82; color: var(--pink); }
+  .nf__links { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
+  .nf__also { display: flex; gap: var(--space-md); flex-wrap: wrap;
+              font-family: var(--font-mono); font-size: var(--text-xs);
+              letter-spacing: var(--tracking-wide); text-transform: uppercase; }
+  .nf__also a { color: var(--fill); text-decoration: underline; text-underline-offset: 4px; }
+</style>
+</head>
+<body class="band band--navy">
+  <main class="nf">
+    <div class="nf__panel">
+      <span class="nf__code">404</span>
+      <h1 style="font-size:clamp(1.8rem,4vw,2.6rem)">This page has vaped</h1>
+      <p style="color:var(--band-mute);margin:0;max-width:44ch">
+        The link is wrong or the page has moved. Nothing you did.
+      </p>
+      <div class="nf__links">
+        <a class="btn btn--invert btn--lg" href="/aquavape-rebrand/">Back to the shop
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+        <a class="btn btn--outline btn--lg" href="/aquavape-rebrand/#faq">Common questions</a>
+      </div>
+      <div class="nf__also">
+        <a href="/aquavape-rebrand/#strengths">Shop by strength</a>
+        <a href="/aquavape-rebrand/#clearance">Clearance</a>
+        <a href="/aquavape-rebrand/#cats">Browse the range</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

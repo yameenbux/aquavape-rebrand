@@ -199,7 +199,7 @@ function initReviews() {
 
 function initNews() {
   $('#newsGrid').innerHTML = POSTS.map((p, i) => `
-    <a class="post" href="#" data-reveal style="--reveal-delay:${i * 70}ms">
+    <a class="post" href="${p.href || '#'}" data-reveal style="--reveal-delay:${i * 70}ms">
       <span class="post__img" style="--post:${p.colour}"><img src="${p.img}" alt="" loading="lazy" decoding="async" width="420" height="420"></span>
       <h3>${p.t}</h3>
       <p>${p.d}</p>
