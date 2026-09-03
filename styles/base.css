@@ -63,7 +63,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   width: 100%;
   max-width: var(--page-max-width);
   margin-inline: auto;
-  padding-inline: var(--page-x-padding);
+  /* Never narrower than the fixed 20% off tab. Below ~800px the page padding
+     falls under the tab's width and it starts sitting on top of the content —
+     the toolbar count and the first tile column, on the shop. */
+  padding-inline: max(var(--page-x-padding), calc(var(--tab-w) + 6px));
 }
 
 .u-section { padding-block: clamp(2.75rem, 6vw, 5.25rem); }
@@ -73,7 +76,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Feature sections carry the weight: the heading goes huge and uses
    Archivo's width axis, which is the reason this typeface was chosen and
    the thing the first pass never exploited. */
-.u-section--feature h2 {
+.u-section--feature :is(h1, h2) {
   font-size: clamp(2.9rem, 8.2vw, 7rem);
   font-stretch: 125%;
   line-height: .84;
@@ -81,7 +84,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   max-width: 14ch;
 }
 .u-section--feature .u-section-head { display: block; margin-bottom: var(--space-md); }
-.u-section--feature .u-eyebrow { font-size: 11px; }
+.u-section--feature .u-eyebrow { font-size: 11px; max-width: none; }
 
 /* Controls sit on a hairline under the big heading rather than trying to
    share its line — at 7rem the heading always wins the space. */
@@ -111,6 +114,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
   color: var(--band-mute);
+  /* a widely-tracked mono line orphans its last word readily on a phone */
+  text-wrap: balance;
 }
 .u-visually-hidden {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
