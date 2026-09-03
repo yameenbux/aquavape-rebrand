@@ -1,5 +1,5 @@
 import { PRODUCTS, CLEARANCE, STRENGTHS, CATEGORIES, POSTS, REVIEWS,
-         HERO_SLIDES, FREE_DELIVERY } from './data.js';
+         STATS, HERO_SLIDES, FREE_DELIVERY } from './data.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -7,13 +7,10 @@ const money = n => '£' + n.toFixed(2);
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const ICONS = {
-  bottle: '<svg viewBox="0 0 120 260" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"><path d="M30 90c0-18 20-24 20-34h20c0 10 20 16 20 34v148a8 8 0 0 1-8 8H38a8 8 0 0 1-8-8Z"/><rect x="44" y="6" width="32" height="32" rx="2"/></svg>',
-  device: '<svg viewBox="0 0 120 260" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"><rect x="26" y="40" width="68" height="200" rx="14"/><rect x="48" y="10" width="24" height="30" rx="6"/><rect x="44" y="80" width="32" height="52" rx="4"/></svg>',
-  coil:   '<svg viewBox="0 0 120 260" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"><path d="M40 60h40M36 90h48M36 120h48M36 150h48M36 180h48M40 210h40"/><path d="M60 40v-20"/></svg>',
-  tin:    '<svg viewBox="0 0 120 260" fill="none" stroke="currentColor" stroke-width="7"><ellipse cx="60" cy="90" rx="44" ry="18"/><path d="M16 90v70c0 10 20 18 44 18s44-8 44-18V90"/></svg>',
-  star:   '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3l-5-4.9 7-.9z"/></svg>',
-  arrow:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>'
+  star:  '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3l-5-4.9 7-.9z"/></svg>',
+  arrow: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>'
 };
+
 
 /* --- Age gate (session-scoped, as UK vape retail requires) --------------- */
 function initAgeGate() {
@@ -35,8 +32,8 @@ function initAgeGate() {
 
 /* --- Hero: fill the bottle, count the flavours, run the slide dots -------- */
 function initHero() {
-  const bottle = $('#heroBottle');
-  const run = () => bottle.style.setProperty('--level', '.72');
+  const g = $('#heroGauge');
+  const run = () => g.style.setProperty('--level', '1');
   reduced() ? run() : setTimeout(run, 620);
 
   $('#heroDots').innerHTML = HERO_SLIDES.map((s, i) =>
@@ -44,6 +41,8 @@ function initHero() {
   $$('#heroDots button').forEach((b, i) => b.addEventListener('click', () => {
     $$('#heroDots button').forEach((x, j) => x.setAttribute('aria-current', String(i === j)));
   }));
+
+  $$('[data-stat]').forEach(el => { el.dataset.count = STATS[el.dataset.stat]; });
 
   $$('[data-count]').forEach(el => {
     const target = +el.dataset.count;
@@ -97,7 +96,7 @@ function cardHTML(p) {
     <div class="card__swatch">
       ${p.flag ? `<span class="flag${flagClass(p.flag)}">${p.flag}</span>` : ''}
       <span class="card__flood"></span>
-      <span class="card__bottle">${ICONS[p.type === 'eliquid' ? 'bottle' : 'device']}</span>
+      <img class="card__img" src="${p.img}" alt="${p.brand} ${p.name}" loading="lazy" decoding="async" width="420" height="420">
     </div>
     <div class="card__body">
       <span class="card__brand">${p.brand}</span>
@@ -138,7 +137,7 @@ function renderGrid() {
   grid.innerHTML = list.map(cardHTML).join('');
   bindAdds(grid);
 
-  const label = { eliquid: 'liquids', pods: 'kits', prefilled: 'pod packs' }[activeTab];
+  const label = { eliquid: 'liquids', kits: 'kits', pods: 'pods & pouches' }[activeTab];
   $('#gridHeading').textContent = activeStrength === null
     ? 'Best sellers' : `${activeStrength}mg ${label}`;
   $('#gridCount').textContent = list.length
@@ -176,7 +175,7 @@ function initStrengths() {
 function initCategories() {
   $('#catGrid').innerHTML = CATEGORIES.map((c, i) => `
     <a class="cat" href="#bestsellers" style="--cat:${c.colour}" data-reveal style="--reveal-delay:${i * 70}ms">
-      ${ICONS[c.icon]}
+      <img class="cat__img" src="${c.img}" alt="" loading="lazy" decoding="async" width="420" height="420">
       <span class="cat__n">${c.name}</span>
       <span class="cat__c">${c.count}</span>
     </a>`).join('');
@@ -201,7 +200,7 @@ function initReviews() {
 function initNews() {
   $('#newsGrid').innerHTML = POSTS.map((p, i) => `
     <a class="post" href="#" data-reveal style="--reveal-delay:${i * 70}ms">
-      <span class="post__img" style="--post:${p.colour}">${ICONS.device}</span>
+      <span class="post__img" style="--post:${p.colour}"><img src="${p.img}" alt="" loading="lazy" decoding="async" width="420" height="420"></span>
       <h3>${p.t}</h3>
       <p>${p.d}</p>
       <span class="post__more">Read news</span>
@@ -237,7 +236,7 @@ function renderCart() {
     : [...cart.entries()].map(([id, qty]) => {
         const p = find(id);
         return `<div class="line">
-          <div class="line__thumb" style="--flavour:${p.flavour}">${ICONS[p.type === 'eliquid' ? 'bottle' : 'device']}</div>
+          <div class="line__thumb" style="--flavour:${p.flavour}"><img src="${p.img}" alt="" width="420" height="420"></div>
           <div>
             <div class="line__n">${p.name}</div>
             <div class="line__m">${p.ml ? p.ml + 'ml · ' : ''}${p.mg}mg</div>

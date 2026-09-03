@@ -20,6 +20,41 @@ HTML, token-driven CSS, and vanilla ES modules — so every component here
 ports to a Liquid section without a rewrite. Adding React would have made
 the port harder, not easier.
 
+## A finding that changed the design
+
+While pulling product photography from `products.json` I counted the actual
+catalogue. It does not match the story the live homepage tells:
+
+| | |
+|---|---|
+| Products | 998 |
+| Brands | 63 |
+| E-liquid lines | 205 |
+| Deepest ranges | Hayati 161, Lost Mary 106, IVG 74, SKE Crystal 60 |
+| Aquavape own-brand | not in the catalogue |
+
+The live homepage headline reads "PREMIUM UK MADE ELIQUID" and its best
+sellers row shows four own-brand 10ml liquids — Fresh Menthol, Wild Berry,
+Raspberry Menthol, British Tobacco, all "by Aquavape". **None of those four
+products are in the live catalogue**, and no own-brand e-liquid line appears
+anywhere in it.
+
+So Aquavape, as it trades today, is a **multi-brand stockist**, not a
+manufacturer. Its value to a customer is range, availability and price
+across 63 brands.
+
+The first version of this prototype was built on the opposite premise —
+"mixed and bottled in Lancashire", batch codes, "know what's in the bottle".
+That was a provenance story for a business that does not appear to exist in
+the data. It has been replaced by a range story, and the gauges in that
+section now encode real line counts per brand.
+
+**This is worth checking on your side.** Either the own-brand line was
+discontinued and the homepage was never updated, or it is listed somewhere
+the products endpoint does not reach. If it was discontinued, the live
+homepage is currently advertising four products that cannot be bought, and
+"UK MADE" is doing work the catalogue cannot support.
+
 ## The design direction
 
 **Colour-blocked bands, navy anchoring the ends.** Aquavape is a colourful,
@@ -105,9 +140,32 @@ best sellers, the brand logo row and the blog feed.
 | Age gate designed in | Legally required for UK vape retail, so it should not look bolted on |
 | `prefers-reduced-motion` honoured | `theme.css` has no reduced-motion block at all |
 
+## Imagery
+
+All product photography is **real, pulled from `aquavape.co.uk`** on
+2026-09-03: 24 shots, re-encoded to WebP with transparency preserved and
+cropped to each product's bounding box so every shot fills its frame to the
+same margin. 460 KB for the set.
+
+Nothing is stock photography and nothing is drawn. The earlier version used
+hand-drawn SVG bottles, which read as placeholder next to the real thing.
+
+Transparency matters here: the cards tint their swatch with the product's
+flavour colour and flood it on hover, so a flattened white background would
+show as a white box on colour.
+
+The only drawn artwork left is UI iconography — stars, arrows, the USP and
+trust icons, and the logo droplet.
+
 ## Motion
 
-Carried over from the live theme because they are genuine brand behaviours:
+The hero runs a **vapour animation** — five blurred radial blobs on
+staggered 7-second rises behind the product. It is the only continuously
+running animation on the page, and it is switched off entirely under reduced
+motion.
+
+Otherwise, carried over from the live theme because they are genuine brand
+behaviours:
 the sliding `::before` button fill, `IntersectionObserver` scroll reveals
 (the technique already in `banner-grid.js`), and the two overshoot easing
 curves — `--ease-out-back` and `--bounce`. The brand's motion language is
