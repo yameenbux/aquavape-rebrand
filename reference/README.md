@@ -25,7 +25,7 @@ live in the Shopify admin and only come out through an authenticated pull.
 Everything in this folder was derived from that compiled output and from the
 rendered DOM. It is accurate, but it is a *reconstruction*, not the source.
 
-To get the real source, see `../scripts/pull-theme.sh`.
+To get the real source, see `../tools/pull-theme.sh`.
 
 ## How it was captured
 

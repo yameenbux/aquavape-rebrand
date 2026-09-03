@@ -1,10 +1,10 @@
 # Aquavape — rebrand prototype
 
-A working front-end prototype of the rebranded Aquavape storefront. Open
-`index.html` in a browser, or serve the folder:
+A working front-end prototype of the rebranded Aquavape storefront. Live at
+**https://yameenbux.github.io/aquavape-rebrand/**, or serve it locally:
 
 ```bash
-cd prototype && python3 -m http.server 8899
+python3 -m http.server 8899
 # then open http://127.0.0.1:8899
 ```
 
@@ -134,3 +134,5 @@ arrives; it just stops moving.
 3. `scripts/main.js` init functions → `customElements.define()` calls, matching the existing `<usp-bar>` / `<product-item>` pattern
 4. `scripts/data.js` → Liquid product loops
 5. Swap Archivo/Instrument Sans back to Nexa
+
+See `tools/pull-theme.sh` for getting the real theme source.
