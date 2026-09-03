@@ -104,21 +104,28 @@
        is kept; what changes is that the offer sits next to a real product
        instead of a "MEGA SALE" graphic, and the bottle fills to its actual
        nicotine strength on load. -->
-  <section class="hero band band--pink">
-    <div class="u-wrap hero__grid">
+  <!-- HERO CAROUSEL — 5 slides on a 5s timer.
+       Each slide carries its own band colour, so the palette rotating IS the
+       hero. Autoplay pauses on hover, on keyboard focus, when the tab is
+       hidden, and on demand via the pause button — the last of those is
+       required by WCAG 2.2.2 (Pause, Stop, Hide) for content that moves for
+       longer than five seconds. Under prefers-reduced-motion it never
+       auto-advances at all; the dots still work. -->
+  <section class="hero band band--pink" id="hero"
+           aria-roledescription="carousel" aria-label="Featured offers">
+    <div class="u-wrap hero__grid" id="heroPanel" role="tabpanel">
       <div>
-        <span class="chip" data-load style="--load-delay:60ms">Sale</span>
-        <h1 data-load style="--load-delay:140ms">Save up to 60% <em>across 63 brands</em></h1>
-        <p class="hero__lede" data-load style="--load-delay:240ms">
-          Every brand worth stocking, in one place. Order before 4pm and it
-          ships the same day.
+        <span class="chip" id="hChip" data-load style="--load-delay:60ms">Sale</span>
+        <h1 id="hHead" data-load style="--load-delay:140ms">Save up to 60% <em>across 63 brands</em></h1>
+        <p class="hero__lede" id="hLede" data-load style="--load-delay:240ms">
+          Every brand worth stocking, in one place. Order before 4pm and it ships the same day.
         </p>
         <div class="hero__actions" data-load style="--load-delay:320ms">
-          <a class="btn btn--primary btn--lg" href="#bestsellers">Shop the sale
+          <a class="btn btn--primary btn--lg" id="hCta" href="#bestsellers">Shop the sale
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
           <a class="btn btn--outline btn--lg" href="#strengths">Shop by strength</a>
         </div>
-        <p class="hero__note" data-load style="--load-delay:380ms">
+        <p class="hero__note" id="hNote" data-load style="--load-delay:380ms">
           Discount applies to RRP and cannot be combined with existing multibuy prices.
         </p>
         <div class="specs" data-load style="--load-delay:440ms">
@@ -130,7 +137,6 @@
       </div>
 
       <div class="heroshot" data-load style="--load-delay:200ms">
-        <!-- vapour: five blurred blobs on staggered rises -->
         <div class="vapour" aria-hidden="true">
           <span style="--d:0s;   --dx:-26px"></span>
           <span style="--d:1.4s; --dx:18px"></span>
@@ -138,16 +144,24 @@
           <span style="--d:4.2s; --dx:34px"></span>
           <span style="--d:5.6s; --dx:-38px"></span>
         </div>
-        <img class="heroshot__img" src="assets/products/dojo.webp"
+        <img class="heroshot__img" id="hImg" src="assets/products/dojo.webp"
              alt="DoJo Blast 30K Pro Kit" width="420" height="420" fetchpriority="high">
         <div class="speccard" aria-hidden="true">
-          <b>20mg nic salt</b>
+          <b id="hSpecA">20mg nic salt</b>
           <span class="gauge gauge--h" id="heroGauge" style="--level:0"><span class="gauge__liquid"></span></span>
-          <small>Pod kit · prefilled</small>
+          <small id="hSpecB">Pod kit · prefilled</small>
         </div>
       </div>
     </div>
-    <div class="dots" id="heroDots" role="tablist" aria-label="Featured offers"></div>
+
+    <div class="u-wrap hero__controls">
+      <div class="dots" id="heroDots" role="tablist" aria-label="Choose an offer"></div>
+      <button class="hero__pause" id="heroPause" aria-pressed="false">
+        <svg class="ico-pause" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+        <svg class="ico-play" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>
+        <span id="heroPauseLabel">Pause</span>
+      </button>
+    </div>
   </section>
 
   <section class="band band--paper u-section u-section--tight">
