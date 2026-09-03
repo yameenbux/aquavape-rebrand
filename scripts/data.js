@@ -4,7 +4,7 @@
    flags are illustrative — the storefront JSON does not expose inventory
    counts. Flavour colours drive the card tint and are a design choice.
 
-   Note on the catalogue itself: Aquavape stocks ~998 products from ~63
+   Note on the catalogue itself: Aquavape stocks 1,993 products from 86
    third-party brands. Its own-brand 10ml line, still shown in the live
    homepage's best sellers, no longer appears in the catalogue. See
    DESIGN.md for why that changed the design. */
@@ -85,16 +85,16 @@ export const BRANDS = [
 ];
 
 /* Real catalogue figures, counted from products.json on 2026-09-03 */
-export const STATS = { products: 998, brands: 63, liquids: 205 };
+export const STATS = { products: 1993, brands: 86, liquids: 776 };
 
 /* Hero slides. Each carries its own band colour — the palette rotating is
    the point, not decoration. Every band/text pair below was contrast-checked
    against WCAG AA before being used (lowest 6.08:1). */
 export const HERO_SLIDES = [
   { id:'sale',      band:'pink',   chip:'Sale',        chipKind:'',
-    a:'Save up to 60%',  b:'across 63 brands',
+    a:'Save up to 60%',  b:'across 86 brands',
     lede:'Every brand worth stocking, in one place. Order before 4pm and it ships the same day.',
-    cta:'Shop the sale',      href:'#bestsellers',
+    cta:'Shop the sale',      href:'shop.html?sort=price-asc',
     img:P+'dojo.webp',          alt:'DoJo Blast 30K Pro Kit',
     specA:'20mg nic salt',    specB:'Pod kit · prefilled',  level:1,
     note:'Discount applies to RRP and cannot be combined with existing multibuy prices.' },
@@ -102,7 +102,7 @@ export const HERO_SLIDES = [
   { id:'multibuy',  band:'mint',   chip:'3 for £10',   chipKind:'chip--deal',
     a:'Three 10ml',      b:'nic salts, £10',
     lede:'Mix any three 10ml nic salts from IVG, Elux, Vampire Vape and more. Cheaper than buying two.',
-    cta:'Build a bundle',     href:'#bestsellers',
+    cta:'Build a bundle',     href:'shop.html?type=Eliquid&price=u5',
     img:P+'ivg.webp',           alt:'IVG Lemon Fizz Nic Salt 10ml',
     specA:'10ml · 20mg',      specB:'50/50 · nic salt',     level:1,
     note:'Mix and match across any 10ml nic salt. Excludes shortfills and nic shots.' },
@@ -110,27 +110,28 @@ export const HERO_SLIDES = [
   { id:'newin',     band:'peach',  chip:'Just landed', chipKind:'',
     a:'OXVA Nexlim 2',   b:'now in stock',
     lede:'Refillable, adjustable airflow and a proper display. The kit to move to when disposables stop cutting it.',
-    cta:'See the kit',        href:'#bestsellers',
+    cta:'See the kit',        href:'shop.html?type=Vape%20Kits',
     img:P+'oxva.webp',          alt:'OXVA Nexlim 2 vape kit',
     specA:'Refillable',       specB:'£30.99 · vape kit',    level:.7,
     note:'Coils sold separately. Free UK delivery on orders over £10.' },
 
   { id:'pouches',   band:'lilac',  chip:'Tobacco free', chipKind:'',
     a:'Nicotine pouches',b:'from £3.99',
-    lede:'No vapour, no smoke, nothing to charge. Pablo, Killa, Velo and XQS across 64 flavours.',
-    cta:'Browse pouches',     href:'#bestsellers',
+    lede:'No vapour, no smoke, nothing to charge. Pablo, Velo, ZYN, FUMI and Killa across 137 lines.',
+    cta:'Browse pouches',     href:'shop.html?type=Nicotine%20Pouches',
     img:P+'pablo.webp',         alt:'Pablo Bubblegum nicotine pouches',
-    specA:'30mg strength',    specB:'64 flavours',          level:1,
+    specA:'30mg strength',    specB:'137 lines',            level:1,
     note:'18+ only. Nicotine is an addictive substance.' },
 
   { id:'clearance', band:'yellow', chip:'Ends Sunday', chipKind:'chip--sale',
     a:'Up to 62% off',   b:'in clearance',
     lede:'Last of the line on shortfills, kits and pouches. When it is gone it is gone.',
-    cta:'Shop clearance',     href:'#clearance',
+    cta:'Shop clearance',     href:'shop.html?sort=price-asc',
     img:P+'vape-district.webp', alt:'Vape District Lychee Ice 100ml shortfill',
     specA:'100ml shortfill',  specB:'0mg · add a nic shot', level:.15,
     note:'While stocks last. Clearance prices are final and exclude other offers.' }
 ];
 
 export const HERO_INTERVAL = 5000;
-export const FREE_DELIVERY = 10.00;
+/* FREE_DELIVERY moved to cart.js — the basket owns the threshold now that
+   both the homepage and the shop draw the same drawer. */

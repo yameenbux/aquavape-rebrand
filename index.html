@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aquavape — vape kits, e-liquid and pods from 63 brands</title>
-<meta name="description" content="E-liquid, vape kits, pods and pouches from 63 brands, held in UK stock. Shop by strength. Free UK delivery over £10, same-day dispatch before 4pm.">
+<title>Aquavape — vape kits, e-liquid and pods from 86 brands</title>
+<meta name="description" content="E-liquid, vape kits, pods and pouches from 86 brands, held in UK stock. Shop by strength. Free UK delivery over £10, same-day dispatch before 4pm.">
 <link rel="preload" href="assets/fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="canonical" href="https://yameenbux.github.io/aquavape-rebrand/">
 
@@ -21,14 +21,14 @@
 <meta property="og:site_name" content="Aquavape">
 <meta property="og:url" content="https://yameenbux.github.io/aquavape-rebrand/">
 <meta property="og:title" content="Aquavape — rebrand prototype">
-<meta property="og:description" content="Design prototype: e-liquid, vape kits, pods and pouches from 63 brands. Shop by strength, free UK delivery over £10.">
+<meta property="og:description" content="Design prototype: e-liquid, vape kits, pods and pouches from 86 brands. Shop by strength, free UK delivery over £10.">
 <meta property="og:image" content="https://yameenbux.github.io/aquavape-rebrand/assets/share.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="The Aquavape rebrand homepage: a pink hero with a vape kit and the headline Save up to 60% across 63 brands.">
+<meta property="og:image:alt" content="The Aquavape rebrand homepage: a pink hero with a vape kit and the headline Save up to 60% across 86 brands.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Aquavape — rebrand prototype">
-<meta name="twitter:description" content="Design prototype: e-liquid, vape kits, pods and pouches from 63 brands.">
+<meta name="twitter:description" content="Design prototype: e-liquid, vape kits, pods and pouches from 86 brands.">
 <meta name="twitter:image" content="https://yameenbux.github.io/aquavape-rebrand/assets/share.png">
 
 <link rel="stylesheet" href="styles/fonts.css">
@@ -64,13 +64,13 @@
       Aquavape
     </a>
     <nav class="header__nav" aria-label="Primary">
-      <a href="#bestsellers" data-hot>New</a>
-      <a href="#bestsellers">Pods &amp; coils</a>
-      <a href="#bestsellers">E-liquids</a>
-      <a href="#bestsellers">Vape kits</a>
-      <a href="#bestsellers">Pouches</a>
-      <a href="#brands">Brands</a>
-      <a href="#clearance" data-hot>Vape deals</a>
+      <a href="shop.html" data-hot>Shop all</a>
+      <a href="shop.html?type=Pods">Pods</a>
+      <a href="shop.html?type=Eliquid">E-liquids</a>
+      <a href="shop.html?type=Vape%20Kits">Vape kits</a>
+      <a href="shop.html?type=Coils">Coils</a>
+      <a href="shop.html?type=Nicotine%20Pouches">Pouches</a>
+      <a href="shop.html?sort=price-asc" data-hot>Vape deals</a>
     </nav>
     <div class="header__actions">
       <button class="icon-btn" id="searchOpen" aria-label="Search products">
@@ -116,7 +116,7 @@
     <div class="u-wrap hero__grid" id="heroPanel" role="tabpanel">
       <div>
         <span class="chip" id="hChip" data-load style="--load-delay:60ms">Sale</span>
-        <h1 id="hHead" data-load style="--load-delay:140ms">Save up to 60% <em>across 63 brands</em></h1>
+        <h1 id="hHead" data-load style="--load-delay:140ms">Save up to 60% <em>across 86 brands</em></h1>
         <p class="hero__lede" id="hLede" data-load style="--load-delay:240ms">
           Every brand worth stocking, in one place. Order before 4pm and it ships the same day.
         </p>
@@ -254,7 +254,7 @@
       </div>
       <div class="wall wall--bleed" id="productGrid"></div>
       <div style="display:flex;justify-content:center;margin-top:var(--space-lg)">
-        <a class="btn btn--primary btn--lg" href="#">View all 205 e-liquids
+        <a class="btn btn--primary btn--lg" href="shop.html?type=Eliquid">View all 776 e-liquids
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
       </div>
     </div>
@@ -270,7 +270,7 @@
       </div>
       <div class="u-toolbar" data-reveal>
         <span class="u-toolbar__count">Last of the line — when it's gone, it's gone</span>
-        <a class="btn btn--invert" href="#">All clearance</a>
+        <a class="btn btn--invert" href="shop.html?sort=price-asc">All clearance</a>
       </div>
       <div class="wall wall--bleed" id="clearanceGrid"></div>
     </div>
@@ -296,8 +296,8 @@
 
   <!-- THE RANGE — navy band.
        This section previously claimed "mixed and bottled in Lancashire".
-       Checking products.json showed that is not what this shop is: 998
-       products from 63 third-party brands, and the own-brand 10ml line no
+       Checking products.json showed that is not what this shop is: 1,993
+       products from 86 third-party brands, and the own-brand 10ml line no
        longer in the catalogue. Rewritten to the business that actually
        exists — breadth, availability and speed. The gauges now encode real
        line counts per brand. -->
@@ -307,7 +307,7 @@
         <p class="u-eyebrow">The range</p>
         <h2>Every brand worth stocking</h2>
         <p style="color:var(--band-mute);max-width:42ch;margin-top:var(--space-sm)">
-          998 products across 63 brands, held in stock in the UK. If a brand
+          1,993 products across 86 brands, held in stock in the UK. If a brand
           is worth vaping we carry it, and if we list it we have it on the
           shelf.
         </p>
@@ -317,15 +317,15 @@
             <span class="u-spec" style="color:var(--fill)">lines in stock</span>
           </div>
           <dl class="batch__rows">
-            <div><dt>Hayati</dt><dd><span class="gauge gauge--h" style="--level:1"><span class="gauge__liquid"></span></span><b>161</b></dd></div>
-            <div><dt>Lost Mary</dt><dd><span class="gauge gauge--h" style="--level:.66"><span class="gauge__liquid"></span></span><b>106</b></dd></div>
-            <div><dt>IVG</dt><dd><span class="gauge gauge--h" style="--level:.46"><span class="gauge__liquid"></span></span><b>74</b></dd></div>
-            <div><dt>SKE Crystal</dt><dd><span class="gauge gauge--h" style="--level:.37"><span class="gauge__liquid"></span></span><b>60</b></dd></div>
+            <div><dt>IVG</dt><dd><span class="gauge gauge--h" style="--level:1"><span class="gauge__liquid"></span></span><b>192</b></dd></div>
+            <div><dt>Hayati</dt><dd><span class="gauge gauge--h" style="--level:.89"><span class="gauge__liquid"></span></span><b>171</b></dd></div>
+            <div><dt>Lost Mary</dt><dd><span class="gauge gauge--h" style="--level:.72"><span class="gauge__liquid"></span></span><b>139</b></dd></div>
+            <div><dt>Vapemate</dt><dd><span class="gauge gauge--h" style="--level:.66"><span class="gauge__liquid"></span></span><b>126</b></dd></div>
           </dl>
         </div>
       </div>
       <div style="display:grid;gap:var(--space-md)">
-        <div class="fact" data-reveal style="--reveal-delay:60ms"><span class="fact__n">01</span><div><div class="fact__t">63 brands, one basket</div><p class="fact__d">Hayati, Lost Mary, IVG, SKE, Elux, Elf Bar, Vaporesso, OXVA and 55 more.</p></div></div>
+        <div class="fact" data-reveal style="--reveal-delay:60ms"><span class="fact__n">01</span><div><div class="fact__t">86 brands, one basket</div><p class="fact__d">Hayati, Lost Mary, IVG, SKE, Elux, Elf Bar, Vaporesso, OXVA and 78 more.</p></div></div>
         <div class="fact" data-reveal style="--reveal-delay:120ms"><span class="fact__n">02</span><div><div class="fact__t">Order by 4pm, ships today</div><p class="fact__d">Held in UK stock, not drop-shipped. Free delivery over £10.</p></div></div>
         <div class="fact" data-reveal style="--reveal-delay:180ms"><span class="fact__n">03</span><div><div class="fact__t">TPD compliant, age verified</div><p class="fact__d">Every nicotine line notified to the MHRA. 18+ checked at checkout.</p></div></div>
       </div>
@@ -429,10 +429,10 @@
           </svg>Aquavape
         </div>
         <p style="color:#97A3C0;font-size:var(--text-sm);max-width:32ch">
-          E-liquid, pod kits, coils and pouches from 63 brands. Held in UK stock.
+          E-liquid, pod kits, coils and pouches from 86 brands. Held in UK stock.
         </p>
       </div>
-      <div><h3>Shop</h3><ul><li><a href="#bestsellers">E-liquid</a></li><li><a href="#bestsellers">Shortfills</a></li><li><a href="#bestsellers">Pod kits</a></li><li><a href="#bestsellers">Coils</a></li><li><a href="#bestsellers">Pouches</a></li><li><a href="#clearance">Clearance</a></li></ul></div>
+      <div><h3>Shop</h3><ul><li><a href="shop.html">Shop all</a></li><li><a href="shop.html?type=Eliquid">E-liquid</a></li><li><a href="shop.html?type=Pods">Pods</a></li><li><a href="shop.html?type=Vape%20Kits">Vape kits</a></li><li><a href="shop.html?type=Coils">Coils</a></li><li><a href="shop.html?type=Nicotine%20Pouches">Pouches</a></li></ul></div>
       <div><h3>Help</h3><ul><li><a href="#faq">Delivery</a></li><li><a href="#faq">Returns</a></li><li><a href="#strengths">Which strength?</a></li><li><a href="#faq">Common questions</a></li></ul></div>
       <div><h3>Legal</h3><ul>
         <li><a href="https://aquavape.co.uk/policies/terms-of-service" rel="noopener">Terms of service</a></li>

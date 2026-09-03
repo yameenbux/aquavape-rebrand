@@ -27,11 +27,17 @@ catalogue. It does not match the story the live homepage tells:
 
 | | |
 |---|---|
-| Products | 998 |
-| Brands | 63 |
-| E-liquid lines | 205 |
-| Deepest ranges | Hayati 161, Lost Mary 106, IVG 74, SKE Crystal 60 |
+| Products | 1,993 |
+| Brands | 86 |
+| E-liquid lines | 776 |
+| Deepest ranges | IVG 192, Hayati 171, Lost Mary 139, Vapemate 126 |
+| In stock | 1,637 of 1,993 |
+| Price range | £0.70 – £57.99 |
 | Aquavape own-brand | not in the catalogue |
+
+The first count stopped at four pages of `products.json` and reported 998
+products across 63 brands. Paging to the end gives **1,993 across 86**. The
+figures above, and everywhere on the site, are the full count.
 
 The live homepage headline reads "PREMIUM UK MADE ELIQUID" and its best
 sellers row shows four own-brand 10ml liquids — Fresh Menthol, Wild Berry,
@@ -41,7 +47,7 @@ anywhere in it.
 
 So Aquavape, as it trades today, is a **multi-brand stockist**, not a
 manufacturer. Its value to a customer is range, availability and price
-across 63 brands.
+across 86 brands.
 
 The first version of this prototype was built on the opposite premise —
 "mixed and bottled in Lancashire", batch codes, "know what's in the bottle".
@@ -71,7 +77,7 @@ Correct, accessible, systematic. Not designed.
 
 ### The subject, named
 
-Not a pharmacy: a **pick'n'mix counter for adults**. 998 products, 63
+Not a pharmacy: a **pick'n'mix counter for adults**. 1,993 products, 86
 brands, and every one is a flavour with a colour — Blue Raspberry, Rhubarb
 & Custard, Pistachio Gelato, Bubblegum. Shoppers arrive knowing a flavour,
 a strength and a budget. The page's job is to get them to the right bottle
@@ -255,6 +261,59 @@ Everything animated is guarded. Under `prefers-reduced-motion: reduce` the
 ticker stops, reveals resolve to their final state, the bottle appears
 already filled, and the counter shows its final value. Content still
 arrives; it just stops moving.
+
+## The catalogue page
+
+`shop.html` is the whole shop, not a sample: all 1,993 products, filtered
+and sorted in the browser.
+
+**Why it exists.** A homepage is a picture of a store. Nobody migrating a
+storefront cares whether a picture is pretty — they care whether the thing
+holds 2,000 SKUs, 86 brands and a basket without falling over. So the
+catalogue is where the argument is made.
+
+**How it works.** The whole catalogue ships as one 480 KB JSON file — 86 KB
+over the wire, gzipped — and every filter, sort and search after that is a
+pass over an in-memory array. No round trip, no spinner, no pagination
+request. Compact keys (`h` handle, `t` title, `v` vendor, `p` price…) are
+what keep 1,993 records under 100 KB.
+
+**Filters are the product.** Strength, type, price band, brand, in-stock,
+free text. Every one lives in the query string, so `shop.html?type=Pods&mg=20`
+is a real, linkable collection page — that is what the header nav points at,
+rather than anchors. Active filters are restated above the grid as chips you
+can remove one at a time.
+
+**Two decisions worth defending:**
+
+- *"Featured" is a deterministic shuffle, not alphabetical.* Sorted by name,
+  the first screen is five consecutive IQOS refills — a catalogue of 1,993
+  products looking like a catalogue of one. The shuffle is seeded from the
+  handle, so it is stable across reloads and "load more" never repeats a
+  tile, but the first screen shows the range. "Featured" on a real shop is a
+  merchandising order anyway; there is no popularity signal in
+  `products.json` to sort by honestly.
+- *The strength rail hides the long tail.* 23 distinct strengths exist —
+  9.5 mg, 10.9 mg and 11.2 mg pouches are real, not parse errors. Twenty-three
+  buttons is not a filter, it is a wall. The rail shows the eleven strengths
+  with meaningful stock; the rest are still reachable by typing "13.5mg" into
+  the search, which matches on strength.
+
+**Images come from Shopify's CDN, sized per device.** The catalogue stores
+image paths, not files, and each tile requests the width it actually renders
+at through the CDN's `width` parameter — 160w on a 1× desktop up to 420w on a
+3× phone. That is ~1 MB per screen of 48 tiles instead of ~4 MB.
+
+**Colour comes from the data.** Every product's tile colour is derived from
+its flavour by a lexicon — "blue raspberry" before "raspberry", "menthol"
+and "ice" to the same teal — giving 35 colours across the catalogue. Text
+colour on each tile is picked from that colour's luminance so every tile
+clears AA, the same rule the homepage wall uses.
+
+**The basket is shared.** `scripts/cart.js` owns both the state
+(`localStorage`) and the drawer markup, so a basket started on the shop is
+still there on the homepage and vice versa. Two renderers would only ever be
+two chances to drift.
 
 ## Verified
 

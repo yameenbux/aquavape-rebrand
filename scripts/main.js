@@ -1,5 +1,6 @@
 import { PRODUCTS, CLEARANCE, STRENGTHS, POSTS, REVIEWS,
-         BRANDS, STATS, HERO_SLIDES, HERO_INTERVAL, FREE_DELIVERY } from './data.js';
+         BRANDS, STATS, HERO_SLIDES, HERO_INTERVAL } from './data.js';
+import { cart, renderCartDrawer } from './cart.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -329,60 +330,23 @@ function initNews() {
     </a>`).join('');
 }
 
-/* --- Cart ----------------------------------------------------------------- */
+/* --- Cart -----------------------------------------------------------------
+   State and drawer markup both live in cart.js: the basket has to survive the
+   jump to shop.html, and a second renderer here would only drift from it. */
 const ALL = [...PRODUCTS, ...CLEARANCE];
-const cart = new Map();
 const find = id => ALL.find(p => p.id === id);
 
 function addToCart(id) {
-  cart.set(id, (cart.get(id) || 0) + 1);
-  renderCart();
-  showToast(find(id).name + ' added');
+  const p = find(id);
+  cart.add({
+    h: p.id, t: p.name, p: p.price, i: p.img, c: p.flavour,
+    v: `${p.ml ? p.ml + 'ml · ' : ''}${p.mg}mg`
+  });
+  showToast(p.name + ' added');
 }
-function setQty(id, d) {
-  const n = (cart.get(id) || 0) + d;
-  n <= 0 ? cart.delete(id) : cart.set(id, n);
-  renderCart();
-}
-
-function renderCart() {
-  const body = $('#cartBody');
-  const count = [...cart.values()].reduce((a, b) => a + b, 0);
-  let total = 0; cart.forEach((q, id) => { total += find(id).price * q; });
-
-  const badge = $('#cartCount');
-  badge.textContent = count; badge.hidden = count === 0;
-
-  body.innerHTML = count === 0
-    ? `<p class="drawer__empty">Your basket is empty.<br>Pick a strength to get started.</p>`
-    : [...cart.entries()].map(([id, qty]) => {
-        const p = find(id);
-        return `<div class="line">
-          <div class="line__thumb" style="--flavour:${p.flavour}"><img src="${p.img}" alt="" width="420" height="420"></div>
-          <div>
-            <div class="line__n">${p.name}</div>
-            <div class="line__m">${p.ml ? p.ml + 'ml · ' : ''}${p.mg}mg</div>
-            <div class="qty">
-              <button data-q="-1" data-id="${id}" aria-label="Decrease quantity">−</button>
-              <span>${qty}</span>
-              <button data-q="1" data-id="${id}" aria-label="Increase quantity">+</button>
-            </div>
-          </div>
-          <span class="line__p">${money(p.price * qty)}</span>
-        </div>`;
-      }).join('');
-
-  $$('[data-q]', body).forEach(b => b.addEventListener('click', () => setQty(b.dataset.id, +b.dataset.q)));
-  $('#cartTotal').textContent = money(total);
-
-  const left = Math.max(FREE_DELIVERY - total, 0);
-  $('#threshold').innerHTML = `
-    <div class="threshold__label">
-      <span>${left > 0 ? 'Free delivery at £10' : 'Free delivery unlocked'}</span>
-      <b>${left > 0 ? money(left) + ' to go' : '✓'}</b>
-    </div>
-    <span class="gauge gauge--h" style="--level:${Math.min(total / FREE_DELIVERY, 1)}"><span class="gauge__liquid"></span></span>`;
-}
+const renderCart = () =>
+  renderCartDrawer('Your basket is empty.<br>Pick a strength to get started.');
+document.addEventListener('cart:change', renderCart);
 
 /* --- Overlays (focus returns to whatever opened the panel) ---------------- */
 let lastTrigger = null;

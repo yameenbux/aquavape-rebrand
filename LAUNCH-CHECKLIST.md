@@ -1,7 +1,8 @@
 # Launch checklist — audit
 
 Audited 2026-09-03 against the prototype at
-https://yameenbux.github.io/aquavape-rebrand/
+https://yameenbux.github.io/aquavape-rebrand/ — re-run after the catalogue
+page (`shop.html`, 1,993 products) was added.
 
 Two columns matter, and they often disagree: what a **design prototype** on a
 public URL needs, versus what the **live Shopify store** needs. Several items
@@ -11,21 +12,22 @@ are legally required on the live store and actively wrong on a prototype.
 |---|---|---|---|
 | Privacy policy | linked | **required** | Prototype links to the live store's Shopify policy. Do not draft new legal text for a mockup. |
 | Terms page | linked | **required** | Same. Shopify generates these under `/policies/`. |
-| Clear CTA | done | done | Hero primary, standing side tab, mobile bottom bar, newsletter block |
+| Clear CTA | done | done | Hero primary (now opening the matching catalogue view), standing side tab at every width, newsletter block |
 | FAQ | added | already exists | Six questions, native `<details>` — keyboard operable, no JS |
 | Custom 404 | added | check | `404.html`, absolute asset paths so it works at any depth |
-| Alt text | done | check | 23 images: 15 described, 8 intentionally `alt=""` (decorative) |
+| Alt text | done | check | Homepage: 23 images, 15 described, 8 intentionally `alt=""`. Catalogue: every tile image takes its product title, every decorative basket thumbnail is `alt=""` |
 | Analytics | **deliberately none** | already live | See below |
 | Meta title | done | done | |
 | Meta description | done | done | |
 | Social share | added | check | OG + Twitter card, 1200×630 image, image alt |
 | Favicon | added | done | SVG + 180px PNG for iOS |
 | Canonical | added | done | |
-| Mobile version | done | done | No horizontal overflow at 390px; CTA becomes a bottom bar |
+| Mobile version | done | done | No horizontal overflow at 390px on either page; filters become a drawer on the catalogue |
 | Accessibility | done | check | See below |
 | Test forms | done | n/a | Native validation, no navigation, toast confirms, field clears |
-| Broken links | 7 remain | check | All are unbuilt destinations in a single-page prototype |
+| Broken links | 3 remain | check | Was 7. The catalogue gave the nav, hero CTAs, footer shop links and "view all" buttons real destinations |
 | Performance | done | **the real work** | See below |
+| Catalogue page | added | n/a | 1,993 products, filter/sort/search, shared basket |
 
 ## Where prototype and live store genuinely differ
 
@@ -52,13 +54,21 @@ real verification.
 Measured on the rendered page, not assumed:
 
 - Contrast checked on 26 text elements across all seven colour bands — all
-  pass WCAG AA, lowest 4.74:1. Fixing this is why clearance red is `#C81E17`
-  and the deal green is `#5F7C2C` rather than the live site's values.
-- One `<h1>`, no heading-level skips
-- All four landmarks present (`header`, `nav`, `main`, `footer`)
+  pass WCAG AA, lowest 4.74:1. Re-checked on the catalogue's own controls:
+  lowest 5.82:1 (muted labels and counts on paper), filter chips 19.14:1 both
+  idle and pressed. Contrast is why clearance red is `#C81E17` and the deal
+  green is `#5F7C2C` rather than the live site's values.
+- One `<h1>` per page, no heading-level skips. The catalogue page shipped
+  without one — its title was an `<h2>` — and was fixed rather than excused
+- All four landmarks present on both content pages (`header`, `nav`, `main`,
+  `footer`); `404.html` is `main` only, by design
 - Every input labelled; no control without an accessible name
 - Visible focus ring throughout; focus returns to the trigger when a panel closes
 - `Esc` closes overlays, `/` opens search
+- Every catalogue control clears WCAG 2.5.8 target size: filter chips 62×32,
+  brand rows 232×32, sort 176×34 (minimum is 24×24)
+- The catalogue's filter drawer sets `aria-expanded` on its trigger, closes on
+  the scrim, the ✕ and `Esc`, and restores page scroll each way
 - `prefers-reduced-motion` honoured: vapour off, trust-icon loops off,
   carousel does not advance, reveals resolved, counters at final value
 
@@ -92,15 +102,46 @@ theme.
 
 ## Performance
 
-| Metric | Value | Good threshold |
-|---|---|---|
-| LCP | 160–220 ms | < 2500 ms |
-| CLS | 0.0002 | < 0.1 |
-| Requests (initial) | 18 | — |
-| Transfer (initial) | 307 KB | — |
+| Metric | Homepage | Catalogue | Good threshold |
+|---|---|---|---|
+| FCP | 144 ms | 120–208 ms | < 1800 ms |
+| LCP | 160–220 ms | — | < 2500 ms |
+| CLS | 0.0002 | 0.0002 | < 0.1 |
+| Requests (initial) | 18 | 14 | — |
+| Transfer (initial) | 307 KB | 307 KB + 86 KB catalogue (gzipped) | — |
+| DOM nodes | — | 1,145 | — |
 
-CLS is near-zero because every image carries `width`/`height`. Only 6 of 23
-images load initially — the rest are lazy.
+CLS is near-zero because every image carries `width`/`height`.
+Only 6 of 23 images load initially on the homepage — the rest are lazy.
+
+**The catalogue's CLS took work.** It first measured **0.158** — a clear
+fail. The cause was structural, not cosmetic: the grid and the filter rail
+both paint empty and then grow by thousands of pixels when the fetched
+catalogue lands. Two fixes, in order of what they bought:
+
+1. 48 ghost tiles as **static markup** in `shop.html`, one per tile of the
+   first page. Script-injected placeholders were tried first and only got it
+   to 0.109 — a deferred module runs after first paint, so the shift had
+   already happened. → 0.0586
+2. Row heights reserved in CSS for the strength, type and price groups
+   (`--rows` per group), and a fixed height on the brand list. The rail is a
+   fixed 244 px, so how many rows each group wraps to is knowable up front.
+   → **0.0002**
+
+Rendering 1,993 tiles at once is the other way a catalogue page breaks. The
+grid renders 48 at a time and **"load more" appends** rather than rebuilding,
+so already-decoded images are not thrown away. 1,145 DOM nodes at rest.
+
+**Product images are the catalogue's real weight**, and they come from
+Shopify's CDN, not this repo. A flat `?width=420` pulls ~85 KB per image to
+fill a box that measures **137 px** on a desktop grid — 48 of those is ~4 MB
+for one screen of results. Each tile now carries a `srcset` across the CDN's
+own width parameter (160/200/320/420) with `sizes` matched to the grid.
+Verified by reading `currentSrc` on the rendered page: 160w on a 1× desktop,
+320w at 2× and on a 2× phone, 420w only at 3×. First page on a 1× desktop:
+**~4 MB → ~1 MB**. `format=webp` is *not* used — the CDN ignores the
+parameter (tested: identical bytes, `content-type: image/png`) and
+content-negotiates from the browser's `Accept` header instead.
 
 Fonts were the single largest cost at 148 KB. Subset to Latin-1 plus the
 punctuation in use, preserving both of Archivo's variable axes: **264 KB
@@ -114,9 +155,12 @@ front-end work here touches it.
 
 ## Remaining broken links
 
-Seven `href="#"` links, all destinations that do not exist in a single-page
-prototype: the account icon, "View all 205 e-liquids", "All clearance",
-"All news", and three of the four blog cards. Wired where a real target
-exists — footer Shop links go to sections, Help links to the FAQ, Legal to
-the live store's policies, and "Which nicotine strength?" to the strength
-selector.
+Down from seven to three. The catalogue page gave real destinations to what
+were placeholders: the header nav now points at filtered collection views
+(`shop.html?type=Pods`), every hero CTA opens the matching slice of the
+catalogue, "View all 776 e-liquids" and "All clearance" resolve, and the
+footer Shop column links to filtered views instead of homepage anchors.
+
+Three remain, all genuinely unbuilt: the account icon (twice — one per page)
+and "All news". Accounts and a blog are out of scope for a storefront
+prototype; both would be real pages in a theme.
