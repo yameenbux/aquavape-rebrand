@@ -182,6 +182,31 @@ drawn with pseudo-elements inside the larger hit area.
 The next slide's image is preloaded on each transition so the swap does not
 flash.
 
+### Brand logos
+
+The featured-brands row uses the **real vector logos**, lifted from the live
+site's own featured-brands section — ULTD, Aquavape, Elfliq, Lost Mary,
+Vapemate and IVG. 20 KB for all six. They were previously set as uppercase
+text, which on a phone wrapped "LOST MARY" onto two lines and read as a
+placeholder.
+
+Each is a **separate `.svg` file referenced by `<img>`**, not inlined. That
+is deliberate: the source markup reuses `id="c"` and `cls-*` class names in
+every single logo, so inlining all six would collide and the last one would
+repaint the others. Extraction resolved each shape's computed paint to a
+literal `fill` and stripped the `<style>`/`<defs>` machinery.
+
+The logos have wildly different proportions — Lost Mary is 8.4:1, ULTD is
+nearly square — so a single height makes some enormous and others weedy.
+Each sits in a fixed-height box with `object-fit: contain` plus a per-logo
+`--logo-scale` multiplier, tuned so all six carry the same optical weight.
+
+They rest at 42% opacity so the row reads as one set rather than six
+competing marks, and go to full strength on hover with the line count
+revealing underneath. On any device without hover — checked with
+`@media (hover: none)` rather than guessed from viewport width — the logos
+and their line counts are shown outright.
+
 ### Trust icons
 
 The four trust icons animate when they scroll into view, staggered 130ms

@@ -1,5 +1,5 @@
 import { PRODUCTS, CLEARANCE, STRENGTHS, CATEGORIES, POSTS, REVIEWS,
-         STATS, HERO_SLIDES, HERO_INTERVAL, FREE_DELIVERY } from './data.js';
+         BRANDS, STATS, HERO_SLIDES, HERO_INTERVAL, FREE_DELIVERY } from './data.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -328,6 +328,17 @@ function initClearance() {
   bindAdds(g);
 }
 
+function initBrands() {
+  $('#brandGrid').innerHTML = BRANDS.map((b, i) => `
+    <a class="brand" href="#bestsellers" data-reveal
+       style="--reveal-delay:${i * 60}ms; --logo-scale:${b.scale}">
+      <span class="brand__mark">
+        <img src="assets/brands/${b.file}" alt="${b.name}" loading="lazy" decoding="async">
+      </span>
+      <span class="brand__n">${b.lines}</span>
+    </a>`).join('');
+}
+
 function initReviews() {
   $('#reviewGrid').innerHTML = REVIEWS.map((r, i) => `
     <blockquote class="review" data-reveal style="--reveal-delay:${i * 70}ms">
@@ -486,6 +497,7 @@ initTabs();
 renderGrid();
 initCategories();
 initClearance();
+initBrands();
 initReviews();
 initNews();
 initHero();
