@@ -68,7 +68,7 @@ export const CATEGORIES = [
 export const POSTS = [
   { t:'How to unlock a Pixl Duo 12',  d:'Trouble unlocking your device? Here are the steps.', colour:'#E88CBA', img:P+'refilla.webp'   },
   { t:'The future of vape packaging', d:'The government plans, and how to have your say.',    colour:'#8FD3F4', img:P+'dojo.webp'      },
-  { t:'Which nicotine strength?',     d:'Coming off disposables? Start here before you buy.', colour:'#A6E4C2', img:P+'elux.webp'      },
+  { t:'Which nicotine strength?',     d:'Coming off disposables? Start here before you buy.', colour:'#A6E4C2', img:P+'elux.webp',     href:'#strengths' },
   { t:'Top 10 nicotine pouches',      d:'Our flavour rundown to help you pick your next tin.',colour:'#F9C22E', img:P+'killa.webp'     }
 ];
 
