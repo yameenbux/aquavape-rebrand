@@ -96,4 +96,4 @@ instructions at the end of `DESIGN.md`.
 | Typefaces | Nexa, Hurme Geometric Sans 1 (both licensed) |
 | Brand navy | `#040E27` |
 | Catalogue | 1,993 products, 86 brands, 776 e-liquid lines |
-| Own-brand e-liquid | **not in the catalogue** — see DESIGN.md |
+| Own-brand | 35 lines — `Aquavape` and `Aqua Salts` 10ml, plus an own `2in1` pod system. An earlier revision of these docs said there was none; that was read off a partial export. See DESIGN.md |

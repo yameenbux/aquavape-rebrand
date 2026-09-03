@@ -33,33 +33,45 @@ catalogue. It does not match the story the live homepage tells:
 | Deepest ranges | IVG 192, Hayati 171, Lost Mary 139, Vapemate 126 |
 | In stock | 1,637 of 1,993 |
 | Price range | £0.70 – £57.99 |
-| Aquavape own-brand | not in the catalogue |
+| Aquavape own-brand | 35 lines: 19 e-liquids, 13 pods, 2 kits |
 
 The first count stopped at four pages of `products.json` and reported 998
 products across 63 brands. Paging to the end gives **1,993 across 86**. The
 figures above, and everywhere on the site, are the full count.
 
-The live homepage headline reads "PREMIUM UK MADE ELIQUID" and its best
-sellers row shows four own-brand 10ml liquids — Fresh Menthol, Wild Berry,
-Raspberry Menthol, British Tobacco, all "by Aquavape". **None of those four
-products are in the live catalogue**, and no own-brand e-liquid line appears
-anywhere in it.
+### A correction, recorded rather than quietly fixed
 
-So Aquavape, as it trades today, is a **multi-brand stockist**, not a
-manufacturer. Its value to a customer is range, availability and price
-across 86 brands.
+An earlier version of this document stated that Aquavape's four own-brand
+best sellers — Fresh Menthol, Wild Berry, Raspberry Menthol, British Tobacco
+— were **not in the catalogue**, and that no own-brand e-liquid existed at
+all. That was wrong, and it was wrong for the same reason the product count
+was: it was read off four pages of `products.json` instead of eight.
 
-The first version of this prototype was built on the opposite premise —
-"mixed and bottled in Lancashire", batch codes, "know what's in the bottle".
-That was a provenance story for a business that does not appear to exist in
-the data. It has been replaced by a range story, and the gauges in that
-section now encode real line counts per brand.
+All four are there. So is a good deal more:
 
-**This is worth checking on your side.** Either the own-brand line was
-discontinued and the homepage was never updated, or it is listed somewhere
-the products endpoint does not reach. If it was discontinued, the live
-homepage is currently advertising four products that cannot be bought, and
-"UK MADE" is doing work the catalogue cannot support.
+| Own-brand | Lines | Price |
+|---|---|---|
+| `Aquavape` 10ml e-liquid and nic salt | 8 | £2.49 – £2.99 |
+| `Aqua Salts` 10ml nic salt (house value line) | 10 | **£0.70** |
+| `Aquavape 2in1` pods — own pod system | 13 | £1.99 |
+| `Aquavape 2in1` / Innokin Endura kits | 2 | £2.79, £10.99 |
+| Accessories | 1 | £6.99 |
+| `ICON Vape` co-branded pod packs | 2 | — |
+
+**This is the most commercially interesting thing in the catalogue, and the
+first pass argued it away.** Aquavape is not only a stockist: it runs its own
+pod hardware with thirteen flavours locked to it, and a house e-liquid line
+priced at 70p — a quarter of the cheapest third-party 10ml. That is margin
+and repeat purchase, which is exactly the ground a migration pitch should be
+fought on.
+
+The homepage's range section stays as it is — breadth, availability and speed
+are all still true, and the per-brand gauges are real counts. But "multi-brand
+stockist, not a manufacturer" was an overreach from bad data. What
+`products.json` actually supports is: Aquavape sells 86 brands **and its
+own**. Whether the own-brand liquid is mixed in Lancashire is not something a
+products endpoint can answer either way — that one still needs checking on
+your side before any provenance claim goes near the page.
 
 ## The design direction
 
