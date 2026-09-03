@@ -52,6 +52,13 @@
       <a href="shop.html?sort=price-asc" data-hot>Vape deals</a>
     </nav>
     <div class="header__actions">
+      <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+          <path class="burger__top" d="M3 6h18"/>
+          <path class="burger__mid" d="M3 12h18"/>
+          <path class="burger__bot" d="M3 18h18"/>
+        </svg>
+      </button>
       <button class="icon-btn" id="searchOpen" aria-label="Search products">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       </button>
@@ -232,6 +239,11 @@
      scrolls to the signup, not an interstitial that blocks the page. -->
 <a class="cta-tab" href="index.html#signup" id="ctaTab">Get 20% off</a>
 
+
+<!-- Category navigation for every width below 1000px, where .header__nav is
+     hidden. Contents are rendered by scripts/nav.js so the two pages cannot
+     drift apart. -->
+<nav class="menu" id="menu" aria-label="Categories" aria-hidden="true" data-open="false"></nav>
 <div class="scrim" id="scrim"></div>
 
 <aside class="drawer" id="cart" aria-label="Basket" aria-hidden="true">

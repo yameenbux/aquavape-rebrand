@@ -4,6 +4,7 @@
    the DOM at once is what makes catalogue pages feel broken. */
 
 import { cart, money, renderCartDrawer } from './cart.js';
+import { initNav } from './nav.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -269,6 +270,7 @@ function toast(msg) {
     $('#filterOpen').setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   };
+  initNav();
   $('#cartOpen').onclick = () => open($('#cart'));
   $('#cartClose').onclick = close;
   $('#scrim').onclick = close;

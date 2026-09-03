@@ -235,7 +235,7 @@
 /* soft glow so the product separates from the pink band */
 .heroshot::before {
   content: ''; position: absolute; width: 72%; aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,.62), rgba(255,255,255,0) 68%);
+  background: radial-gradient(circle, rgba(255,255,255,.34), rgba(255,255,255,0) 68%);
 }
 .heroshot__img {
   position: relative; z-index: 2;
@@ -243,21 +243,79 @@
   filter: drop-shadow(0 26px 42px rgba(1,6,15,.34));
 }
 
-.vapour { position: absolute; z-index: 1; inset: 0; overflow: hidden; pointer-events: none; }
-.vapour span {
-  position: absolute; left: 50%; bottom: 46%;
-  width: 74px; aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,.75), rgba(255,255,255,0) 70%);
-  filter: blur(9px);
+/* --- The puff -------------------------------------------------------------
+   The first version was five blurred circles rising continuously from the
+   middle of the image. That is steam off a coffee cup, not a vape. Three
+   things make it read as a draw:
+
+     1. It is EPISODIC. A burst of four plumes in about a second, then four
+        seconds of nothing, on a 6.6s cycle. Continuous vapour is a chimney;
+        a person takes a puff and stops.
+     2. It comes from the MOUTHPIECE. --px/--py are set per hero slide from
+        the actual product photo, not from the centre of the box.
+     3. It is DENSE at birth and thins as it expands, with each plume drifting
+        and rotating differently, so the cloud has a shape instead of being a
+        column of identical dots.
+
+   The layer is sized to the image box, not to .heroshot, so the percentage
+   origin lands where the mouthpiece actually is.
+   ------------------------------------------------------------------------ */
+.vapour {
+  position: absolute; z-index: 1;
+  width: min(300px, 74%); aspect-ratio: 1;
+  overflow: visible; pointer-events: none;
+  opacity: 0;                    /* only slides with a device puff */
+  transition: opacity var(--anim-slow) var(--ease-out);
+}
+.heroshot[data-puff='true'] .vapour { opacity: 1; }
+
+/* the glow at the mouthpiece, brightening as each draw is released */
+.vapour::after {
+  content: ''; position: absolute;
+  left: var(--px, 50%); top: var(--py, 4%);
+  width: 54px; aspect-ratio: 1; margin: -27px 0 0 -27px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.85), rgba(255,255,255,0) 70%);
   opacity: 0;
-  animation: plume 7s var(--ease-out) infinite;
+  animation: draw 6.6s var(--ease-out) infinite;
+}
+@keyframes draw {
+  0%, 4%   { opacity: 0; transform: scale(.6); }
+  8%       { opacity: .55; transform: scale(1); }
+  26%      { opacity: 0; transform: scale(1.5); }
+  100%     { opacity: 0; }
+}
+
+.vapour span {
+  position: absolute;
+  left: var(--px, 50%); top: var(--py, 4%);
+  width: var(--w, 96px); aspect-ratio: 1;
+  margin-left: calc(var(--w, 96px) / -2 + var(--ox, 0px));
+  margin-top:  calc(var(--w, 96px) / -2);
+  /* Not a circle. Four different radii give each lobe an irregular
+     silhouette, and that is the whole difference between a cloud and a
+     glowing orb — concentric blurred circles from one origin always merge
+     back into a circle however many you stack. */
+  border-radius: var(--r, 52% 48% 57% 43% / 46% 55% 45% 54%);
+  background: radial-gradient(circle, rgba(255,255,255,.98) 46%, rgba(255,255,255,.74) 68%, rgba(255,255,255,0) 90%);
+  /* fractal displacement first, then a light blur to soften what it tore up */
+  filter: var(--f, none) blur(6px);
+  opacity: 0;
+  /* Each lobe peaks well under 1 so density comes from OVERLAP rather than
+     from any one lobe being opaque — otherwise the middle clips to flat white. */
+  animation: plume 6.6s cubic-bezier(.16,.62,.3,1) infinite;
   animation-delay: var(--d, 0s);
 }
+/* Born small and tight at the mouthpiece, then billows: rises, spreads
+   sideways further than it climbs late on, and thins out. The visible life is
+   the first ~46% of the cycle; the rest is the pause between draws. */
 @keyframes plume {
-  0%   { transform: translate(-50%, 0) scale(.35); opacity: 0; }
-  12%  { opacity: .85; }
-  70%  { opacity: .35; }
-  100% { transform: translate(calc(-50% + var(--dx, 16px)), -270px) scale(2.5); opacity: 0; }
+  0%   { opacity: 0;   transform: translate(0, 0) scale(.18) rotate(0deg); }
+  6%   { opacity: .62; transform: translate(calc(var(--dx) * .08), calc(var(--dy) * var(--dys, 1) * .09)) scale(.55) rotate(6deg); }
+  20%  { opacity: .58; transform: translate(calc(var(--dx) * .42), calc(var(--dy) * var(--dys, 1) * .38)) scale(1.4) rotate(16deg); }
+  34%  { opacity: .32; transform: translate(calc(var(--dx) * .78), calc(var(--dy) * var(--dys, 1) * .72)) scale(2.3) rotate(26deg); }
+  46%  { opacity: 0;   transform: translate(var(--dx), calc(var(--dy) * var(--dys, 1))) scale(3.1) rotate(34deg); }
+  100% { opacity: 0;   transform: translate(var(--dx), calc(var(--dy) * var(--dys, 1))) scale(3.1) rotate(34deg); }
 }
 
 /* The spec card keeps the fill gauge present in the hero now that the
@@ -859,3 +917,124 @@
 @keyframes idle-ring { 0%, 100% { transform: none; } 50% { transform: translateY(-3px); } }
 .has-played .trust__ring { animation: idle-ring 3.2s var(--ease-in-out) var(--idle-delay, 0s) infinite; }
 .trust__item:hover .trust__ring { background: var(--fill); }
+
+/* --- Mobile category menu -------------------------------------------------
+   .header__nav disappears at 1000px. Before this, nothing took its place, so
+   below that width there was no route to a category at all — on a catalogue
+   of 1,993 products across 86 brands. It is a full-height navy takeover
+   rather than a dropdown because the categories ARE the shop, and because
+   big flat type on a flat colour is what the rest of the site does.
+   ------------------------------------------------------------------------ */
+.burger { display: none; }
+@media (max-width: 1000px) { .burger { display: grid; } }
+
+.menu {
+  /* Deliberately below --z-header: the sticky header stays visible over the
+     panel so the burger — which becomes the ✕ — is always reachable. A
+     full-screen menu that covers its own close control is a trap on a phone,
+     where there is no Escape key. No scrim either; the panel is opaque and
+     full-bleed, so there is nothing left to dim. */
+  position: fixed; inset: 0; z-index: calc(var(--z-header) - 5);
+  display: grid; align-content: start;
+  overflow-y: auto; overscroll-behavior: contain;
+  background: var(--ink); color: var(--paper);
+  --band-fg: #FFFFFF; --band-mute: #97A3C0;
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition: transform var(--anim-time) var(--ease-in-out),
+              visibility 0s linear var(--anim-time);
+}
+.menu[data-open='true'] {
+  transform: translateY(0);
+  visibility: visible;
+  transition: transform var(--anim-time) var(--ease-out-back), visibility 0s;
+}
+.menu__inner {
+  /* --menu-top is the header's measured bottom edge, set on open by nav.js */
+  padding: calc(var(--menu-top, 96px) + var(--space-md)) var(--page-x-padding) var(--space-xl);
+  display: grid; gap: var(--space-lg); align-content: start;
+}
+
+.menu__cats { display: grid; }
+.menu__cats li { border-bottom: 1px solid var(--ink-line); }
+.menu__cats a {
+  display: grid; grid-template-columns: 6px 1fr auto;
+  align-items: center; gap: var(--space-sm);
+  padding-block: clamp(.7rem, 2.4vh, 1.05rem);
+  font-family: var(--font-display); font-stretch: 118%;
+  font-size: clamp(1.5rem, 7vw, 2.4rem); font-weight: 800;
+  line-height: 1; letter-spacing: -.02em; text-transform: uppercase;
+  transition: color var(--anim-fast) var(--ease-out);
+}
+/* the swatch ties each category to the flavour colour it lands on */
+.menu__swatch {
+  height: 100%; min-height: 1.5em; border-radius: 1px;
+  background: var(--c);
+  transform: scaleY(.35); transform-origin: center;
+  transition: transform var(--anim-time) var(--ease-out-back);
+}
+.menu__cats a svg { opacity: .35; transition: transform var(--anim-time) var(--ease-out-back), opacity var(--anim-fast); }
+.menu__cats a:hover, .menu__cats a:focus-visible { color: var(--c, var(--paper)); }
+.menu__cats a:hover .menu__swatch, .menu__cats a:focus-visible .menu__swatch { transform: scaleY(1); }
+.menu__cats a:hover svg, .menu__cats a:focus-visible svg { transform: translateX(5px); opacity: 1; }
+.menu__cats a[data-hot] .menu__label { color: var(--pink); }
+
+/* rows arrive in sequence, so the menu reads as a list being dealt out */
+.menu[data-open='true'] .menu__cats li {
+  animation: menu-in var(--anim-time) var(--ease-out) backwards;
+  animation-delay: calc(60ms + var(--i) * 32ms);
+}
+@keyframes menu-in { from { opacity: 0; transform: translateY(-10px); } }
+
+.menu__more { display: grid; gap: var(--space-xs); }
+.menu__more a {
+  font-family: var(--font-mono); font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide); color: var(--band-mute);
+  padding-block: var(--space-xxs);
+}
+.menu__more a:hover { color: var(--paper); }
+.menu__cta {
+  justify-self: start; margin-top: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--fill); color: var(--ink) !important;
+  border-radius: var(--radius); font-weight: 700;
+  text-transform: uppercase;
+}
+.menu__cta:hover { background: var(--paper); }
+
+@media (prefers-reduced-motion: reduce) {
+  .menu { transition: none; }
+  .menu[data-open='true'] .menu__cats li { animation: none; }
+  .menu__swatch { transform: scaleY(1); }
+}
+
+/* Three lines become an ✕ while the menu is open. */
+.burger svg path { transition: d var(--anim-time) var(--ease-out); }
+.burger[aria-expanded='true'] svg { transform: rotate(90deg); }
+.burger svg { transition: transform var(--anim-time) var(--ease-out-back); }
+.burger[aria-expanded='true'] .burger__mid { opacity: 0; }
+.burger__top, .burger__mid, .burger__bot {
+  transition: transform var(--anim-time) var(--ease-out-back), opacity var(--anim-fast);
+  transform-origin: center;
+}
+.burger[aria-expanded='true'] .burger__top { transform: translateY(6px) rotate(45deg); }
+.burger[aria-expanded='true'] .burger__bot { transform: translateY(-6px) rotate(-45deg); }
+@media (prefers-reduced-motion: reduce) {
+  .burger svg, .burger__top, .burger__mid, .burger__bot { transition: none; }
+}
+
+/* The standing 20% off tab is redundant while the menu is open — the menu
+   carries its own signup CTA — and it sits over the category rows. */
+body:has(.menu[data-open='true']) .cta-tab {
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--anim-fast) var(--ease-out);
+}
+
+/* On a stacked mobile hero the product sits tight against the top of the band,
+   so a full-height plume is sliced off by the band edge and reads as a bug.
+   The shot drops to make headroom and the rise is shortened to match. */
+@media (max-width: 900px) {
+  .heroshot { padding-top: clamp(3rem, 11vw, 4.5rem); }
+  .vapour span { --dys: .52; }
+  .vapour span, .vapour::after { filter: var(--f, none) blur(5px); }
+}

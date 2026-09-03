@@ -22,12 +22,40 @@ are legally required on the live store and actively wrong on a prototype.
 | Social share | added | check | OG + Twitter card, 1200×630 image, image alt |
 | Favicon | added | done | SVG + 180px PNG for iOS |
 | Canonical | added | done | |
-| Mobile version | done | done | No horizontal overflow at 390px on either page; filters become a drawer on the catalogue |
+| Mobile version | **was broken** | check | See below. No category navigation existed below 1000px until a menu was added. |
 | Accessibility | done | check | See below |
 | Test forms | done | n/a | Native validation, no navigation, toast confirms, field clears |
 | Broken links | 3 remain | check | Was 7. The catalogue gave the nav, hero CTAs, footer shop links and "view all" buttons real destinations |
 | Performance | done | **the real work** | See below |
 | Catalogue page | added | n/a | 1,993 products, filter/sort/search, shared basket |
+
+### The mobile check that this audit got wrong
+
+This row previously read "done", on the strength of *no horizontal overflow at
+390px*. That is not what "mobile version" means. `.header__nav` is hidden
+below 1000px and **nothing replaced it** — on any phone or small tablet there
+was no route to a category at all, on a catalogue of 1,993 products across 86
+brands. The page fitted the screen and was unusable, and the audit measured
+the first thing and reported the second.
+
+Fixed with a full-height category menu (`scripts/nav.js`, rendered once and
+used by both pages so they cannot drift). What it has to get right, and does:
+
+- The burger stays **visible above the panel** and becomes the ✕. A
+  full-screen menu that covers its own close control is a trap on a phone,
+  where there is no Escape key — the first version of this did exactly that.
+- Closes on the ✕, `Escape`, or any link inside it. A link that scrolls down
+  the current page has to close the menu, or it lands you behind the panel.
+- `aria-expanded` on the trigger, `aria-hidden` on the panel, focus moves to
+  the first item on open and returns to the burger on close.
+- `Tab` is kept inside the panel while it is open; behind it the whole page is
+  still in the tab order.
+- Clears the sticky header in **both** scroll states — its bottom edge is at
+  64px scrolled and 95px with the promobar showing, so nav.js measures it
+  rather than assuming.
+
+The lesson worth keeping: *fits on the screen* and *works on the screen* are
+different tests, and only the second one matters.
 
 ## Where prototype and live store genuinely differ
 
@@ -107,9 +135,9 @@ theme.
 | FCP | 144 ms | 120–208 ms | < 1800 ms |
 | LCP | 160–220 ms | — | < 2500 ms |
 | CLS | 0.0002 | 0.0002 | < 0.1 |
-| Requests (initial) | 18 | 14 | — |
+| Requests (initial) | 18 | 15 | — |
 | Transfer (initial) | 307 KB | 307 KB + 86 KB catalogue (gzipped) | — |
-| DOM nodes | — | 1,145 | — |
+| DOM nodes | — | 1,205 | — |
 
 CLS is near-zero because every image carries `width`/`height`.
 Only 6 of 23 images load initially on the homepage — the rest are lazy.

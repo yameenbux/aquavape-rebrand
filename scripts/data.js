@@ -96,6 +96,7 @@ export const HERO_SLIDES = [
     lede:'Every brand worth stocking, in one place. Order before 4pm and it ships the same day.',
     cta:'Shop the sale',      href:'shop.html?sort=price-asc',
     img:P+'dojo.webp',          alt:'DoJo Blast 30K Pro Kit',
+    puff:{ x:'33%', y:'3%' },   // mouthpiece of the tall device, left of the spare pod
     specA:'20mg nic salt',    specB:'Pod kit · prefilled',  level:1,
     note:'Discount applies to RRP and cannot be combined with existing multibuy prices.' },
 
@@ -112,6 +113,7 @@ export const HERO_SLIDES = [
     lede:'Refillable, adjustable airflow and a proper display. The kit to move to when disposables stop cutting it.',
     cta:'See the kit',        href:'shop.html?type=Vape%20Kits',
     img:P+'oxva.webp',          alt:'OXVA Nexlim 2 vape kit',
+    puff:{ x:'50%', y:'4%' },
     specA:'Refillable',       specB:'£30.99 · vape kit',    level:.7,
     note:'Coils sold separately. Free UK delivery on orders over £10.' },
 
