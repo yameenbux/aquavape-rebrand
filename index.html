@@ -65,10 +65,10 @@
     </a>
     <nav class="header__nav" aria-label="Primary">
       <a href="#bestsellers" data-hot>New</a>
-      <a href="#cats">Pods &amp; coils</a>
+      <a href="#bestsellers">Pods &amp; coils</a>
       <a href="#bestsellers">E-liquids</a>
-      <a href="#cats">Vape kits</a>
-      <a href="#cats">Pouches</a>
+      <a href="#bestsellers">Vape kits</a>
+      <a href="#bestsellers">Pouches</a>
       <a href="#brands">Brands</a>
       <a href="#clearance" data-hot>Vape deals</a>
     </nav>
@@ -224,7 +224,7 @@
 
   <!-- STRENGTH — mint band. Nicotine strength is how this category is
        actually shopped; the live site buries it in faceted filters. -->
-  <section class="band band--mint u-section" id="strengths">
+  <section class="band band--mint u-section u-section--tight" id="strengths">
     <div class="u-wrap">
       <div class="u-section-head u-center" data-reveal>
         <div>
@@ -238,21 +238,21 @@
   </section>
 
   <!-- BEST SELLERS — white band, tabbed like the live site -->
-  <section class="band band--paper u-section" id="bestsellers">
+  <section class="band band--paper u-section u-section--feature" id="bestsellers">
     <div class="u-wrap">
       <div class="u-section-head" data-reveal>
-        <div>
-          <p class="u-eyebrow">3 for £10 on 10ml nic salts</p>
-          <h2 id="gridHeading">Best sellers</h2>
-          <p id="gridCount">Showing 8 liquids</p>
-        </div>
+        <p class="u-eyebrow">3 for £10 on 10ml nic salts</p>
+        <h2 id="gridHeading">Best sellers</h2>
+      </div>
+      <div class="u-toolbar" data-reveal>
+        <span class="u-toolbar__count" id="gridCount">Showing 8 liquids</span>
         <div class="tabs" role="tablist" aria-label="Product type">
           <button role="tab" aria-selected="true"  data-tab="eliquid">E-liquid</button>
           <button role="tab" aria-selected="false" data-tab="kits">Vape kits</button>
           <button role="tab" aria-selected="false" data-tab="pods">Pods &amp; pouches</button>
         </div>
       </div>
-      <div class="grid-products" id="productGrid"></div>
+      <div class="wall wall--bleed" id="productGrid"></div>
       <div style="display:flex;justify-content:center;margin-top:var(--space-lg)">
         <a class="btn btn--primary btn--lg" href="#">View all 205 e-liquids
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
@@ -260,30 +260,19 @@
     </div>
   </section>
 
-  <!-- CATEGORIES — colour-blocked tiles. This is where the palette earns its
-       keep: the grid is the brand's colour range, used as navigation. -->
-  <section class="band band--wash u-section" id="cats">
-    <div class="u-wrap">
-      <div class="u-section-head" data-reveal>
-        <div><p class="u-eyebrow">Browse</p><h2>Shop the range</h2></div>
-      </div>
-      <div class="cats" id="catGrid"></div>
-    </div>
-  </section>
-
   <!-- CLEARANCE — red band. The live site runs a red clearance strip; kept,
        because price-led merchandising is the engine of this category. -->
-  <section class="band band--red u-section" id="clearance">
+  <section class="band band--red u-section u-section--feature" id="clearance">
     <div class="u-wrap">
       <div class="u-section-head" data-reveal>
-        <div>
-          <p class="u-eyebrow">Ends Sunday</p>
-          <h2>Clearance</h2>
-          <p>Last of the line. When it's gone, it's gone.</p>
-        </div>
+        <p class="u-eyebrow">Ends Sunday</p>
+        <h2>Clearance</h2>
+      </div>
+      <div class="u-toolbar" data-reveal>
+        <span class="u-toolbar__count">Last of the line — when it's gone, it's gone</span>
         <a class="btn btn--invert" href="#">All clearance</a>
       </div>
-      <div class="grid-products" id="clearanceGrid"></div>
+      <div class="wall wall--bleed" id="clearanceGrid"></div>
     </div>
   </section>
 
@@ -296,7 +285,7 @@
   </section>
 
   <!-- REVIEWS — one source, not three -->
-  <section class="band band--wash u-section" id="reviews">
+  <section class="band band--wash u-section u-section--tight" id="reviews">
     <div class="u-wrap">
       <div class="u-section-head u-center" data-reveal>
         <div><p class="u-eyebrow">4.8 average · 47,000 reviews</p><h2>Latest reviews</h2></div>
@@ -312,7 +301,7 @@
        longer in the catalogue. Rewritten to the business that actually
        exists — breadth, availability and speed. The gauges now encode real
        line counts per brand. -->
-  <section class="band band--navy u-section" id="range">
+  <section class="band band--navy u-section u-section--feature u-section--airy" id="range">
     <div class="u-wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);align-items:center" id="provenance">
       <div data-reveal>
         <p class="u-eyebrow">The range</p>
@@ -344,7 +333,7 @@
   </section>
 
   <!-- NEWS -->
-  <section class="band band--paper u-section" id="news">
+  <section class="band band--paper u-section u-section--tight" id="news">
     <div class="u-wrap">
       <div class="u-section-head" data-reveal>
         <div><p class="u-eyebrow">Guides &amp; updates</p><h2>Vaping news</h2></div>
@@ -357,7 +346,7 @@
   <!-- FAQ — the live site runs a loyalty FAQ section; this restores it.
        Built on native <details>/<summary>: keyboard operable, screen-reader
        announced, and findable by in-page search with no JS at all. -->
-  <section class="band band--wash u-section" id="faq">
+  <section class="band band--wash u-section u-section--tight" id="faq">
     <div class="u-wrap">
       <div class="u-section-head" data-reveal>
         <div>
@@ -406,7 +395,7 @@
   </section>
 
   <!-- NEWSLETTER — yellow band, the standing CTA's destination -->
-  <section class="band band--yellow u-section" id="signup">
+  <section class="band band--yellow u-section u-section--feature u-section--airy" id="signup">
     <div class="u-wrap signup">
       <div data-reveal>
         <p class="u-eyebrow">One email, two reasons</p>
@@ -443,7 +432,7 @@
           E-liquid, pod kits, coils and pouches from 63 brands. Held in UK stock.
         </p>
       </div>
-      <div><h3>Shop</h3><ul><li><a href="#bestsellers">E-liquid</a></li><li><a href="#bestsellers">Shortfills</a></li><li><a href="#cats">Pod kits</a></li><li><a href="#cats">Coils</a></li><li><a href="#cats">Pouches</a></li><li><a href="#clearance">Clearance</a></li></ul></div>
+      <div><h3>Shop</h3><ul><li><a href="#bestsellers">E-liquid</a></li><li><a href="#bestsellers">Shortfills</a></li><li><a href="#bestsellers">Pod kits</a></li><li><a href="#bestsellers">Coils</a></li><li><a href="#bestsellers">Pouches</a></li><li><a href="#clearance">Clearance</a></li></ul></div>
       <div><h3>Help</h3><ul><li><a href="#faq">Delivery</a></li><li><a href="#faq">Returns</a></li><li><a href="#strengths">Which strength?</a></li><li><a href="#faq">Common questions</a></li></ul></div>
       <div><h3>Legal</h3><ul>
         <li><a href="https://aquavape.co.uk/policies/terms-of-service" rel="noopener">Terms of service</a></li>
