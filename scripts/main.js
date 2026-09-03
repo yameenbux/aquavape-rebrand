@@ -40,13 +40,11 @@ function initHero() {
   const hero  = $('#hero');
   const dots  = $('#heroDots');
   const panel = $('#heroPanel');
-  const pauseBtn = $('#heroPause');
   const BANDS = HERO_SLIDES.map(s => `band--${s.band}`);
 
   let i = 0;
   let timer = null;
-  let userPaused = false;   // explicit intent — outlives hover and blur
-  let hovering = false;
+  let hovering = false;     // hover and keyboard focus still hold the timer
 
   dots.innerHTML = HERO_SLIDES.map((s, n) => `
     <button role="tab" id="hero-tab-${s.id}" aria-controls="heroPanel"
@@ -94,7 +92,7 @@ function initHero() {
     if (running()) dots.classList.add('is-timing');
   }
 
-  const running = () => !reduced() && !userPaused && !hovering && !document.hidden;
+  const running = () => !reduced() && !hovering && !document.hidden;
 
   function go(n, fromUser) {
     i = (n + HERO_SLIDES.length) % HERO_SLIDES.length;
@@ -129,17 +127,6 @@ function initHero() {
   // a hidden tab should not queue up eight slide changes
   document.addEventListener('visibilitychange', restart);
 
-  pauseBtn.addEventListener('click', () => {
-    userPaused = !userPaused;
-    pauseBtn.setAttribute('aria-pressed', String(userPaused));
-    $('#heroPauseLabel').textContent = userPaused ? 'Play' : 'Pause';
-    restart();
-  });
-
-  if (reduced()) {
-    pauseBtn.hidden = true;             // nothing is moving, so nothing to pause
-  }
-
   paint(0);
   restart();
 
@@ -161,40 +148,27 @@ function initHero() {
   });
 }
 
-/* --- Trust icon animations -----------------------------------------------
-   Play when the icon scrolls into view, replay on hover. The class is removed
-   on animationend so hovering can retrigger it — a CSS-only replay is
-   unreliable because the animation never restarts on an unchanged element.
+/* --- Trust icons ---------------------------------------------------------
+   The animations loop forever in CSS. All this does is add .has-played the
+   first time each icon appears, which starts the draw-on and then the loop,
+   staggered so the row does not pulse in unison.
    ------------------------------------------------------------------------ */
 function initTrustIcons() {
   const items = $$('.trust__item');
   if (!items.length) return;
 
-  const play = el => {
-    if (reduced()) { el.classList.add('has-played'); return; }
-    el.classList.remove('is-playing');
-    void el.offsetWidth;                       // force a reflow so it restarts
-    el.classList.add('is-playing', 'has-played');
-  };
-
-  items.forEach(el => {
-    el.addEventListener('animationend', e => {
-      if (e.target === el.querySelector('.trust__ring')) el.classList.remove('is-playing');
-    });
-    el.addEventListener('pointerenter', () => play(el));
-  });
+  items.forEach((el, n) => el.style.setProperty('--idle-delay', `${n * 0.38}s`));
 
   if (reduced()) { items.forEach(el => el.classList.add('has-played')); return; }
 
-  // stagger on first scroll-in so the row reads left to right
   const io = new IntersectionObserver((entries, obs) => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
       const n = items.indexOf(e.target);
-      setTimeout(() => play(e.target), n * 130);
+      setTimeout(() => e.target.classList.add('has-played'), n * 130);
       obs.unobserve(e.target);
     });
-  }, { threshold: .55 });
+  }, { threshold: .5 });
   items.forEach(el => io.observe(el));
 }
 
@@ -335,7 +309,6 @@ function initBrands() {
       <span class="brand__mark">
         <img src="assets/brands/${b.file}" alt="${b.name}" loading="lazy" decoding="async">
       </span>
-      <span class="brand__n">${b.lines}</span>
     </a>`).join('');
 }
 

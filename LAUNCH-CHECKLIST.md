@@ -59,8 +59,32 @@ Measured on the rendered page, not assumed:
 - Every input labelled; no control without an accessible name
 - Visible focus ring throughout; focus returns to the trigger when a panel closes
 - `Esc` closes overlays, `/` opens search
-- `prefers-reduced-motion` honoured: vapour off, reveals resolved, counters at
-  final value
+- `prefers-reduced-motion` honoured: vapour off, trust-icon loops off,
+  carousel does not advance, reveals resolved, counters at final value
+
+### One knowing exception: WCAG 2.2.2 (Pause, Stop, Hide)
+
+The hero carousel auto-advances every five seconds and has **no pause
+button**. The criterion asks for a mechanism to pause content that moves
+automatically for longer than five seconds, and a visible control is the
+textbook way to satisfy it. That control was built, then removed at the
+client's request to match the live site.
+
+This is recorded as a deliberate exception rather than quietly dropped. What
+mitigates it:
+
+- autoplay halts on hover and on keyboard focus within the hero
+- it halts while the browser tab is hidden
+- under `prefers-reduced-motion` the carousel never advances, the trust-icon
+  loops are off, and the hero vapour is hidden — so users with vestibular
+  sensitivity, who are who the criterion protects, get no motion at all
+- the dots remain full `role="tab"` controls with arrow-key, Home and End
+  navigation, so a keyboard user can take manual control of the sequence
+
+The trust icons also loop indefinitely, which falls under the same criterion.
+The same reduced-motion mitigation applies. If this ever needs to pass a
+formal audit, reinstating a single pause control for the hero is the fix, and
+it is about ten lines.
 
 Not covered: no screen-reader pass with an actual screen reader, and no
 keyboard walk of the full page. Both worth doing before this becomes a real

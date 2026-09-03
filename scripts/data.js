@@ -84,12 +84,12 @@ export const REVIEWS = [
    which isolates them — the source markup reuses id="c" and cls-* names in
    every logo, so inlining all six would collide. */
 export const BRANDS = [
-  { name:'ULTD Liquids',    file:'ultd.svg',      lines:'12 flavours', scale:1.5  },
-  { name:'Aquavape',        file:'aquavape.svg',  lines:'own brand',   scale:1    },
-  { name:'Elfliq Nic Salts',file:'elfliq.svg',    lines:'40 lines',    scale:1.15 },
-  { name:'Lost Mary',       file:'lost-mary.svg', lines:'106 lines',   scale:1    },
-  { name:'Vapemate',        file:'vapemate.svg',  lines:'18 lines',    scale:1.2  },
-  { name:'IVG',             file:'ivg.svg',       lines:'74 lines',    scale:1.3  }
+  { name:'ULTD Liquids',    file:'ultd.svg', scale:1.5  },
+  { name:'Aquavape',        file:'aquavape.svg',   scale:1    },
+  { name:'Elfliq Nic Salts',file:'elfliq.svg',    scale:1.15 },
+  { name:'Lost Mary',       file:'lost-mary.svg',   scale:1    },
+  { name:'Vapemate',        file:'vapemate.svg',    scale:1.2  },
+  { name:'IVG',             file:'ivg.svg',    scale:1.3  }
 ];
 
 /* Real catalogue figures, counted from products.json on 2026-09-03 */

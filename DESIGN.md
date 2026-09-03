@@ -166,12 +166,16 @@ so the palette rotating is the hero rather than a decoration on it: pink
 sale, mint multibuy, peach new-in, lilac pouches, yellow clearance. Every
 band was contrast-checked on the rendered page before use (lowest 6.08:1).
 
-Autoplay stops on hover, on keyboard focus within the hero, when the browser
-tab is hidden, and on demand via a visible pause button. That last one is not
-a nicety — **WCAG 2.2.2 (Pause, Stop, Hide)** requires a mechanism to pause
-content that moves automatically for more than five seconds, and an
-indefinite 5s loop qualifies. Under `prefers-reduced-motion` it never
-auto-advances and the pause button is hidden, because nothing is moving.
+It runs on its own with **no pause button** — that was a client decision,
+and it matches the live site. The trade-off is stated plainly in
+`LAUNCH-CHECKLIST.md`: WCAG 2.2.2 asks for a mechanism to pause content that
+moves automatically for over five seconds, and a visible control is the
+textbook answer. What remains in its place:
+
+- autoplay halts on hover and on keyboard focus anywhere in the hero
+- it halts while the browser tab is hidden
+- under `prefers-reduced-motion` it **never advances at all**, which covers
+  the users the criterion exists to protect
 
 The active dot fills across the interval, so the timer is something the
 viewer can see coming rather than something the page does at them. Dots are
@@ -202,24 +206,28 @@ Each sits in a fixed-height box with `object-fit: contain` plus a per-logo
 `--logo-scale` multiplier, tuned so all six carry the same optical weight.
 
 They rest at 42% opacity so the row reads as one set rather than six
-competing marks, and go to full strength on hover with the line count
-revealing underneath. On any device without hover — checked with
-`@media (hover: none)` rather than guessed from viewport width — the logos
-and their line counts are shown outright.
+competing marks, and go to full strength on hover. Logos only — no stock
+counts, so the row is a statement of range rather than a table. On any
+device without hover, checked with `@media (hover: none)` rather than
+guessed from viewport width, they sit at 72% so they read without needing a
+hover that will never come.
 
 ### Trust icons
 
-The four trust icons animate when they scroll into view, staggered 130ms
-apart so the row reads left to right, and replay on hover for pointer
-devices. Each has a motion that means something rather than a generic
-wobble: the card's stripe wipes across and the chip blinks, the van drives
-in from the left with speed lines sweeping past, the headset's band draws
-before the earcups pop and the mic boom swings down, the parcel drops with a
-squash and its tape seals.
+The four trust icons **run continuously**. There are two layers, and keeping
+them separate is what makes it work:
 
-They were previously **hover-only, which meant they never played on a
-phone** — the thing that prompted this. Scroll-triggered is the fix; hover is
-now the bonus rather than the mechanism.
+1. the outlines **draw once**, the first time the icon appears
+2. the moving parts then **loop forever**
+
+Re-drawing the outlines every cycle reads as a glitch; looping only the
+motion reads as the object doing its job. The card taps like a contactless
+payment, the van keeps driving with speed lines sweeping past, the headset's
+mic boom swings as if on a call, the parcel bobs. Each icon is offset by
+`--idle-delay` so the row does not pulse in unison.
+
+They started out hover-only, which meant they never played on a phone at
+all. Continuous is now the behaviour; hover adds nothing.
 
 Two of the icons were also redrawn because they did not read at all: "UK
 stock & support" was an arc over a vertical line, which looked like an
@@ -236,6 +244,10 @@ The hero also runs a **vapour animation** — five blurred radial blobs on
 staggered 7-second rises behind the product. It is the only continuously
 running animation on the page, and it is switched off entirely under reduced
 motion.
+
+The **20% off tab sits on the left edge at every width**, which is where the
+live site keeps it. It replaced a fixed bottom banner that was eating 68px
+of a phone screen to do the same job.
 
 Otherwise, carried over from the live theme because they are genuine brand
 behaviours:
