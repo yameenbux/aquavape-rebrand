@@ -16,6 +16,7 @@ index.html          the prototype homepage
 styles/             tokens, base + band system, components, motion
 scripts/            data.js (placeholder catalogue), main.js
 assets/fonts/       self-hosted Archivo, Instrument Sans, JetBrains Mono
+assets/products/    24 real product shots, WebP with alpha (460 KB)
 DESIGN.md           the design direction and what changed from the live site
 preview.png         full-page render
 
@@ -58,3 +59,5 @@ instructions at the end of `DESIGN.md`.
 | Motion | Lottie 5.7.4, MicroModal, IntersectionObserver |
 | Typefaces | Nexa, Hurme Geometric Sans 1 (both licensed) |
 | Brand navy | `#040E27` |
+| Catalogue | 998 products, 63 brands, 205 e-liquid lines |
+| Own-brand e-liquid | **not in the catalogue** — see DESIGN.md |

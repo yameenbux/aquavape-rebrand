@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aquavape — UK-made e-liquid, pod kits and vape deals</title>
-<meta name="description" content="UK-made e-liquid, pod kits and nicotine pouches. Shop by strength. Free UK delivery over £10, same-day dispatch before 4pm.">
+<title>Aquavape — vape kits, e-liquid and pods from 63 brands</title>
+<meta name="description" content="E-liquid, vape kits, pods and pouches from 63 brands, held in UK stock. Shop by strength. Free UK delivery over £10, same-day dispatch before 4pm.">
 <link rel="stylesheet" href="styles/fonts.css">
 <link rel="stylesheet" href="styles/tokens.css">
 <link rel="stylesheet" href="styles/base.css">
@@ -82,10 +82,10 @@
     <div class="u-wrap hero__grid">
       <div>
         <span class="chip" data-load style="--load-delay:60ms">Sale</span>
-        <h1 data-load style="--load-delay:140ms">Save up to 60% <em>on UK made liquid</em></h1>
+        <h1 data-load style="--load-delay:140ms">Save up to 60% <em>across 63 brands</em></h1>
         <p class="hero__lede" data-load style="--load-delay:240ms">
-          Mixed and bottled in Lancashire. Every bottle tells you its strength,
-          its ratio and its batch.
+          Every brand worth stocking, in one place. Order before 4pm and it
+          ships the same day.
         </p>
         <div class="hero__actions" data-load style="--load-delay:320ms">
           <a class="btn btn--primary btn--lg" href="#bestsellers">Shop the sale
@@ -96,29 +96,29 @@
           Discount applies to RRP and cannot be combined with existing multibuy prices.
         </p>
         <div class="specs" data-load style="--load-delay:440ms">
-          <div class="specs__item"><span class="specs__k">Volume</span><span class="specs__v">10<small>ml</small></span></div>
-          <div class="specs__item"><span class="specs__k">Strength</span><span class="specs__v">20<small>mg</small></span></div>
-          <div class="specs__item"><span class="specs__k">VG / PG</span><span class="specs__v">50/50</span></div>
-          <div class="specs__item"><span class="specs__k">Flavours</span><span class="specs__v count" data-count="64">0</span></div>
+          <div class="specs__item"><span class="specs__k">Brands</span><span class="specs__v count" data-stat="brands">0</span></div>
+          <div class="specs__item"><span class="specs__k">Products</span><span class="specs__v count" data-stat="products">0</span></div>
+          <div class="specs__item"><span class="specs__k">Dispatch</span><span class="specs__v">4<small>pm</small></span></div>
+          <div class="specs__item"><span class="specs__k">Free over</span><span class="specs__v">£10</span></div>
         </div>
       </div>
-      <div class="bottle" id="heroBottle" data-load style="--load-delay:200ms">
-        <svg viewBox="0 0 120 260" role="img" aria-label="A 10ml Aquavape bottle filling with e-liquid">
-          <defs><clipPath id="bottleClip">
-            <path d="M30 90c0-18 20-24 20-34h20c0 10 20 16 20 34v148a8 8 0 0 1-8 8H38a8 8 0 0 1-8-8Z"/>
-          </clipPath></defs>
-          <path class="bottle__glass" d="M30 90c0-18 20-24 20-34h20c0 10 20 16 20 34v148a8 8 0 0 1-8 8H38a8 8 0 0 1-8-8Z"/>
-          <g clip-path="url(#bottleClip)"><g class="bottle__liquid">
-            <rect x="24" y="52" width="72" height="210" fill="currentColor"/>
-            <rect x="24" y="52" width="72" height="4" class="bottle__surface"/>
-          </g></g>
-          <path class="bottle__outline" d="M30 90c0-18 20-24 20-34h20c0 10 20 16 20 34v148a8 8 0 0 1-8 8H38a8 8 0 0 1-8-8Z"/>
-          <rect class="bottle__glass" x="44" y="4" width="32" height="34" rx="2"/>
-          <rect class="bottle__glass" x="50" y="38" width="20" height="20"/>
-          <rect class="bottle__label" x="38" y="128" width="44" height="76" rx="2"/>
-          <text class="bottle__labeltext" x="60" y="162" text-anchor="middle">20</text>
-          <text class="bottle__labeltext" x="60" y="180" text-anchor="middle">MG</text>
-        </svg>
+
+      <div class="heroshot" data-load style="--load-delay:200ms">
+        <!-- vapour: five blurred blobs on staggered rises -->
+        <div class="vapour" aria-hidden="true">
+          <span style="--d:0s;   --dx:-26px"></span>
+          <span style="--d:1.4s; --dx:18px"></span>
+          <span style="--d:2.8s; --dx:-8px"></span>
+          <span style="--d:4.2s; --dx:34px"></span>
+          <span style="--d:5.6s; --dx:-38px"></span>
+        </div>
+        <img class="heroshot__img" src="assets/products/dojo.webp"
+             alt="DoJo Blast 30K Pro Kit" width="420" height="420" fetchpriority="high">
+        <div class="speccard" aria-hidden="true">
+          <b>20mg nic salt</b>
+          <span class="gauge gauge--h" id="heroGauge" style="--level:0"><span class="gauge__liquid"></span></span>
+          <small>Pod kit · prefilled</small>
+        </div>
       </div>
     </div>
     <div class="dots" id="heroDots" role="tablist" aria-label="Featured offers"></div>
@@ -128,7 +128,7 @@
     <div class="u-wrap trust">
       <div class="trust__item"><span class="trust__ring"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg></span><span class="trust__t">Paypal accepted</span><p class="trust__d">All major cards &amp; PayPal</p></div>
       <div class="trust__item"><span class="trust__ring"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M2 7h11v10H2z"/><path d="M13 10h5l3 3v4h-8z"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></span><span class="trust__t">Free shipping</span><p class="trust__d">On orders over £10</p></div>
-      <div class="trust__item"><span class="trust__ring"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15V7"/></svg></span><span class="trust__t">UK made eliquid</span><p class="trust__d">03301 597159</p></div>
+      <div class="trust__item"><span class="trust__ring"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15V7"/></svg></span><span class="trust__t">UK stock &amp; support</span><p class="trust__d">03301 597159</p></div>
       <div class="trust__item"><span class="trust__ring"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 8h18v12H3z"/><path d="M3 8 12 3l9 5"/></svg></span><span class="trust__t">Same day dispatch</span><p class="trust__d">When ordered before 4pm</p></div>
     </div>
   </section>
@@ -153,19 +153,19 @@
     <div class="u-wrap">
       <div class="u-section-head" data-reveal>
         <div>
-          <p class="u-eyebrow">4 for £10 on all 10ml</p>
+          <p class="u-eyebrow">3 for £10 on 10ml nic salts</p>
           <h2 id="gridHeading">Best sellers</h2>
           <p id="gridCount">Showing 8 liquids</p>
         </div>
         <div class="tabs" role="tablist" aria-label="Product type">
-          <button role="tab" aria-selected="true"  data-tab="eliquid">Eliquid</button>
-          <button role="tab" aria-selected="false" data-tab="pods">Pod kits</button>
-          <button role="tab" aria-selected="false" data-tab="prefilled">Prefilled pods</button>
+          <button role="tab" aria-selected="true"  data-tab="eliquid">E-liquid</button>
+          <button role="tab" aria-selected="false" data-tab="kits">Vape kits</button>
+          <button role="tab" aria-selected="false" data-tab="pods">Pods &amp; pouches</button>
         </div>
       </div>
       <div class="grid-products" id="productGrid"></div>
       <div style="display:flex;justify-content:center;margin-top:var(--space-lg)">
-        <a class="btn btn--primary btn--lg" href="#">View all 64 flavours
+        <a class="btn btn--primary btn--lg" href="#">View all 205 e-liquids
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
       </div>
     </div>
@@ -219,33 +219,40 @@
     </div>
   </section>
 
-  <!-- PROVENANCE — navy band. "UK made" is the actual differentiator and is
-       currently one line of meta description. -->
-  <section class="band band--navy u-section" id="made">
+  <!-- THE RANGE — navy band.
+       This section previously claimed "mixed and bottled in Lancashire".
+       Checking products.json showed that is not what this shop is: 998
+       products from 63 third-party brands, and the own-brand 10ml line no
+       longer in the catalogue. Rewritten to the business that actually
+       exists — breadth, availability and speed. The gauges now encode real
+       line counts per brand. -->
+  <section class="band band--navy u-section" id="range">
     <div class="u-wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);align-items:center" id="provenance">
       <div data-reveal>
-        <p class="u-eyebrow">Provenance</p>
-        <h2>Mixed and bottled in Lancashire</h2>
+        <p class="u-eyebrow">The range</p>
+        <h2>Every brand worth stocking</h2>
         <p style="color:var(--band-mute);max-width:42ch;margin-top:var(--space-sm)">
-          Not white-labelled, not repackaged. We make it, so we can tell you
-          exactly what is in it and when it was made.
+          998 products across 63 brands, held in stock in the UK. If a brand
+          is worth vaping we carry it, and if we list it we have it on the
+          shelf.
         </p>
         <div class="batch" data-reveal style="--reveal-delay:120ms">
           <div class="batch__head">
-            <span class="u-eyebrow">Batch 24-118</span>
-            <span class="u-spec" style="color:var(--fill)">Mixed 14 Aug</span>
+            <span class="u-eyebrow">Deepest ranges</span>
+            <span class="u-spec" style="color:var(--fill)">lines in stock</span>
           </div>
           <dl class="batch__rows">
-            <div><dt>Nicotine</dt><dd><span class="gauge gauge--h" style="--level:1"><span class="gauge__liquid"></span></span><b>20mg</b></dd></div>
-            <div><dt>Vegetable glycerine</dt><dd><span class="gauge gauge--h" style="--level:.5"><span class="gauge__liquid"></span></span><b>50%</b></dd></div>
-            <div><dt>Propylene glycol</dt><dd><span class="gauge gauge--h" style="--level:.5"><span class="gauge__liquid"></span></span><b>50%</b></dd></div>
+            <div><dt>Hayati</dt><dd><span class="gauge gauge--h" style="--level:1"><span class="gauge__liquid"></span></span><b>161</b></dd></div>
+            <div><dt>Lost Mary</dt><dd><span class="gauge gauge--h" style="--level:.66"><span class="gauge__liquid"></span></span><b>106</b></dd></div>
+            <div><dt>IVG</dt><dd><span class="gauge gauge--h" style="--level:.46"><span class="gauge__liquid"></span></span><b>74</b></dd></div>
+            <div><dt>SKE Crystal</dt><dd><span class="gauge gauge--h" style="--level:.37"><span class="gauge__liquid"></span></span><b>60</b></dd></div>
           </dl>
         </div>
       </div>
       <div style="display:grid;gap:var(--space-md)">
-        <div class="fact" data-reveal style="--reveal-delay:60ms"><span class="fact__n">01</span><div><div class="fact__t">Batch-coded, every bottle</div><p class="fact__d">The code traces back to the mix date, the room and the operator.</p></div></div>
-        <div class="fact" data-reveal style="--reveal-delay:120ms"><span class="fact__n">02</span><div><div class="fact__t">TPD registered</div><p class="fact__d">Every nicotine line is notified to the MHRA before it goes on sale.</p></div></div>
-        <div class="fact" data-reveal style="--reveal-delay:180ms"><span class="fact__n">03</span><div><div class="fact__t">Pharmaceutical-grade base</div><p class="fact__d">USP glycerine and glycol, tested on arrival and again after mixing.</p></div></div>
+        <div class="fact" data-reveal style="--reveal-delay:60ms"><span class="fact__n">01</span><div><div class="fact__t">63 brands, one basket</div><p class="fact__d">Hayati, Lost Mary, IVG, SKE, Elux, Elf Bar, Vaporesso, OXVA and 55 more.</p></div></div>
+        <div class="fact" data-reveal style="--reveal-delay:120ms"><span class="fact__n">02</span><div><div class="fact__t">Order by 4pm, ships today</div><p class="fact__d">Held in UK stock, not drop-shipped. Free delivery over £10.</p></div></div>
+        <div class="fact" data-reveal style="--reveal-delay:180ms"><span class="fact__n">03</span><div><div class="fact__t">TPD compliant, age verified</div><p class="fact__d">Every nicotine line notified to the MHRA. 18+ checked at checkout.</p></div></div>
       </div>
     </div>
   </section>
@@ -296,7 +303,7 @@
           </svg>Aquavape
         </div>
         <p style="color:#97A3C0;font-size:var(--text-sm);max-width:32ch">
-          UK-made e-liquid, pod kits and pouches. Mixed in Lancashire since 2016.
+          E-liquid, pod kits, coils and pouches from 63 brands. Held in UK stock.
         </p>
       </div>
       <div><h4>Shop</h4><ul><li><a href="#">E-liquid</a></li><li><a href="#">Shortfills</a></li><li><a href="#">Pod kits</a></li><li><a href="#">Coils</a></li><li><a href="#">Pouches</a></li><li><a href="#">Clearance</a></li></ul></div>
