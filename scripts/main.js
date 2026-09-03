@@ -1,5 +1,5 @@
 import { PRODUCTS, CLEARANCE, STRENGTHS, CATEGORIES, POSTS, REVIEWS,
-         STATS, HERO_SLIDES, FREE_DELIVERY } from './data.js';
+         STATS, HERO_SLIDES, HERO_INTERVAL, FREE_DELIVERY } from './data.js';
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -30,20 +30,124 @@ function initAgeGate() {
   });
 }
 
-/* --- Hero: fill the bottle, count the flavours, run the slide dots -------- */
+/* --- Hero carousel -------------------------------------------------------
+   Five slides on a 5s timer. Autoplay stops on hover, on keyboard focus,
+   when the tab is hidden, and when the user presses pause. That last one is
+   not optional: WCAG 2.2.2 requires a way to pause content that moves for
+   more than five seconds, and an indefinite 5s loop qualifies.
+   ------------------------------------------------------------------------ */
 function initHero() {
-  const g = $('#heroGauge');
-  const run = () => g.style.setProperty('--level', '1');
-  reduced() ? run() : setTimeout(run, 620);
+  const hero  = $('#hero');
+  const dots  = $('#heroDots');
+  const panel = $('#heroPanel');
+  const pauseBtn = $('#heroPause');
+  const BANDS = HERO_SLIDES.map(s => `band--${s.band}`);
 
-  $('#heroDots').innerHTML = HERO_SLIDES.map((s, i) =>
-    `<button role="tab" aria-label="${s}" aria-current="${i === 0}"></button>`).join('');
-  $$('#heroDots button').forEach((b, i) => b.addEventListener('click', () => {
-    $$('#heroDots button').forEach((x, j) => x.setAttribute('aria-current', String(i === j)));
-  }));
+  let i = 0;
+  let timer = null;
+  let userPaused = false;   // explicit intent — outlives hover and blur
+  let hovering = false;
+
+  dots.innerHTML = HERO_SLIDES.map((s, n) => `
+    <button role="tab" id="hero-tab-${s.id}" aria-controls="heroPanel"
+            aria-selected="${n === 0}" tabindex="${n === 0 ? 0 : -1}"
+            aria-label="${s.chip}: ${s.a} ${s.b}"></button>`).join('');
+  const tabs = $$('button', dots);
+
+  function paint(n) {
+    const s = HERO_SLIDES[n];
+    hero.classList.remove(...BANDS);
+    hero.classList.add(`band--${s.band}`);
+
+    $('#hChip').textContent = s.chip;
+    $('#hChip').className = `chip ${s.chipKind}`.trim();
+    $('#hHead').innerHTML = `${s.a} <em>${s.b}</em>`;
+    $('#hLede').textContent = s.lede;
+    $('#hNote').textContent = s.note;
+    const cta = $('#hCta');
+    cta.setAttribute('href', s.href);
+    cta.firstChild.nodeValue = s.cta + ' ';
+    $('#hImg').src = s.img;
+    $('#hImg').alt = s.alt;
+    $('#hSpecA').textContent = s.specA;
+    $('#hSpecB').textContent = s.specB;
+    $('#heroGauge').style.setProperty('--level', String(s.level));
+
+    tabs.forEach((t, k) => {
+      t.setAttribute('aria-selected', String(k === n));
+      t.tabIndex = k === n ? 0 : -1;
+    });
+    panel.setAttribute('aria-labelledby', `hero-tab-${s.id}`);
+
+    // warm the next slide's image so the swap does not flash
+    const next = HERO_SLIDES[(n + 1) % HERO_SLIDES.length];
+    new Image().src = next.img;
+
+    // replay the enter animation on the slide content
+    panel.classList.remove('is-entering');
+    void panel.offsetWidth;
+    panel.classList.add('is-entering');
+
+    // retrigger the dot's fill so it tracks the actual interval
+    dots.classList.remove('is-timing');
+    void dots.offsetWidth;
+    if (running()) dots.classList.add('is-timing');
+  }
+
+  const running = () => !reduced() && !userPaused && !hovering && !document.hidden;
+
+  function go(n, fromUser) {
+    i = (n + HERO_SLIDES.length) % HERO_SLIDES.length;
+    paint(i);
+    if (fromUser) restart();            // a click earns a fresh 5 seconds
+  }
+
+  function restart() {
+    clearInterval(timer);
+    timer = null;
+    if (!running()) { dots.classList.remove('is-timing'); return; }
+    dots.classList.add('is-timing');
+    timer = setInterval(() => go(i + 1), HERO_INTERVAL);
+  }
+
+  tabs.forEach((t, n) => t.addEventListener('click', () => go(n, true)));
+
+  // arrow-key navigation across the tablist, per the ARIA carousel pattern
+  dots.addEventListener('keydown', e => {
+    const k = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+    if (k) { e.preventDefault(); go(i + k, true); tabs[i].focus(); }
+    if (e.key === 'Home') { e.preventDefault(); go(0, true); tabs[0].focus(); }
+    if (e.key === 'End')  { e.preventDefault(); go(HERO_SLIDES.length - 1, true); tabs[i].focus(); }
+  });
+
+  // hoverpause, carried over from the live theme's Glide config
+  hero.addEventListener('pointerenter', () => { hovering = true;  restart(); });
+  hero.addEventListener('pointerleave', () => { hovering = false; restart(); });
+  hero.addEventListener('focusin',  () => { hovering = true;  restart(); });
+  hero.addEventListener('focusout', () => { hovering = false; restart(); });
+
+  // a hidden tab should not queue up eight slide changes
+  document.addEventListener('visibilitychange', restart);
+
+  pauseBtn.addEventListener('click', () => {
+    userPaused = !userPaused;
+    pauseBtn.setAttribute('aria-pressed', String(userPaused));
+    $('#heroPauseLabel').textContent = userPaused ? 'Play' : 'Pause';
+    restart();
+  });
+
+  if (reduced()) {
+    pauseBtn.hidden = true;             // nothing is moving, so nothing to pause
+  }
+
+  paint(0);
+  restart();
+
+  const g = $('#heroGauge');
+  const fill = () => g.style.setProperty('--level', String(HERO_SLIDES[0].level));
+  reduced() ? fill() : setTimeout(fill, 620);
 
   $$('[data-stat]').forEach(el => { el.dataset.count = STATS[el.dataset.stat]; });
-
   $$('[data-count]').forEach(el => {
     const target = +el.dataset.count;
     if (reduced()) { el.textContent = target; return; }

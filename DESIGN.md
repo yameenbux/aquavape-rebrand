@@ -159,7 +159,30 @@ trust icons, and the logo droplet.
 
 ## Motion
 
-The hero runs a **vapour animation** — five blurred radial blobs on
+### The hero carousel
+
+Five slides on a **5-second timer**. Each slide carries its own band colour,
+so the palette rotating is the hero rather than a decoration on it: pink
+sale, mint multibuy, peach new-in, lilac pouches, yellow clearance. Every
+band was contrast-checked on the rendered page before use (lowest 6.08:1).
+
+Autoplay stops on hover, on keyboard focus within the hero, when the browser
+tab is hidden, and on demand via a visible pause button. That last one is not
+a nicety — **WCAG 2.2.2 (Pause, Stop, Hide)** requires a mechanism to pause
+content that moves automatically for more than five seconds, and an
+indefinite 5s loop qualifies. Under `prefers-reduced-motion` it never
+auto-advances and the pause button is hidden, because nothing is moving.
+
+The active dot fills across the interval, so the timer is something the
+viewer can see coming rather than something the page does at them. Dots are
+`role="tab"` with arrow-key, Home and End navigation, and each button is
+40×24px to satisfy WCAG 2.2 Target Size — the visible bar is only 5px tall,
+drawn with pseudo-elements inside the larger hit area.
+
+The next slide's image is preloaded on each transition so the swap does not
+flash.
+
+The hero also runs a **vapour animation** — five blurred radial blobs on
 staggered 7-second rises behind the product. It is the only continuously
 running animation on the page, and it is switched off entirely under reduced
 motion.

@@ -82,5 +82,50 @@ export const REVIEWS = [
 /* Real catalogue figures, counted from products.json on 2026-09-03 */
 export const STATS = { products: 998, brands: 63, liquids: 205 };
 
-export const HERO_SLIDES = ['Mega sale', 'New kits', '3 for £10', 'Pouches', 'Clearance'];
+/* Hero slides. Each carries its own band colour — the palette rotating is
+   the point, not decoration. Every band/text pair below was contrast-checked
+   against WCAG AA before being used (lowest 6.08:1). */
+export const HERO_SLIDES = [
+  { id:'sale',      band:'pink',   chip:'Sale',        chipKind:'',
+    a:'Save up to 60%',  b:'across 63 brands',
+    lede:'Every brand worth stocking, in one place. Order before 4pm and it ships the same day.',
+    cta:'Shop the sale',      href:'#bestsellers',
+    img:P+'dojo.webp',          alt:'DoJo Blast 30K Pro Kit',
+    specA:'20mg nic salt',    specB:'Pod kit · prefilled',  level:1,
+    note:'Discount applies to RRP and cannot be combined with existing multibuy prices.' },
+
+  { id:'multibuy',  band:'mint',   chip:'3 for £10',   chipKind:'chip--deal',
+    a:'Three 10ml',      b:'nic salts, £10',
+    lede:'Mix any three 10ml nic salts from IVG, Elux, Vampire Vape and more. Cheaper than buying two.',
+    cta:'Build a bundle',     href:'#bestsellers',
+    img:P+'ivg.webp',           alt:'IVG Lemon Fizz Nic Salt 10ml',
+    specA:'10ml · 20mg',      specB:'50/50 · nic salt',     level:1,
+    note:'Mix and match across any 10ml nic salt. Excludes shortfills and nic shots.' },
+
+  { id:'newin',     band:'peach',  chip:'Just landed', chipKind:'',
+    a:'OXVA Nexlim 2',   b:'now in stock',
+    lede:'Refillable, adjustable airflow and a proper display. The kit to move to when disposables stop cutting it.',
+    cta:'See the kit',        href:'#cats',
+    img:P+'oxva.webp',          alt:'OXVA Nexlim 2 vape kit',
+    specA:'Refillable',       specB:'£30.99 · vape kit',    level:.7,
+    note:'Coils sold separately. Free UK delivery on orders over £10.' },
+
+  { id:'pouches',   band:'lilac',  chip:'Tobacco free', chipKind:'',
+    a:'Nicotine pouches',b:'from £3.99',
+    lede:'No vapour, no smoke, nothing to charge. Pablo, Killa, Velo and XQS across 64 flavours.',
+    cta:'Browse pouches',     href:'#cats',
+    img:P+'pablo.webp',         alt:'Pablo Bubblegum nicotine pouches',
+    specA:'30mg strength',    specB:'64 flavours',          level:1,
+    note:'18+ only. Nicotine is an addictive substance.' },
+
+  { id:'clearance', band:'yellow', chip:'Ends Sunday', chipKind:'chip--sale',
+    a:'Up to 62% off',   b:'in clearance',
+    lede:'Last of the line on shortfills, kits and pouches. When it is gone it is gone.',
+    cta:'Shop clearance',     href:'#clearance',
+    img:P+'vape-district.webp', alt:'Vape District Lychee Ice 100ml shortfill',
+    specA:'100ml shortfill',  specB:'0mg · add a nic shot', level:.15,
+    note:'While stocks last. Clearance prices are final and exclude other offers.' }
+];
+
+export const HERO_INTERVAL = 5000;
 export const FREE_DELIVERY = 10.00;

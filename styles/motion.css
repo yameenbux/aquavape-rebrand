@@ -45,6 +45,12 @@
   /* the vapour is the only continuously-running animation on the page */
   .vapour { display: none; }
 
+  /* the hero carousel does not auto-advance at all; the dots still work,
+     and the pause button is hidden because nothing is moving */
+  .dots.is-timing button[aria-selected='true']::after { animation: none; width: 100%; }
+  .hero { transition: none; }
+  .hero__grid.is-entering > * { animation: none; }
+
   [data-reveal] { opacity: 1; transform: none; transition: none; }
   [data-load]   { opacity: 1; transform: none; animation: none; }
 

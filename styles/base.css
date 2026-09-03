@@ -51,6 +51,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .band--yellow { --band-bg: var(--yellow); --band-fg: var(--ink);   --band-mute: #4A3B12; }
 .band--red    { --band-bg: var(--red);    --band-fg: #FFFFFF;      --band-mute: #FFE3E1; }
 .band--mint   { --band-bg: var(--mint);   --band-fg: var(--ink);   --band-mute: #1F4433; }
+.band--peach  { --band-bg: var(--peach);  --band-fg: var(--ink);   --band-mute: #4A3418; }
+.band--lilac  { --band-bg: var(--lilac);  --band-fg: var(--ink);   --band-mute: #382A4A; }
+.band--sky    { --band-bg: var(--sky);    --band-fg: var(--ink);   --band-mute: #123044; }
+.band--blush  { --band-bg: var(--blush);  --band-fg: var(--ink);   --band-mute: #4A2124; }
 
 .u-wrap {
   width: 100%;
