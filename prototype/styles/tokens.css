@@ -1,0 +1,112 @@
+/* ==========================================================================
+   Aquavape — rebrand token system
+   Evolves the existing #040E27 navy. Every value here is deliberate; the
+   spacing and type scales are carried over from the live theme (they were
+   well-built) with the hierarchy bugs fixed.
+   ========================================================================== */
+
+:root {
+  /* --- Colour ----------------------------------------------------------
+     Each colour has exactly ONE job. The live site has four accents with no
+     rules; that is what makes it read as unsystematic. Discipline:
+       fill   -> liquid level indicators ONLY
+       signal -> price, saving, urgency ONLY
+       amber  -> loyalty and rewards ONLY
+     -------------------------------------------------------------------- */
+  --ink:         #040E27;  /* brand navy, carried over unchanged */
+  --ink-deep:    #01060F;
+  --ink-raised:  #0A1733;
+  --ink-line:    #16224A;
+
+  --wash:        #EEF1F6;  /* cool paper, pulled toward the navy's hue */
+  --wash-deep:   #DDE3EE;
+  --paper:       #FFFFFF;
+
+  --fill:        #38E0D0;  /* liquid level. Nothing else. */
+  --fill-dim:    #1B8F87;
+  --signal:      #FA5B61;  /* price / saving / urgency. Nothing else. */
+  --amber:       #FDCB2F;  /* loyalty. Nothing else. */
+
+  --on-ink:      #FFFFFF;
+  --on-ink-mute: #8E9AB8;
+  --on-wash:     #040E27;
+  --on-wash-mute:#5A6580;
+
+  /* --- Type ------------------------------------------------------------
+     Archivo is variable on both weight and width. The expanded widths do
+     the work Nexa's wide caps used to do.
+     -------------------------------------------------------------------- */
+  --font-display: 'Archivo', 'Arial Narrow', system-ui, sans-serif;
+  --font-body:    'Instrument Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --text-base-size:   1rem;
+  --text-scale-ratio: 1.25;          /* carried over from the live theme */
+  --text-xs:    0.64rem;
+  --text-sm:    0.8rem;
+  --text-md:    1rem;
+  --text-lg:    1.25rem;
+  --text-xl:    1.5625rem;
+  --text-xxl:   1.953rem;
+  --text-xxxl:  2.441rem;
+  --text-xxxxl: 3.052rem;
+  --text-display: clamp(2.6rem, 6.2vw, 5.4rem);
+
+  --body-line-height:    1.5;
+  --heading-line-height: 0.95;
+  --tracking-tight:  -0.02em;
+  --tracking-wide:    0.08em;
+  --tracking-widest:  0.18em;
+
+  /* --- Space: same modular scale as the live theme --------------------- */
+  --space-unit:  1rem;
+  --space-xxxs:  calc(0.25  * var(--space-unit));
+  --space-xxs:   calc(0.375 * var(--space-unit));
+  --space-xs:    calc(0.5   * var(--space-unit));
+  --space-sm:    calc(0.75  * var(--space-unit));
+  --space-md:    calc(1.25  * var(--space-unit));
+  --space-lg:    calc(2     * var(--space-unit));
+  --space-xl:    calc(3.25  * var(--space-unit));
+  --space-xxl:   calc(5.25  * var(--space-unit));
+  --space-xxxl:  calc(8.5   * var(--space-unit));
+
+  /* --- Layout ----------------------------------------------------------- */
+  --page-max-width: 1440px;
+  --page-x-padding: clamp(1rem, 4vw, 3.25rem);
+  --header-height:  64px;
+  --rule: 1px solid var(--ink-line);
+
+  /* --- Radii -----------------------------------------------------------
+     The live theme is square (--btn-radius: 0) while its app widgets are
+     20-32px round. Resolved here: square is the house style, and it suits
+     the instrument concept. One consistent value.
+     -------------------------------------------------------------------- */
+  --radius:    2px;
+  --radius-lg: 3px;
+
+  /* --- Motion ----------------------------------------------------------
+     The live theme already defines two overshoot curves. Kept: the brand's
+     motion language is meant to have spring in it.
+     -------------------------------------------------------------------- */
+  --anim-fast:  0.18s;
+  --anim-time:  0.3s;
+  --anim-slow:  0.6s;
+  --anim-fill:  1.1s;
+  --ease-in:       cubic-bezier(0.55,  0.055, 0.675, 0.19);
+  --ease-out:      cubic-bezier(0.215, 0.61,  0.355, 1);
+  --ease-in-out:   cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-out-back: cubic-bezier(0.34,  1.56,  0.64,  1);
+  --bounce:        cubic-bezier(0.175, 0.885, 0.32,  1.275);
+
+  /* --- Elevation -------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(1, 6, 15, .18);
+  --shadow-md: 0 4px 16px rgba(1, 6, 15, .22);
+  --shadow-lg: 0 18px 48px rgba(1, 6, 15, .35);
+
+  /* --- Z-index: ONE scale. The live theme ships two conflicting ones. --- */
+  --z-base:    1;
+  --z-raised:  5;
+  --z-header:  40;
+  --z-overlay: 60;
+  --z-drawer:  70;
+}
