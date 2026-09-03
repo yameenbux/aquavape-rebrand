@@ -10,6 +10,8 @@ cd prototype && python3 -m http.server 8899
 
 No build step, no dependencies, no network calls. Fonts are self-hosted.
 
+![Prototype preview](preview.png)
+
 ## Why it is built this way
 
 The live theme is Liquid + **native Web Components** + Glide.js, with no
