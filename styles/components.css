@@ -498,17 +498,57 @@
   letter-spacing: var(--tracking-wide); text-transform: uppercase; opacity: .7; }
 @media (max-width: 860px) { .cats { grid-template-columns: 1fr 1fr; } }
 
-/* --- Brand logos ---------------------------------------------------------- */
-.brands { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); align-items: center; }
-.brands span {
-  display: grid; place-items: center; padding: var(--space-sm);
-  font-family: var(--font-display); font-weight: 800; font-stretch: 112%;
-  font-size: var(--text-md); text-transform: uppercase; letter-spacing: .04em;
-  color: var(--ink); opacity: .55;
-  transition: opacity var(--anim-fast) var(--ease-out), transform var(--anim-fast) var(--ease-out-back);
+/* --- Brand logos --------------------------------------------------------
+   The real vector marks, as <img> so their internal ids and class names
+   cannot collide (every source logo reuses id="c").
+
+   They have wildly different proportions — Lost Mary is 8.4:1, ULTD is
+   nearly square — so a single height would make some enormous and others
+   tiny. Each sits in a fixed box with object-fit: contain, which fits every
+   ratio to the same optical area.
+   ------------------------------------------------------------------------ */
+.brands { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-sm); }
+.brand {
+  display: grid; justify-items: center; gap: var(--space-xxs);
+  padding: var(--space-md) var(--space-xs);
+  border-radius: var(--radius);
+  transition: background var(--anim-time) var(--ease-out),
+              transform var(--anim-time) var(--ease-out-back);
 }
-.brands span:hover { opacity: 1; transform: translateY(-3px); }
-@media (max-width: 860px) { .brands { grid-template-columns: repeat(3, 1fr); } }
+/* fixed-height mark area keeps every row aligned even though the logos
+   themselves are scaled differently */
+.brand__mark { display: grid; place-items: center; width: 100%; height: 58px; }
+.brand img {
+  width: 100%; height: calc(38px * var(--logo-scale, 1)); object-fit: contain;
+  /* resting: knocked back to the ink tone rather than full black, so the row
+     reads as one set instead of six competing marks */
+  opacity: .42;
+  transition: opacity var(--anim-time) var(--ease-out), transform var(--anim-time) var(--ease-out-back);
+}
+.brand__n {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: var(--tracking-wide); text-transform: uppercase;
+  color: transparent;
+  transition: color var(--anim-time) var(--ease-out);
+}
+.brand:hover, .brand:focus-visible { background: var(--wash); transform: translateY(-4px); }
+.brand:hover img, .brand:focus-visible img { opacity: 1; transform: scale(1.04); }
+.brand:hover .brand__n, .brand:focus-visible .brand__n { color: #5A6580; }
+
+@media (max-width: 900px) { .brands { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) {
+  .brands { grid-template-columns: 1fr 1fr; }
+  .brand__mark { height: 48px; }
+  .brand img { height: calc(32px * var(--logo-scale, 1)); }
+}
+
+/* Any device without hover — phone or tablet, whatever its width — cannot
+   reach the hover state, so the logos and their line counts are shown
+   outright. Testing for hover is correct here; testing for width is a guess. */
+@media (hover: none) {
+  .brand__n { color: #5A6580; }
+  .brand img { opacity: .72; }
+}
 
 /* --- Reviews -------------------------------------------------------------- */
 .reviews { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-sm); }
