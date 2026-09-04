@@ -28,6 +28,7 @@ scripts/
   nav.js              mobile category menu, shared by both pages
 data/catalogue.json   the real catalogue: 2,083 products, 87 brands (108 KB gzipped)
 
+assets/logo.svg     the real Aquavape wordmark, lifted from their live header
 assets/fonts/       self-hosted Archivo, Instrument Sans, JetBrains Mono
 assets/products/    24 real product shots, WebP with alpha (460 KB)
 DESIGN.md           the design direction and what changed from the live site

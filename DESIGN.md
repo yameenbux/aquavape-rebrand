@@ -387,6 +387,38 @@ are not in the public endpoint, so choosing an option records the choice on
 the basket line but does not change the price. That limit is written into the
 top of `scripts/product.js` rather than left for someone to discover.
 
+## The logo
+
+The mark is Aquavape's own, taken from their live header rather than drawn.
+For a migration pitch that is the right call: the argument is *we can rebuild
+your shop*, not *you should also rebrand*. The three-petal droplet and its
+teal-to-lime and red-to-orange gradients are theirs.
+
+**Their header is `rgb(4, 14, 39)`.** That is `#040E27` — the exact navy this
+rebrand carried over from the theme audit before the logo was ever looked at.
+Their wordmark is already white-on-that-navy, so it needed no colour
+treatment at all. A useful thing to be able to say out loud in a pitch: the
+palette was not a guess.
+
+Three changes were made to the extracted file, all mechanical:
+
+- **A `viewBox` was added.** The theme emits it with fixed `width`/`height` and
+  no `viewBox`, so it cannot scale. It can now.
+- **Every `id` is namespaced `av-`.** The gradients and clip paths were named
+  `a`–`z`, and these pages carry a lot of other inline SVG. Unnamespaced,
+  those ids collide and the wrong gradient wins.
+- **Duplicate wordmark paths removed.** The theme emitted each letterform
+  twice, in cascading pairs. 14 KB down to 12 KB, 2.8 KB gzipped.
+
+It is referenced with `<img>` rather than inlined, so one cached request
+serves all four pages instead of 12 KB in each. That forces the wordmark to
+be literal white rather than `currentColor` — `currentColor` resolves to
+black inside an `<img>`, which a render test caught. The mark only ever sits
+on navy here, so white is correct; the constraint is noted in the file.
+
+The favicon is derived from the same file, cropped to the droplet and with
+the registered-trademark glyph dropped, since it is illegible at 16px.
+
 ## Verified
 
 - No horizontal overflow at 390px
