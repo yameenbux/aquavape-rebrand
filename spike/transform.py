@@ -90,7 +90,11 @@ def to_medusa(p, report):
             # Medusa prices are minor units; Shopify gives a decimal string
             'prices': [{'currency_code': 'gbp',
                         'amount': int(round(float(v['p']) * 100))}],
-            'options': ({} if drop_axis and not axes
+            # A product whose only axis was Shopify's "Title" placeholder gets a
+            # substituted "Default" axis below; its variants must supply a value
+            # for it or the create fails with "ProductOptionValue.value is
+            # required". Found by importing for real, not by reading the code.
+            'options': ({'Default': 'Default'} if not axes
                         else {a['title']: val for a, val in zip(axes, vals)}),
             'metadata': {'shopify_discontinued': True} if disc else {},
         })
