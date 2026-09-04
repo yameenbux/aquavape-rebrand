@@ -1,0 +1,6 @@
+# The raw export carries every SKU and per-variant price for the whole
+# catalogue. It is all public via products.json, but aggregating it into one
+# competitor-ready file and publishing that in a public repo is a different
+# act from it being reachable through their API. Findings are committed; the
+# dataset is not. Keep it in private storage for phase 01.
+shopify-export.json
