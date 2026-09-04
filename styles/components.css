@@ -1038,3 +1038,38 @@ body:has(.menu[data-open='true']) .cta-tab {
   .vapour span { --dys: .52; }
   .vapour span, .vapour::after { filter: var(--f, none) blur(5px); }
 }
+
+/* --- the tile is a link ---------------------------------------------------
+   Lives here rather than in product.css because the grid on shop.html needs
+   it and that page does not load product.css. The overlay anchor covers the
+   tile so the whole card is clickable, and the add button is lifted above it
+   so its own click still works.
+   ------------------------------------------------------------------------ */
+.tile__link { position: absolute; inset: 0; z-index: 1; }
+.tile:focus-within { outline: 3px solid var(--ink); outline-offset: 2px; }
+.tile__link:focus-visible { outline: none; }
+.tile__add { position: relative; z-index: 2; }
+
+/* the multibuy badge, bottom-left so it never collides with the sale pennant */
+.tile__mb {
+  position: absolute; left: 0; bottom: 0; z-index: 3;
+  max-width: 78%;
+  padding: 4px 9px;
+  background: var(--deal); color: var(--paper);
+  font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+  letter-spacing: var(--tracking-wide); text-transform: uppercase;
+  line-height: 1.25;
+}
+
+
+/* The header runs out of room on a narrow phone: the logo plus four 40px
+   buttons want 377px inside a 326px wrap at 390w, and it overflowed on every
+   page. The mark and type step down and the buttons go to 36px, which still
+   clears the 24px WCAG 2.5.8 minimum with room to spare. */
+@media (max-width: 460px) {
+  .header__bar { gap: var(--space-xs); }
+  .header__logo { font-size: var(--text-md); font-stretch: 110%; gap: 6px; }
+  .header__mark { width: 22px; height: 22px; }
+  .header__actions { gap: 2px; }
+  .header__actions .icon-btn { width: 36px; height: 36px; }
+}

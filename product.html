@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product — Aquavape</title>
+<meta name="description" content="Product detail from the Aquavape catalogue prototype.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#040E27">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles/fonts.css">
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/components.css">
+<link rel="stylesheet" href="styles/shop.css">
+<link rel="stylesheet" href="styles/product.css">
+<link rel="stylesheet" href="styles/motion.css">
+</head>
+<body>
+
+<div class="agegate" id="agegate" hidden>
+  <div class="agegate__panel">
+    <p class="u-eyebrow" style="color:var(--fill)">Age restricted</p>
+    <h2>Are you 18 or over?</h2>
+    <p>This site sells nicotine products. UK law requires us to check before you browse.</p>
+    <div class="agegate__row">
+      <button class="btn btn--invert" data-age="yes">Yes, I'm 18 or over</button>
+      <button class="btn btn--outline" data-age="no">No</button>
+    </div>
+  </div>
+</div>
+
+<p class="promobar">20% off your first order — <a href="index.html#signup">sign up now</a></p>
+
+<header class="header" id="header">
+  <div class="u-wrap header__bar">
+    <a class="header__logo" href="index.html" id="logo">
+      <svg class="header__mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 2c5 6 8 9.6 8 14a8 8 0 0 1-16 0c0-4.4 3-8 8-14Z" fill="#E88CBA"/>
+        <path d="M16 8c3.4 4 5.4 6.4 5.4 9.3A5.4 5.4 0 0 1 16 22.7Z" fill="#F9C22E"/>
+        <path d="M16 8c-3.4 4-5.4 6.4-5.4 9.3A5.4 5.4 0 0 0 16 22.7Z" fill="#2BC9BC"/>
+      </svg>
+      Aquavape
+    </a>
+    <nav class="header__nav" aria-label="Primary">
+      <a href="shop.html" data-hot>Shop all</a>
+      <a href="shop.html?type=Pods">Pods</a>
+      <a href="shop.html?type=Eliquid">E-liquids</a>
+      <a href="shop.html?type=Vape%20Kits">Vape kits</a>
+      <a href="shop.html?type=Coils">Coils</a>
+      <a href="shop.html?type=Nicotine%20Pouches">Pouches</a>
+      <a href="shop.html?sort=price-asc" data-hot>Vape deals</a>
+    </nav>
+    <div class="header__actions">
+      <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+          <path class="burger__top" d="M3 6h18"/>
+          <path class="burger__mid" d="M3 12h18"/>
+          <path class="burger__bot" d="M3 18h18"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="searchOpen" aria-label="Search products">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <a class="icon-btn" href="#" aria-label="Your account">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+      </a>
+      <button class="icon-btn" id="cartOpen" aria-label="Open basket">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="icon-btn__count" id="cartCount" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="band band--paper">
+  <div class="u-wrap">
+    <div class="usp">
+      <div class="usp__item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 7 10 6 10-6"/></svg><span><b>20% off</b> your order — <a href="index.html#signup">sign up now</a></span></div>
+      <div class="usp__item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M2 7h11v10H2z"/><path d="M13 10h5l3 3v4h-8z"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><span><b>Free UK delivery</b> — orders over £10</span></div>
+      <div class="usp__item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Up to 4pm — <b>same day dispatch</b></span></div>
+      <div class="usp__item"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3l-5-4.9 7-.9z"/></svg><span><b>47K reviews</b> — <a href="index.html#reviews">see our reviews</a></span></div>
+    </div>
+  </div>
+</div>
+
+
+<main id="top">
+  <nav class="crumb u-wrap" aria-label="Breadcrumb">
+    <a href="index.html">Home</a>
+    <span aria-hidden="true">/</span>
+    <a href="shop.html" id="crumbType">Shop</a>
+    <span aria-hidden="true">/</span>
+    <span id="crumbName" aria-current="page">Loading…</span>
+  </nav>
+
+  <section class="band band--paper" style="padding-bottom:var(--space-xl)">
+    <div class="u-wrap pdp" id="pdp" aria-busy="true">
+
+      <div class="pdp__shot" id="pdpShot">
+        <img class="pdp__img" id="pdpImg" alt="" width="640" height="640" fetchpriority="high" decoding="async">
+        <span class="pdp__flag" id="pdpFlag" hidden></span>
+      </div>
+
+      <div class="pdp__buy">
+        <p class="u-eyebrow" id="pdpBrand">&nbsp;</p>
+        <h1 id="pdpTitle">Loading…</h1>
+        <p class="pdp__spec u-spec" id="pdpSpec"></p>
+
+        <div class="pdp__price" id="pdpPrice"></div>
+
+        <div class="offer" id="pdpOffer" hidden>
+          <span class="offer__tag">Multibuy</span>
+          <div class="offer__list" id="pdpOfferList"></div>
+        </div>
+
+        <div class="fgroup" id="pdpOptWrap" hidden>
+          <span class="fgroup__t" id="pdpOptLabel">Options</span>
+          <div class="fchips" id="pdpOpts"></div>
+        </div>
+
+        <button class="btn btn--primary btn--lg pdp__add" id="pdpAdd">Add to basket</button>
+        <p class="pdp__stock" id="pdpStock"></p>
+
+        <dl class="pdp__facts" id="pdpFacts"></dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--wash u-section" id="relatedWrap" hidden>
+    <div class="u-wrap">
+      <div class="u-section-head">
+        <p class="u-eyebrow" id="relatedEyebrow"></p>
+        <h2 id="relatedHead">More like this</h2>
+      </div>
+      <div class="wall" id="related"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="u-wrap">
+    <div class="footer__grid">
+      <div>
+        <div class="header__logo" style="margin-bottom:var(--space-sm)">
+          <svg class="header__mark" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M16 2c5 6 8 9.6 8 14a8 8 0 0 1-16 0c0-4.4 3-8 8-14Z" fill="#E88CBA"/>
+            <path d="M16 8c3.4 4 5.4 6.4 5.4 9.3A5.4 5.4 0 0 1 16 22.7Z" fill="#F9C22E"/>
+            <path d="M16 8c-3.4 4-5.4 6.4-5.4 9.3A5.4 5.4 0 0 0 16 22.7Z" fill="#2BC9BC"/>
+          </svg>Aquavape
+        </div>
+        <p style="color:#97A3C0;font-size:var(--text-sm);max-width:32ch">
+          E-liquid, pod kits, coils and pouches from 86 brands. Held in UK stock.
+        </p>
+      </div>
+      <div><h3>Shop</h3><ul><li><a href="shop.html?type=Eliquid">E-liquid</a></li><li><a href="shop.html?type=Pods">Pods</a></li><li><a href="shop.html?type=Vape%20Kits">Vape kits</a></li><li><a href="shop.html?type=Coils">Coils</a></li><li><a href="shop.html?type=Nicotine%20Pouches">Pouches</a></li><li><a href="shop.html?sort=price-asc">Cheapest first</a></li></ul></div>
+      <div><h3>Help</h3><ul><li><a href="index.html#faq">Delivery</a></li><li><a href="index.html#faq">Returns</a></li><li><a href="index.html#strengths">Which strength?</a></li><li><a href="index.html#faq">Common questions</a></li></ul></div>
+      <div><h3>Legal</h3><ul>
+        <li><a href="https://aquavape.co.uk/policies/terms-of-service" rel="noopener">Terms of service</a></li>
+        <li><a href="https://aquavape.co.uk/policies/privacy-policy" rel="noopener">Privacy policy</a></li>
+        <li><a href="https://aquavape.co.uk/policies/refund-policy" rel="noopener">Refund policy</a></li>
+        <li><a href="index.html#faq">Age policy</a></li>
+      </ul></div>
+    </div>
+    <div class="footer__legal">
+      <span>© 2026 Aquavape Ltd · Registered in England</span>
+      <span>18+ only · Nicotine is an addictive substance</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Standing CTA: the live site's permanent "GET 20% OFF" tab, kept because
+     email capture is this shop's main acquisition lever — but as a tab that
+     scrolls to the signup, not an interstitial that blocks the page. -->
+<a class="cta-tab" href="index.html#signup" id="ctaTab">Get 20% off</a>
+
+
+<!-- Category navigation for every width below 1000px, where .header__nav is
+     hidden. Contents are rendered by scripts/nav.js so the two pages cannot
+     drift apart. -->
+<nav class="menu" id="menu" aria-label="Categories" aria-hidden="true" data-open="false"></nav>
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="cart" aria-label="Basket" aria-hidden="true">
+  <div class="drawer__head">
+    <strong class="u-spec">Your basket</strong>
+    <button class="icon-btn" id="cartClose" aria-label="Close basket">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div class="drawer__body" id="cartBody"></div>
+  <div class="drawer__foot">
+    <div class="threshold" id="threshold"></div>
+    <div class="total"><span>Subtotal</span><span id="cartTotal">£0.00</span></div>
+    <button class="btn btn--primary btn--lg">Checkout</button>
+  </div>
+</aside>
+
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 6 6L20 6"/></svg>
+  <span id="toastText">Added</span>
+</div>
+
+
+<script type="module" src="scripts/product.js"></script>
+</body>
+</html>

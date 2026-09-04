@@ -15,13 +15,15 @@ without a root `index.html`, Jekyll renders `README.md` as the index instead.
 ```
 index.html          the prototype homepage
 shop.html           the catalogue — all 1,993 products, filter/sort/search
+product.html        product detail — one page serving every product via ?h=<handle>
 404.html            branded not-found page
 
-styles/             tokens, base + band system, components, motion, shop
+styles/             tokens, base + band system, components, motion, shop, product
 scripts/
   data.js             homepage content (curated, hand-written)
   main.js             homepage behaviour
   shop.js             catalogue: filtering, sorting, URL state, rendering
+  product.js          product detail, variant options, related products
   cart.js             shared basket — state and drawer, used by both pages
   nav.js              mobile category menu, shared by both pages
 data/catalogue.json   the real catalogue: 1,993 products, 86 brands (86 KB gzipped)
@@ -63,12 +65,14 @@ image, strength, and a flavour colour derived from the product name.
 
 | | |
 |---|---|
-| Products | 1,993 |
+| Products | 1,993 shown of 1,998 (5 have no image) |
+| Variants | 5,743 |
 | Brands | 86 |
 | In stock | 1,637 |
 | Types | Pods 857, E-liquid 776, Vape kits 154, Pouches 137, Coils 28, + 4 more |
 | Prices | £0.70 – £57.99 |
-| File | 480 KB raw, **86 KB gzipped** |
+| Multibuy offers | 24 distinct, on 1,391 products |
+| File | 668 KB raw, **101 KB gzipped** |
 
 Everything after the single fetch — search, strength, type, price band,
 brand, sort, paging — runs in memory. Filters live in the query string, so

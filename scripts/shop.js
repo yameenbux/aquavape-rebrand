@@ -110,8 +110,10 @@ function tile(p) {
   const spec = [p.s !== null ? `${p.s}mg` : null, p.y].filter(Boolean).join(' · ');
   return `
   <article class="tile" style="--flavour:${p.c}; --on-flavour:${p.k ? 'var(--paper)' : 'var(--ink)'}">
+    <a class="tile__link" href="product.html?h=${encodeURIComponent(p.h)}"><span class="u-visually-hidden">${esc(p.t)}</span></a>
     ${!p.a ? '<span class="tile__flag tile__flag--new">Out of stock</span>' :
       p.w ? `<span class="tile__flag tile__flag--sale">Save ${Math.round((1 - p.p / p.w) * 100)}%</span>` : ''}
+    ${p.m ? `<span class="tile__mb">${esc(p.m[0])}</span>` : ''}
     <img class="tile__img" src="${img(p)}" srcset="${srcset(p)}" sizes="${SIZES}"
          alt="${esc(p.t)}" loading="lazy" decoding="async" width="420" height="420">
     <div class="tile__foot">

@@ -28,6 +28,7 @@ are legally required on the live store and actively wrong on a prototype.
 | Broken links | 3 remain | check | Was 7. The catalogue gave the nav, hero CTAs, footer shop links and "view all" buttons real destinations |
 | Performance | done | **the real work** | See below |
 | Catalogue page | added | n/a | 1,993 products, filter/sort/search, shared basket |
+| Product pages | added | n/a | One page serving every product; variant options, multibuy offers, related products |
 
 ### The mobile check that this audit got wrong
 
@@ -189,6 +190,6 @@ were placeholders: the header nav now points at filtered collection views
 catalogue, "View all 776 e-liquids" and "All clearance" resolve, and the
 footer Shop column links to filtered views instead of homepage anchors.
 
-Three remain, all genuinely unbuilt: the account icon (twice — one per page)
-and "All news". Accounts and a blog are out of scope for a storefront
+Down again with product pages: every grid tile now resolves. What remains is
+the account icon (once per page) and "All news". Accounts and a blog are out of scope for a storefront
 prototype; both would be real pages in a theme.

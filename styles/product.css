@@ -1,0 +1,122 @@
+/* ==========================================================================
+   Product page
+   The flavour colour that mortars the wall becomes the whole left-hand panel
+   here — the product sits on its own colour at full size, which is the one
+   thing a grid of 210px tiles can never do.
+   ========================================================================== */
+
+.crumb {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs);
+  padding-block: var(--space-md) 0;
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide); color: var(--band-mute);
+}
+.crumb a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--wash-deep); }
+.crumb a:hover { color: var(--ink); text-decoration-color: currentColor; }
+.crumb span[aria-hidden] { opacity: .4; }
+
+.pdp {
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  gap: clamp(var(--space-md), 3vw, var(--space-xl));
+  align-items: start; padding-top: var(--space-lg);
+}
+
+/* --- the colour panel ---------------------------------------------------- */
+.pdp__shot {
+  position: relative;
+  display: grid; place-items: center;
+  aspect-ratio: 1 / 1;
+  background: var(--flavour, var(--wash));
+  color: var(--on-flavour, var(--ink));
+  overflow: hidden;
+}
+.pdp__img {
+  width: 76%; height: auto; aspect-ratio: 1; object-fit: contain;
+  filter: drop-shadow(0 26px 44px rgba(1, 6, 15, .3));
+  animation: pdp-in var(--anim-slow) var(--ease-out-back) both;
+}
+@keyframes pdp-in { from { opacity: 0; transform: translateY(14px) scale(.96); } }
+
+.pdp__flag {
+  position: absolute; top: 18px; left: -8px; z-index: 2;
+  padding: 6px 14px;
+  background: var(--ink); color: var(--paper);
+  font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 700;
+  letter-spacing: var(--tracking-wide); text-transform: uppercase;
+  transform: rotate(-4deg); box-shadow: 0 2px 0 rgba(1, 6, 15, .25);
+}
+.pdp__flag--sale { background: var(--red); color: #FFF; }
+.pdp__flag--out  { background: var(--paper); color: var(--ink); }
+
+/* --- the buy column ------------------------------------------------------ */
+.pdp__buy { display: grid; gap: var(--space-sm); align-content: start; padding-top: var(--space-xs); }
+.pdp__buy h1 {
+  font-size: clamp(1.8rem, 3.6vw, 2.9rem); font-stretch: 108%;
+  line-height: .98; letter-spacing: -.025em; max-width: 18ch;
+}
+.pdp__spec { color: var(--band-mute); text-transform: uppercase; font-size: var(--text-xs); }
+
+.pdp__price {
+  font-family: var(--font-display); font-stretch: 112%;
+  font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 800;
+  line-height: 1; font-variant-numeric: tabular-nums;
+  margin-top: var(--space-xxs);
+}
+.pdp__price del { font-size: .45em; font-weight: 400; opacity: .5; margin-right: .4em; }
+.pdp__price ins { text-decoration: none; color: var(--red); }
+
+/* The multibuy offer is the most commercially interesting thing on the page,
+   so it is the only element here allowed to shout. */
+.offer {
+  display: grid; gap: var(--space-xs);
+  border: 2px solid var(--deal); border-radius: var(--radius);
+  padding: var(--space-sm) var(--space-md);
+}
+.offer__tag {
+  justify-self: start;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+  letter-spacing: var(--tracking-widest); text-transform: uppercase;
+  background: var(--deal); color: var(--paper);
+  padding: 3px 8px; border-radius: var(--radius);
+}
+.offer__list { display: grid; gap: 3px; }
+.offer__list span {
+  font-family: var(--font-display); font-stretch: 104%;
+  font-size: var(--text-lg); font-weight: 800; line-height: 1.12;
+  text-transform: uppercase; letter-spacing: -.015em;
+}
+
+.pdp__add { width: 100%; justify-content: center; margin-top: var(--space-xxs); }
+.pdp__stock {
+  margin: 0; font-family: var(--font-mono); font-size: var(--text-xs);
+  color: var(--band-mute); letter-spacing: var(--tracking-wide);
+}
+
+.pdp__facts {
+  display: grid; gap: 0; margin: var(--space-sm) 0 0;
+  border-top: 2px solid var(--wash-deep);
+}
+.pdp__facts > div {
+  display: grid; grid-template-columns: 11rem minmax(0, 1fr);
+  gap: var(--space-sm); padding-block: var(--space-xs);
+  border-bottom: 1px solid var(--wash-deep);
+}
+.pdp__facts dt {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide); text-transform: uppercase;
+  color: var(--band-mute);
+}
+.pdp__facts dd { margin: 0; font-size: var(--text-sm); }
+
+/* Related tiles are anchors rather than articles, so they need the same
+   affordances the grid tiles get from .tile. */
+#related .tile { text-decoration: none; }
+#related .tile__price { font-size: var(--text-md); margin-top: 2px; }
+
+@media (max-width: 900px) {
+  .pdp { grid-template-columns: minmax(0, 1fr); }
+  .pdp__facts > div { grid-template-columns: 8.5rem minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pdp__img { animation: none; }
+}

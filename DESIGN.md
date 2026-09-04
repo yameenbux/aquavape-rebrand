@@ -361,6 +361,32 @@ On a stacked mobile hero the product sits tight to the top of the band, so a
 full-height plume was sliced off by the band edge and read as a bug. The shot
 drops to make headroom and the rise is shortened to match.
 
+## Product pages
+
+One document, `product.html`, serves all 1,993 products from `?h=<handle>`
+against the catalogue already in memory — a product page costs no extra
+request once you have browsed the grid.
+
+The flavour colour that mortars the wall becomes the whole left panel. A tile
+is 210px; here the product sits on its own colour at full size, which is the
+one thing the grid can never do.
+
+**The multibuy block is the loudest element on the page, deliberately.** It is
+the most commercially interesting thing in the catalogue — 24 offers across
+70% of the stock — and it was invisible until we parsed the tag namespaces.
+Rendering it is also the clearest way to show a client what a replatform has
+to reproduce.
+
+The option control names itself from its values: `20mg` reads as *Strength*,
+`0.6 ohm` as *Coil resistance*, a long list as *Flavour*. Guessing wrong
+labels is how a control stops reading as considered.
+
+**What is honest and what is not.** Prices, stock, images, brands, types,
+strengths, offers and option names are live data. Per-variant price and stock
+are not in the public endpoint, so choosing an option records the choice on
+the basket line but does not change the price. That limit is written into the
+top of `scripts/product.js` rather than left for someone to discover.
+
 ## Verified
 
 - No horizontal overflow at 390px
