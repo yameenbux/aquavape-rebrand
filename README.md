@@ -14,7 +14,7 @@ without a root `index.html`, Jekyll renders `README.md` as the index instead.
 
 ```
 index.html          the prototype homepage
-shop.html           the catalogue — all 1,993 products, filter/sort/search
+shop.html           the catalogue — all 2,083 products, filter/sort/search
 product.html        product detail — one page serving every product via ?h=<handle>
 404.html            branded not-found page
 
@@ -26,7 +26,7 @@ scripts/
   product.js          product detail, variant options, related products
   cart.js             shared basket — state and drawer, used by both pages
   nav.js              mobile category menu, shared by both pages
-data/catalogue.json   the real catalogue: 1,993 products, 86 brands (86 KB gzipped)
+data/catalogue.json   the real catalogue: 2,083 products, 87 brands (108 KB gzipped)
 
 assets/fonts/       self-hosted Archivo, Instrument Sans, JetBrains Mono
 assets/products/    24 real product shots, WebP with alpha (460 KB)
@@ -65,18 +65,25 @@ image, strength, and a flavour colour derived from the product name.
 
 | | |
 |---|---|
-| Products | 1,993 shown of 1,998 (5 have no image) |
-| Variants | 5,743 |
-| Brands | 86 |
-| In stock | 1,637 |
-| Types | Pods 857, E-liquid 776, Vape kits 154, Pouches 137, Coils 28, + 4 more |
+| Products | 2,083 shown of 2,090 (7 have no image) |
+| Variants | 6,051 |
+| Brands | 87 |
+| In stock | 1,712 |
+| Types | E-liquid 864, Pods 857, Vape kits 154, Pouches 137, Coils 30, + 4 more |
 | Prices | £0.70 – £57.99 |
-| Multibuy offers | 24 distinct, on 1,391 products |
-| File | 668 KB raw, **101 KB gzipped** |
+| Multibuy offers | 24 distinct, on 1,479 products |
+| File | 700 KB raw, **108 KB gzipped** |
 
 Everything after the single fetch — search, strength, type, price band,
 brand, sort, paging — runs in memory. Filters live in the query string, so
 `shop.html?type=Pods&mg=20&sort=price-asc` is a linkable collection page.
+
+The figure was wrong twice before it was right. A first pass stopped at four
+pages of `products.json` and reported 998; a second stopped at eight and
+reported 1,998. Both times the last page returned a **full** 250, which is the
+signal that there is more — a short page is the only proof of exhaustion.
+Page 9 holds 90 more and page 10 is empty, and the sitemap independently
+counts 2,091 product URLs. 2,090 is the real number.
 
 The point of building it is the migration question: a homepage proves a look,
 a working catalogue over 2,000 real SKUs proves the thing can hold the shop.
@@ -100,5 +107,5 @@ instructions at the end of `DESIGN.md`.
 | Motion | Lottie 5.7.4, MicroModal, IntersectionObserver |
 | Typefaces | Nexa, Hurme Geometric Sans 1 (both licensed) |
 | Brand navy | `#040E27` |
-| Catalogue | 1,993 products, 86 brands, 776 e-liquid lines |
+| Catalogue | 2,090 products, 87 brands, 864 e-liquid lines |
 | Own-brand | 35 lines — `Aquavape` and `Aqua Salts` 10ml, plus an own `2in1` pod system. An earlier revision of these docs said there was none; that was read off a partial export. See DESIGN.md |

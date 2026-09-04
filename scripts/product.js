@@ -1,5 +1,5 @@
 /* Product page.
-   One document serving all 1,993 products: the handle comes from ?h= and
+   One document serving all 2,083 products: the handle comes from ?h= and
    everything else from the same catalogue.json the shop already loads, so a
    product page costs no extra request once you have browsed the grid.
 

@@ -1,5 +1,5 @@
 /* Shop — the whole live catalogue, filtered client-side.
-   1,993 products load once as ~84 KB gzipped JSON, then every filter and
+   2,083 products load once as ~108 KB gzipped JSON, then every filter and
    sort runs in memory. Results render 48 at a time; putting 2,000 tiles in
    the DOM at once is what makes catalogue pages feel broken. */
 
