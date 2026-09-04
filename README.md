@@ -32,6 +32,7 @@ assets/logo.svg     the real Aquavape wordmark, lifted from their live header
 assets/fonts/       self-hosted Archivo, Instrument Sans, JetBrains Mono
 assets/products/    24 real product shots, WebP with alpha (460 KB)
 DESIGN.md           the design direction and what changed from the live site
+HANDOVER.md         who owns what, and how this reaches Aquavape's own accounts
 preview.png         full-page render
 
 reference/          captured baseline of the live site
@@ -44,6 +45,18 @@ reference/          captured baseline of the live site
 tools/
   pull-theme.sh     authenticated Shopify theme pull (run locally)
 ```
+
+## This repository is a prototype, not the deliverable
+
+It is public, it lives on a personal GitHub account, and it carries
+Aquavape's real logo and product imagery — all deliberate, so the work can be
+opened on a phone without an invite. None of that is how a production build
+should be set up.
+
+`HANDOVER.md` records what production ownership looks like instead: accounts
+in the company's name, DNS never held by the contractor, and an exit that
+requires nothing to be moved because nothing was ever in the wrong place.
+Read it before any of this becomes real work.
 
 ## Running it
 
