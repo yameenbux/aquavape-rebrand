@@ -4,7 +4,7 @@
    flags are illustrative — the storefront JSON does not expose inventory
    counts. Flavour colours drive the card tint and are a design choice.
 
-   Note on the catalogue itself: Aquavape stocks 1,993 products from 86
+   Note on the catalogue itself: Aquavape stocks 2,083 products from 87
    third-party brands. Its own-brand 10ml line, still shown in the live
    homepage's best sellers, no longer appears in the catalogue. See
    DESIGN.md for why that changed the design. */
@@ -85,14 +85,14 @@ export const BRANDS = [
 ];
 
 /* Real catalogue figures, counted from products.json on 2026-09-03 */
-export const STATS = { products: 1993, brands: 86, liquids: 776 };
+export const STATS = { products: 2083, brands: 87, liquids: 864 };
 
 /* Hero slides. Each carries its own band colour — the palette rotating is
    the point, not decoration. Every band/text pair below was contrast-checked
    against WCAG AA before being used (lowest 6.08:1). */
 export const HERO_SLIDES = [
   { id:'sale',      band:'pink',   chip:'Sale',        chipKind:'',
-    a:'Save up to 60%',  b:'across 86 brands',
+    a:'Save up to 60%',  b:'across 87 brands',
     lede:'Every brand worth stocking, in one place. Order before 4pm and it ships the same day.',
     cta:'Shop the sale',      href:'shop.html?sort=price-asc',
     img:P+'dojo.webp',          alt:'DoJo Blast 30K Pro Kit',
