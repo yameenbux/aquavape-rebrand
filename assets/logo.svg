@@ -40,7 +40,13 @@
 <g style="clip-path:url(#av-u)"><path d="m5.49 14.13 6.2-6.18 6.2 6.18-6.2 6.19-6.2-6.19z" style="fill:url(#av-v)"/></g>
 <g style="clip-path:url(#av-w)"><path d="M-11.14 11.25 7.89-7.72l19.02 18.97L7.89 30.22l-19.03-18.97z" style="fill:url(#av-x)"/></g>
 <g style="clip-path:url(#av-y)"><path d="M-5.95 11.25 13.08-7.73l19.04 18.98-19.04 18.98-19.03-18.98z" style="fill:url(#av-z)"/></g>
-<path d="M23.92 1.23c0 .41-.32.73-.74.73s-.74-.32-.74-.73.33-.72.74-.72.74.32.74.72m-1.3 0c0 .32.24.57.56.57s.55-.25.55-.57-.23-.58-.55-.58-.56.26-.56.57m.44.38h-.17V.89c.07-.01.16-.02.28-.02.14 0 .2.02.25.05.04.03.07.09.07.16 0 .08-.06.14-.15.17.07.04.11.09.13.18.02.11.03.15.05.18h-.18s-.04-.09-.06-.18c-.01-.08-.06-.11-.15-.11h-.08v.29Zm0-.41h.08c.09 0 .17-.03.17-.11 0-.07-.05-.11-.15-.11h-.09v.21Z" style="fill:#3c3c3b"/>
+<!-- The registered-trademark glyph that sits here in the live theme has been
+     removed. At the sizes this lockup is used (168px wide on desktop, 124px on
+     mobile) it renders 1.4px and 1.0px across, and its #3c3c3b grey scores
+     1.73:1 against the #040E27 navy behind it — a sub-pixel smudge that is not
+     legible as anything. Brands normally carry a minimum size below which the
+     mark is dropped. Reinstate it from the master artwork for large or print
+     use, where it has room to read. -->
 <!-- The wordmark is white because in this design the mark only ever sits on
      the #040E27 navy — header, footer and menu. It is referenced with <img>,
      and currentColor resolves to black inside an <img>, so it cannot inherit.

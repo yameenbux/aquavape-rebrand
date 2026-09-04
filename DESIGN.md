@@ -416,8 +416,16 @@ be literal white rather than `currentColor` — `currentColor` resolves to
 black inside an `<img>`, which a render test caught. The mark only ever sits
 on navy here, so white is correct; the constraint is noted in the file.
 
-The favicon is derived from the same file, cropped to the droplet and with
-the registered-trademark glyph dropped, since it is illegible at 16px.
+**The registered-trademark glyph is dropped from the lockup.** In the live
+theme it sits inside the header logo at every size. At the widths this mark
+is used it renders **1.4px across on desktop and 1.0px on mobile**, and its
+`#3c3c3b` grey scores **1.73:1** against the `#040E27` behind it — against a
+19.14:1 wordmark. It is a sub-pixel smudge that reads as nothing, and it is
+the kind of thing a brand normally governs with a minimum-size rule. The
+reasoning is recorded in `assets/logo.svg` so it is reinstated deliberately,
+from the master artwork, for large or print use where it has room to read.
+
+The favicon is derived from the same file, cropped to the droplet.
 
 ## Verified
 
