@@ -20,7 +20,7 @@ are legally required on the live store and actively wrong on a prototype.
 | Meta title | done | done | |
 | Meta description | done | done | |
 | Social share | added | check | OG + Twitter card, 1200×630 image, image alt |
-| Favicon | added | done | SVG + 180px PNG for iOS |
+| Favicon | added | done | Now derived from the real brand mark; SVG + 180px PNG for iOS |
 | Canonical | added | done | |
 | Mobile version | **was broken** | check | See below. No category navigation existed below 1000px until a menu was added. |
 | Accessibility | done | check | See below |

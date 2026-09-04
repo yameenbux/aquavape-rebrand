@@ -99,13 +99,15 @@
 }
 .header[data-stuck='true'] { box-shadow: var(--shadow-md); }
 .header__bar { display: flex; align-items: center; gap: var(--space-md); height: var(--header-height); }
+/* The real Aquavape mark, lifted from their live header. It is white-on-navy
+   by design there, and their header is the same #040E27 this rebrand carried
+   over, so it needs no colour treatment. */
 .header__logo {
-  display: flex; align-items: center; gap: 8px;
-  font-family: var(--font-display); font-size: var(--text-lg); font-weight: 800;
-  font-stretch: 125%; letter-spacing: var(--tracking-tight); text-transform: uppercase;
+  display: flex; align-items: center;
   margin-right: auto;
+  flex: none;
 }
-.header__mark { width: 26px; height: 26px; flex: none; }
+.header__logo img { width: 168px; height: auto; display: block; }
 .header__nav { display: flex; gap: var(--space-md); }
 .header__nav a {
   position: relative; padding-block: var(--space-xxs);
@@ -1068,8 +1070,7 @@ body:has(.menu[data-open='true']) .cta-tab {
    clears the 24px WCAG 2.5.8 minimum with room to spare. */
 @media (max-width: 460px) {
   .header__bar { gap: var(--space-xs); }
-  .header__logo { font-size: var(--text-md); font-stretch: 110%; gap: 6px; }
-  .header__mark { width: 22px; height: 22px; }
+  .header__logo img { width: 124px; }
   .header__actions { gap: 2px; }
   .header__actions .icon-btn { width: 36px; height: 36px; }
 }
