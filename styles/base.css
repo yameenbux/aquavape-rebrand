@@ -77,7 +77,12 @@ ul { margin: 0; padding: 0; list-style: none; }
    Archivo's width axis, which is the reason this typeface was chosen and
    the thing the first pass never exploited. */
 .u-section--feature :is(h1, h2) {
-  font-size: clamp(2.9rem, 8.2vw, 7rem);
+  /* The floor used to be 2.9rem, which no viewport under ~566px could hold:
+     "CLEARANCE" at 46px and 125% width is 363px of ink in a 326px column, so
+     the homepage scrolled sideways by 5px on a phone. The floor now sits low
+     enough that the longest single word fits at 320px. Nothing changes above
+     566px, where the vw term was already governing. */
+  font-size: clamp(1.95rem, 8.2vw, 7rem);
   font-stretch: 125%;
   line-height: .84;
   letter-spacing: -.035em;
@@ -129,3 +134,5 @@ ul { margin: 0; padding: 0; list-style: none; }
 .u-section-head p { margin: var(--space-xxs) 0 0; max-width: 46ch; color: var(--band-mute); }
 .u-center { text-align: center; justify-content: center; }
 .u-center p { margin-inline: auto; }
+/* A single centred control under a full-bleed wall. */
+.u-center-row { display: flex; justify-content: center; margin-top: var(--space-lg); }

@@ -262,20 +262,49 @@ function bindAdds(root) {
 let activeTab = 'eliquid';
 let activeStrength = null;
 
+/* Four tiles, never more. The homepage is a shop window, not the shop: its
+   job is to make four products look worth buying and then hand you over to
+   the catalogue. Counts and destination come from the real catalogue, so the
+   button never promises a number the shop page will not show. */
+const SHOWN = 4;
+/* The numbers are IN-STOCK counts, not catalogue counts, because that is
+   what the shop page shows when you land on it — it filters to in stock by
+   default. The old button said "864 e-liquids" and then delivered 764, which
+   is the kind of small dishonesty a customer notices and a client doesn't. */
+const TABS = {
+  eliquid: { label: 'liquids', one: 'liquid', total: 764,
+             all: 'View all 764 e-liquids', href: 'shop.html?type=Eliquid' },
+  kits:    { label: 'kits',    one: 'kit',    total: 140,
+             all: 'View all 140 vape kits', href: 'shop.html?type=Vape%20Kits' },
+  // 664 pods + 93 pouches. The link carries both types, which shop.js reads
+  // as a comma-separated list, so one button covers the whole tab.
+  pods:    { label: 'pods & pouches', one: 'pod', total: 757,
+             all: 'View all 757 pods & pouches', href: 'shop.html?type=Pods,Nicotine%20Pouches' }
+};
+
 function renderGrid() {
   const list = PRODUCTS.filter(p =>
     p.type === activeTab && (activeStrength === null || p.mg === activeStrength));
+  const shown = list.slice(0, SHOWN);
 
   const grid = $('#productGrid');
-  grid.innerHTML = list.map(cardHTML).join('');
+  grid.innerHTML = shown.map(cardHTML).join('');
+  grid.style.setProperty('--cols', String(Math.max(shown.length, 1)));
   bindAdds(grid);
 
-  const label = { eliquid: 'liquids', kits: 'kits', pods: 'pods & pouches' }[activeTab];
+  const tab = TABS[activeTab];
   $('#gridHeading').textContent = activeStrength === null
-    ? 'Best sellers' : `${activeStrength}mg ${label}`;
-  $('#gridCount').textContent = list.length
-    ? `Showing ${list.length} ${label}`
-    : 'Nothing at that strength in this range — try another.';
+    ? 'Best sellers' : `${activeStrength}mg ${tab.label}`;
+  // The total is the real catalogue count, not this prototype's sample, so it
+  // is only quotable when nothing is filtered.
+  const noun = shown.length === 1 ? tab.one : tab.label;
+  $('#gridCount').textContent = !shown.length
+    ? 'Nothing at that strength in this range — try another.'
+    : activeStrength === null
+      ? `Showing ${shown.length} of ${tab.total} ${tab.label}`
+      : `Showing ${shown.length} ${noun} at ${activeStrength}mg`;
+  $('#gridAllLabel').textContent = tab.all;
+  $('#gridAll').href = tab.href;
 }
 
 function initTabs() {

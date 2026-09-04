@@ -545,6 +545,30 @@
   .tile__name { font-size: var(--text-sm); }
 }
 
+/* Exactly four across, at every width above the break.
+   auto-fill is right for the shop, where the count is arbitrary; it is wrong
+   on the homepage, where each wall holds exactly four products and a wide
+   viewport left three cells of bare band looking like a loading failure.
+   Fixing the column count also buys the thing the tiles were missing: at
+   1440px a tile is now ~360px wide instead of ~200px, so the bottle is
+   photographed rather than thumbnailed.
+   Declared after the 560px block above so it wins at every width — the
+   900px query below is what takes over on small screens. */
+/* --cols is set by main.js to however many tiles were actually rendered, so
+   a strength filter that leaves two products gives two wide tiles rather
+   than two tiles and two empty cells. Defaults to 4 for the static walls. */
+.wall--four { grid-template-columns: repeat(var(--cols, 4), 1fr); }
+.wall--four .tile { min-height: clamp(360px, 33vw, 540px); }
+.wall--four .tile__img { width: 84%; }
+.wall--four .tile__name { font-size: var(--text-lg); }
+
+@media (max-width: 900px) {
+  /* auto-fit, not a fixed 2, so a single remaining tile still fills the row */
+  .wall--four { grid-template-columns: repeat(auto-fit, minmax(46%, 1fr)); }
+  .wall--four .tile { min-height: clamp(280px, 48vw, 400px); }
+  .wall--four .tile__name { font-size: var(--text-md); }
+}
+
 /* --- Brand logos --------------------------------------------------------
    The real vector marks, as <img> so their internal ids and class names
    cannot collide (every source logo reuses id="c").

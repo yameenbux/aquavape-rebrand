@@ -61,7 +61,9 @@ const BANDS = { 'u5': [0, 5], '5-10': [5, 10], '10-20': [10, 20], '20+': [20, 1e
 
 function match(p) {
   if (state.stock && !p.a) return false;
-  if (state.type && p.y !== state.type) return false;
+  // type accepts a comma-separated list so a link can cover two categories
+  // at once — the homepage's "pods & pouches" button is one URL over two.
+  if (state.type && !state.type.split(',').includes(p.y)) return false;
   if (state.brands.size && !state.brands.has(p.v)) return false;
   if (state.mg !== null && p.s !== state.mg) return false;
   if (state.price) { const [lo, hi] = BANDS[state.price]; if (p.p < lo || p.p >= hi) return false; }

@@ -268,18 +268,28 @@
         <h2 id="gridHeading">Best sellers</h2>
       </div>
       <div class="u-toolbar" data-reveal>
-        <span class="u-toolbar__count" id="gridCount">Showing 8 liquids</span>
+        <span class="u-toolbar__count" id="gridCount">Showing 4 of 764 liquids</span>
         <div class="tabs" role="tablist" aria-label="Product type">
           <button role="tab" aria-selected="true"  data-tab="eliquid">E-liquid</button>
           <button role="tab" aria-selected="false" data-tab="kits">Vape kits</button>
           <button role="tab" aria-selected="false" data-tab="pods">Pods &amp; pouches</button>
         </div>
       </div>
-      <div class="wall wall--bleed" id="productGrid"></div>
-      <div style="display:flex;justify-content:center;margin-top:var(--space-lg)">
-        <a class="btn btn--primary btn--lg" href="shop.html?type=Eliquid">View all 864 e-liquids
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+      <div class="wall wall--bleed wall--four" id="productGrid"></div>
+      <div class="u-center-row">
+        <a class="btn btn--primary btn--lg" id="gridAll" href="shop.html?type=Eliquid"><span id="gridAllLabel">View all 764 e-liquids</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
       </div>
+    </div>
+  </section>
+
+  <!-- BRANDS — sits between best sellers and clearance so the two product
+       walls are not stacked directly on top of each other. On the wash band
+       rather than paper, because paper-on-paper reads as one long section. -->
+  <section class="band band--wash u-section u-section--tight" id="brands">
+    <div class="u-wrap">
+      <div class="u-section-head u-center" data-reveal><div><h2>Featured brands</h2></div></div>
+      <div class="brands" id="brandGrid"></div>
     </div>
   </section>
 
@@ -288,22 +298,13 @@
   <section class="band band--red u-section u-section--feature" id="clearance">
     <div class="u-wrap">
       <div class="u-section-head" data-reveal>
-        <p class="u-eyebrow">Ends Sunday</p>
         <h2>Clearance</h2>
       </div>
       <div class="u-toolbar" data-reveal>
         <span class="u-toolbar__count">Last of the line — when it's gone, it's gone</span>
         <a class="btn btn--invert" href="shop.html?sort=price-asc">All clearance</a>
       </div>
-      <div class="wall wall--bleed" id="clearanceGrid"></div>
-    </div>
-  </section>
-
-  <!-- BRANDS -->
-  <section class="band band--paper u-section u-section--tight" id="brands">
-    <div class="u-wrap">
-      <div class="u-section-head u-center" data-reveal><div><h2>Featured brands</h2></div></div>
-      <div class="brands" id="brandGrid"></div>
+      <div class="wall wall--bleed wall--four" id="clearanceGrid"></div>
     </div>
   </section>
 
